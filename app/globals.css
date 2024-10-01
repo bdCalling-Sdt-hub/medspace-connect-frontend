@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ant-pagination-item {
+    border-radius: 100% !important;
+}
+.ant-pagination .ant-pagination-item-active {
+    font-weight: 600;
+    background-color: #fba51a !important;
+    border: none !important;
+    border-color: none !important;
+    border-radius: 100%;
+}
+
+.ant-pagination .ant-pagination-item-active a {
+    color: #ffffff !important;
+}
+.custom-label {
+    color: #636363;
+    font-size: 16px;
+}
+.ant-tabs-tab.ant-tabs-tab-disabled {
+    cursor: default !important;
+    opacity: 1 !important;
+}
+.ant-select-selector {
+    border-radius: 24px !important;
+}
