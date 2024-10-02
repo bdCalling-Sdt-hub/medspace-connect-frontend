@@ -1,29 +1,35 @@
 import { Form, Input, Button } from 'antd';
 
-const ForgetForm = ({ onFinish }: { onFinish: (values: any) => void }) => {
+const NewPasswordForm = ({ onFinish }: { onFinish: (values: any) => void }) => {
     return (
         <div className="p-8">
             <div className="space-y-5 mb-5">
-                <h2 className="text-3xl text-[#333333] font-semibold text-center">Forgot password ?</h2>
+                <h2 className="text-3xl text-[#333333] font-semibold text-center">Set a new password</h2>
+                <p className="text-center text-gray-500 mb-6">
+                    Create a new password. Ensure it differs from previous ones for security
+                </p>
             </div>
 
             <Form
                 layout="vertical"
-                name="login"
+                name="newPassword"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 className="space-y-4"
             >
                 <Form.Item
-                    label={<span className="custom-label">Email</span>}
-                    name="email"
-                    rules={[{ required: true, message: 'Please enter your email!' }]}
+                    label={<span className="custom-label">Password</span>}
+                    name="newPassword"
+                    rules={[{ required: true, message: 'Please enter new password!' }]}
                 >
-                    <Input
-                        type="email"
-                        placeholder="Enter valid email address"
-                        style={{ borderRadius: '24px', height: '48px' }}
-                    />
+                    <Input.Password placeholder="******" style={{ borderRadius: '24px', height: '48px' }} />
+                </Form.Item>
+                <Form.Item
+                    label={<span className="custom-label">Email</span>}
+                    name="password"
+                    rules={[{ required: true, message: 'Please enter confirm password!' }]}
+                >
+                    <Input.Password placeholder="******" style={{ borderRadius: '24px', height: '48px' }} />
                 </Form.Item>
 
                 <Form.Item>
@@ -40,7 +46,7 @@ const ForgetForm = ({ onFinish }: { onFinish: (values: any) => void }) => {
                             color: '#fff',
                         }}
                     >
-                        Send Code
+                        Update Password
                     </Button>
                 </Form.Item>
             </Form>
@@ -48,4 +54,4 @@ const ForgetForm = ({ onFinish }: { onFinish: (values: any) => void }) => {
     );
 };
 
-export default ForgetForm;
+export default NewPasswordForm;

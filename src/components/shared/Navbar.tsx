@@ -12,12 +12,13 @@ import Modal from '../ui/Modal';
 import NavItems from './NavItems';
 import MobileDrawer from './MobileDrawer';
 import LoginForm from '../form/LoginForm';
-import ForgetForm from '../form/ForgetForm';
+import RegisterForm from '../form/RegisterForm';
+import VerificationForm from '../form/VerificationForm';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
     const [loginModal, setLoginModal] = useState(false);
-
+    const [otpModal, setOtpModal] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
 
     const showDrawer = () => {
@@ -39,6 +40,15 @@ const Navbar = () => {
     const handleLogin = (values: any) => {
         // TODO: Implement login logic
         console.log('Login form submitted', values);
+        setLoginModal(false);
+    };
+    const handleRegister = (values: any) => {
+        // TODO: Implement login logic
+        console.log('Login form submitted', values);
+
+        //? after registration is successful
+        setRegisterModal(false);
+        setOtpModal(true);
     };
 
     return (
@@ -70,6 +80,7 @@ const Navbar = () => {
                             Login
                         </Button>
                         <Button
+                            onClick={() => setRegisterModal(true)}
                             style={{
                                 border: '1px solid #0A8FDC',
                                 lineHeight: '24px',
@@ -125,11 +136,37 @@ const Navbar = () => {
 
             {/* Modals */}
             <Modal
-                body={<LoginForm setLoginModal={setLoginModal} onFinish={handleLogin} />}
+                body={
+                    <LoginForm
+                        setLoginModal={setLoginModal}
+                        setRegisterModal={setRegisterModal}
+                        onFinish={handleLogin}
+                    />
+                }
                 open={loginModal}
                 setOpen={setLoginModal}
                 key="login"
                 width={600}
+            />
+            <Modal
+                body={
+                    <RegisterForm
+                        setLoginModal={setLoginModal}
+                        setRegisterModal={setRegisterModal}
+                        onFinish={handleRegister}
+                    />
+                }
+                open={registerModal}
+                setOpen={setRegisterModal}
+                key="register"
+                width={693}
+            />
+            <Modal
+                body={<VerificationForm onFinish={handleRegister} />}
+                open={otpModal}
+                setOpen={setOtpModal}
+                key="register-otp"
+                width={693}
             />
         </header>
     );

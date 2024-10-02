@@ -16,6 +16,10 @@ const Modal: React.FC<IModalProps> = ({ title, open, setOpen, width, body }) => 
 
     return (
         <AntModal
+            style={{
+                borderRadius: 0,
+            }}
+            maskClosable={false}
             centered
             title={<p className="text-[24px] text-[#333333]">{title}</p>}
             footer={false}

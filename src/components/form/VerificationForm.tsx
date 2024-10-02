@@ -1,4 +1,5 @@
 import { Form, Input, Button, Checkbox, ConfigProvider } from 'antd';
+import { Dispatch, SetStateAction } from 'react';
 
 const VerificationForm = ({ onFinish }: { onFinish: (values: any) => void }) => {
     return (
@@ -51,6 +52,10 @@ const VerificationForm = ({ onFinish }: { onFinish: (values: any) => void }) => 
                     </Button>
                 </Form.Item>
             </Form>
+            <div className="text-center my-5">
+                <span className="text-primaryText">You have not received the email? </span>
+                <a className="text-secondary hover:text-secondary/90">Resent</a>
+            </div>
         </div>
     );
 };

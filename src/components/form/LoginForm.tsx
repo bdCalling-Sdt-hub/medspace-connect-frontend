@@ -4,17 +4,21 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import Modal from '../ui/Modal';
 import ForgetForm from './ForgetForm';
 import VerificationForm from './VerificationForm';
+import NewPasswordForm from './NewPasswordFrom';
 
 const LoginForm = ({
     onFinish,
     setLoginModal,
+    setRegisterModal,
 }: {
     onFinish: (values: any) => void;
     setForgetModal?: Dispatch<SetStateAction<boolean>>;
     setLoginModal: Dispatch<SetStateAction<boolean>>;
+    setRegisterModal: Dispatch<SetStateAction<boolean>>;
 }) => {
     const [forgetModal, setForgetModal] = useState(false);
     const [otpModal, setOtpModal] = useState(false);
+    const [newPasswordModal, setNewPasswordModal] = useState(false);
 
     const handleForget = (values: any) => {
         // TODO: Implement login logic
@@ -27,6 +31,20 @@ const LoginForm = ({
     const handleVerifyOtp = (values: any) => {
         // TODO: Implement login logic
         console.log('Login form submitted', values);
+
+        //? after success set new password modal true
+        setOtpModal(false);
+        setNewPasswordModal(true);
+    };
+    const handleSetNewPassword = (values: any) => {
+        // TODO: Implement login logic
+        console.log('Login form submitted', values);
+        setNewPasswordModal(false);
+    };
+
+    const handleModal = () => {
+        setLoginModal(false);
+        setRegisterModal(true);
     };
     return (
         <>
@@ -102,7 +120,9 @@ const LoginForm = ({
 
                 <div className="text-center my-5">
                     <span className="text-primaryText">Do not have any account? </span>
-                    <a className="text-blue-500">Sign Up</a>
+                    <a onClick={handleModal} className="text-blue-500">
+                        Sign Up
+                    </a>
                 </div>
             </div>
             <Modal
@@ -117,6 +137,13 @@ const LoginForm = ({
                 open={otpModal}
                 setOpen={setOtpModal}
                 key="otp"
+                width={600}
+            />
+            <Modal
+                body={<NewPasswordForm onFinish={handleSetNewPassword} />}
+                open={newPasswordModal}
+                setOpen={setNewPasswordModal}
+                key="newpassword"
                 width={600}
             />
         </>
