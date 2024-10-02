@@ -1,15 +1,17 @@
-import Footer from "@/src/components/shared/Footer";
-import Navbar from "@/src/components/shared/Navbar";
+import Footer from '@/src/components/shared/Footer';
+import Navbar from '@/src/components/shared/Navbar';
+import ChatBox from '@/src/components/ui/ChatBox';
 export default function CommonLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <div>
-      <Navbar />
-      {children}
-      <Footer />
-    </div>
-  );
+    return (
+        <div>
+            <ChatBox />
+            <Navbar />
+            {children}
+            <Footer />
+        </div>
+    );
 }
