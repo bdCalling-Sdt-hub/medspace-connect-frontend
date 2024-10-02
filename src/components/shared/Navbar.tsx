@@ -3,15 +3,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '/public/assets/logo.png';
 import Profile from '/public/assets/profile.png';
-import { Badge, Button, Drawer, Dropdown } from 'antd';
+import { Badge, Button, Checkbox, Drawer, Dropdown, Form, Input } from 'antd';
 import { AiOutlineBell, AiOutlineMenu } from 'react-icons/ai';
 import { usePathname } from 'next/navigation';
 import { DownOutlined } from '@ant-design/icons';
 
 import { useState } from 'react';
 import ProfileDropdown from '../ui/ProfileDropdown';
+import Modal from '../ui/Modal';
 const Navbar = () => {
     const [open, setOpen] = useState(false);
+    const [loginModal, setLoginModal] = useState(false);
+    const [registerModal, setRegisterModal] = useState(false);
 
     const showDrawer = () => {
         setOpen(true);
@@ -44,6 +47,81 @@ const Navbar = () => {
             path: '/packages',
         },
     ];
+
+    const handleLogin = (values: any) => {
+        // TODO: Implement login logic
+        console.log('Login form submitted', values);
+    };
+    const loginForm = (
+        <div className="p-8">
+            <div className="space-y-5">
+                <h2 className="text-3xl text-[#333333] font-semibold text-center">Log in to your account</h2>
+                <p className="text-center text-gray-500 mb-6">Please enter your email and password to continue</p>
+            </div>
+
+            <Form
+                layout="vertical"
+                name="login"
+                initialValues={{ remember: true }}
+                onFinish={handleLogin}
+                className="space-y-4"
+            >
+                <Form.Item
+                    label={<span className="custom-label">Email</span>}
+                    name="email"
+                    rules={[{ required: true, message: 'Please enter your eamil!' }]}
+                >
+                    <Input
+                        type="email"
+                        placeholder="Enter valid email address"
+                        style={{ borderRadius: '24px', height: '48px' }}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    label={<span className="custom-label">Password</span>}
+                    name="password"
+                    rules={[{ required: true, message: 'Please enter your password!' }]}
+                >
+                    <Input.Password
+                        placeholder="Enter current password"
+                        style={{ borderRadius: '24px', height: '48px' }}
+                    />
+                </Form.Item>
+
+                <div className="flex justify-between items-center my-5">
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                        <Checkbox>Remember Password</Checkbox>
+                    </Form.Item>
+
+                    <a className="text-secondary hover:text-secondary">Forgot Password?</a>
+                </div>
+
+                <Form.Item>
+                    <Button
+                        htmlType="submit"
+                        shape="round"
+                        className="px-6"
+                        style={{
+                            height: '50px',
+                            width: '100%',
+                            backgroundColor: '#0A8FDC',
+                            fontWeight: '500',
+                            border: 'none',
+                            color: '#fff',
+                        }}
+                    >
+                        Sign In
+                    </Button>
+                </Form.Item>
+            </Form>
+
+            <div className="text-center my-5">
+                <span className="text-primaryText">Do not have any account? </span>
+                <a className="text-blue-500">Sign Up</a>
+            </div>
+        </div>
+    );
 
     return (
         <header className=" h-24 bg-[#F7F7F7]">
@@ -79,6 +157,7 @@ const Navbar = () => {
                     <div className="hidden md:flex items-center gap-10">
                         <div>
                             <Button
+                                onClick={() => setLoginModal(true)}
                                 color="default"
                                 type="link"
                                 style={{
@@ -190,6 +269,9 @@ const Navbar = () => {
                     </div>
                 </div>
             </Drawer>
+
+            {/* modals */}
+            <Modal body={loginForm} open={loginModal} setOpen={setLoginModal} key={'login'} width={600} />
         </header>
     );
 };
