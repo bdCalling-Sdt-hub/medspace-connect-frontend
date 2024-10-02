@@ -27,3 +27,13 @@
 .ant-select-selector {
     border-radius: 24px !important;
 }
+.ant-collapse-header-text {
+    font-family: Poppins !important;
+    color: #5c5c5c !important;
+    font-size: 24px !important;
+    font-weight: 500 !important;
+}
+
+.ant-collapse-content-box {
+    color: #5c5c5c !important;
+}

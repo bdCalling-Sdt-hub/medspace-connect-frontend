@@ -6,7 +6,6 @@ import ChangePassword from './shared/ChangePassword';
 import DoctorProfile from './doctor/DoctorProfile';
 import MyInterest from './doctor/MyInterest';
 import MyFavorite from './doctor/MyFavorite';
-import { FaPlus } from 'react-icons/fa6';
 import PostSpace from './merchant/PostSpace';
 
 const ProfileTab = () => {
@@ -72,6 +71,7 @@ const ProfileTab = () => {
                 }}
             >
                 <Tabs defaultActiveKey="1" items={itemsForMerchant} />
+                <Tabs defaultActiveKey="1" items={itemsForDoctor} />
             </ConfigProvider>
         </div>
     );
