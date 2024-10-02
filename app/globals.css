@@ -37,3 +37,8 @@
 .ant-collapse-content-box {
     color: #5c5c5c !important;
 }
+
+.errorContainer {
+    background: #ffffff;
+    background: radial-gradient(at center, #ffffff, #ccdefc);
+}
