@@ -29,10 +29,12 @@ const RecentPost = () => {
         infinite: true,
         speed: 500,
         arrows: true,
+
         slidesToShow: 4, // Default for large screens
         slidesToScroll: 1,
         autoplay: true,
         dots: false,
+        centerPadding: '400px',
         prevArrow: <ArrowLeft />,
         nextArrow: <ArrowRight />,
         autoplaySpeed: 2000,
@@ -52,7 +54,7 @@ const RecentPost = () => {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     initialSlide: 1,
-                    arrows: false, // Hide arrows on smaller screens
+                    arrows: false,
                 },
             },
             {
@@ -60,7 +62,7 @@ const RecentPost = () => {
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    arrows: false, // Hide arrows on very small screens
+                    arrows: false,
                 },
             },
         ],
@@ -72,7 +74,7 @@ const RecentPost = () => {
             {/* cards */}
             <br />
 
-            <div className="slider-container relative">
+            <div className="slider-container mx-auto">
                 <Slider {...settings}>
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
                         return <MedicalSpaceCard key={index} />;

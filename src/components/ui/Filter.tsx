@@ -16,7 +16,7 @@ const Filter = () => {
                 className={`
                     ${
                         filter ? 'md:w-[900px]' : 'md:w-[699px]'
-                    } flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:shadow-lg rounded-full md:overflow-hidden`}
+                    } flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:shadow-lg md:rounded-full overflow-hidden`}
             >
                 <div>
                     <input

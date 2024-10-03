@@ -6,7 +6,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { IoLocationOutline } from 'react-icons/io5';
 const MedicalSpaceCard = () => {
     return (
-        <Link href={`details/1`} className=" bg-white min-w-[360px] mx-auto rounded-xl  drop-shadow-md my-2">
+        <Link href={`details/1`} className=" bg-white max-w-[360px] mx-auto rounded-xl  drop-shadow-md ">
             {/* Image Section */}
             <div className="p-3">
                 <Image height={219} width={344} className=" object-cover" src={Card} alt="Doctor's Practice Room" />
