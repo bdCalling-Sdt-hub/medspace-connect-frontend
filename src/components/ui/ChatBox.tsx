@@ -27,14 +27,14 @@ const ChatBox = () => {
         <div
             className={`
                 fixed flex items-end justify-center bottom-20 right-10 h-[451px] w-[433px] z-50 transition-all duration-200 ${
-                    open ? 'z-50' : 'z-0'
+                    open ? 'z-50' : '-z-0 '
                 }
             `}
         >
             <div className="flex-1 overflow-hidden">
                 <div
                     className={`bg-white border-2 border-primary rounded-[13px] transition-all duration-200 ${
-                        open ? 'translate-x-0' : 'translate-x-[360px]'
+                        open ? 'translate-x-0 z-[999] ' : 'translate-x-[360px] z-[999]'
                     }`}
                 >
                     {/* Header */}

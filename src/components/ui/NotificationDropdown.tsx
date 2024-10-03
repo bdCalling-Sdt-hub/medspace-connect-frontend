@@ -1,6 +1,6 @@
 const NotificationDropdown = () => {
     return (
-        <div className="w-[400px] min-h-[226px] mx-auto bg-white shadow-md overflow-hidden  p-5">
+        <div className="w-[400px] h-fit mx-auto bg-white shadow-md overflow-hidden  p-5">
             <h2 className="text-primary text-2xl font-semibold mb-4">Notification</h2>
 
             <div className="my-5">

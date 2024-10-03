@@ -1,3 +1,4 @@
+'use client';
 import Card from '/public/assets/card.png';
 import Profile from '/public/assets/profile.png';
 import Image from 'next/image';
