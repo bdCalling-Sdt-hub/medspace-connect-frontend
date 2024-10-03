@@ -132,12 +132,12 @@ const RegisterForm = ({
                     />
                 </Form.Item>
 
-                <Form.Item name="agreement" valuePropName="checked">
+                {/* <Form.Item name="agreement" valuePropName="checked">
                     <Checkbox>
                         I agree with <a className="text-blue-500">terms of service</a> and{' '}
                         <a className="text-blue-500">policy</a>
                     </Checkbox>
-                </Form.Item>
+                </Form.Item> */}
 
                 <Form.Item>
                     <Button

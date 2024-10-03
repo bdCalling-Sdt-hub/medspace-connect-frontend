@@ -1,5 +1,4 @@
-import { Form, Input, Button, Checkbox, ConfigProvider } from 'antd';
-import { Dispatch, SetStateAction } from 'react';
+import { Form, Input, Button } from 'antd';
 
 const VerificationForm = ({ onFinish }: { onFinish: (values: any) => void }) => {
     return (

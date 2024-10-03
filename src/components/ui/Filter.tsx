@@ -16,9 +16,21 @@ const Filter = () => {
                 className={`
                     ${
                         filter ? 'md:w-[900px]' : 'md:w-[699px]'
-                    } flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto bg-white px-1 shadow-lg rounded-full overflow-hidden`}
+                    } flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:shadow-lg rounded-full md:overflow-hidden`}
             >
-                <SearchInput filter={filter} />
+                <div>
+                    <input
+                        placeholder="Search here"
+                        className={`
+                            my-5   md:hidden rounded-3xl
+                            border-none focus:outline-none focus:ring-0 
+            focus-visible:ring-0 focus-visible:outline-none border-transparent px-8 py-5 text-primaryText
+        `}
+                    />
+                </div>
+                <div className="hidden md:block">
+                    <SearchInput filter={filter} />
+                </div>
                 <FilterButton filter={filter} setFilter={setFilter} />
                 <DropdownsContainer filter={filter} />
             </div>
@@ -32,8 +44,9 @@ const SearchInput = ({ filter }: { filter: boolean }) => (
     <input
         placeholder="Search here"
         className={`
+            bg-transparent
             ${filter ? '-ms-[600px] duration-500' : 'duration-500'}
-            flex-1 h-[54px] min-w-full md:min-w-[600px] text-sm border-none focus:outline-none focus:ring-0 
+            flex-1 h-[54px] min-w-full min-h-[200px] md:min-w-[600px] text-sm border-none focus:outline-none focus:ring-0 
             focus-visible:ring-0 focus-visible:outline-none border-transparent px-4 md:px-8 py-2 text-primaryText
         `}
     />
@@ -60,7 +73,7 @@ const DropdownsContainer = ({ filter }: { filter: boolean }) => (
     <div
         className={`${
             filter ? 'ms-0 duration-500 ' : 'ms-[500px] duration-500'
-        } flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-center w-full my-5 h-auto md:h-[64px] mx-auto px-1 shadow-lg rounded-full`}
+        } flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-center w-full my-5 h-auto md:h-[64px] mx-auto px-1 md:shadow-lg rounded-full`}
     >
         <CustomSelect label="Location" />
         <CustomSelect label="Price" />

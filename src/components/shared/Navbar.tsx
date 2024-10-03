@@ -14,6 +14,7 @@ import MobileDrawer from './MobileDrawer';
 import LoginForm from '../form/LoginForm';
 import RegisterForm from '../form/RegisterForm';
 import VerificationForm from '../form/VerificationForm';
+import NotificationDropdown from '../ui/NotificationDropdown';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -94,9 +95,17 @@ const Navbar = () => {
                         >
                             Create Account
                         </Button>
-                        <Badge color="#FBA51A" count={5}>
-                            <AiOutlineBell size={24} color="#767676" />
-                        </Badge>
+
+                        <Dropdown
+                            className="cursor-pointer"
+                            placement="bottomRight"
+                            dropdownRender={NotificationDropdown}
+                            trigger={['click']}
+                        >
+                            <Badge color="#FBA51A" count={5}>
+                                <AiOutlineBell size={24} color="#767676" />
+                            </Badge>
+                        </Dropdown>
                         <Dropdown placement="bottomRight" dropdownRender={ProfileDropdown} trigger={['click']}>
                             <div
                                 style={{

@@ -1,40 +1,19 @@
-import Image from 'next/image';
-import Profile from '/public/assets/profile.png';
-import ProfileCover from '/public/assets/cover-profile.png';
-import { Button } from 'antd';
-import { CiLogin } from 'react-icons/ci';
-import Link from 'next/link';
 const NotificationDropdown = () => {
     return (
-        <div className="w-[263px] min-h-[226px] mx-auto bg-white shadow-md overflow-hidden ml-5">
-            {/* Profile Header with Background */}
+        <div className="w-[400px] min-h-[226px] mx-auto bg-white shadow-md overflow-hidden  p-5">
+            <h2 className="text-primary text-2xl font-semibold mb-4">Notification</h2>
 
-            {/* View Profile Button */}
-            <div className="text-center mt-4">
-                <Link href={'/profile'}>
-                    <Button
-                        style={{
-                            border: 'none',
-                            height: 30,
-                            backgroundColor: '#0A8FDC',
-                            color: '#fff',
-                            borderRadius: 32,
-                            padding: '4px 12px',
-                        }}
-                    >
-                        View Profile
-                    </Button>
-                </Link>
-            </div>
-
-            {/* Divider */}
-            <hr className="my-4" />
-
-            {/* Log Out Section */}
-            <div className="flex justify-start cursor-pointer items-center px-6 py-2">
-                <CiLogin className="text-xl text-gray-500 mr-2" />
-
-                <span className="text-gray-600 text-md font-medium ">Log Out</span>
+            <div className="my-5">
+                {/* Notification List */}
+                {[...Array(5)].map((notification, index) => (
+                    <div key={index} className="flex items-center w-full space-y-2 mb-2">
+                        <div className="flex flex-col w-full p-3 rounded-md shadow-md">
+                            <h1 className="text-xl text-primaryText font-semibold">Notification topic</h1>
+                            <p className="text-primaryText">Short summary for for you, clack and go that page</p>
+                            <p className="text-primaryText">20-Dec-2024, 3:00 PM</p>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );
