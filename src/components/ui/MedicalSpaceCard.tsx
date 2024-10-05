@@ -25,7 +25,7 @@ const MedicalSpaceCard = () => {
 
                     <div className="flex items-center gap-5">
                         <Image height={33} width={33} className=" rounded-full" src={Profile} alt="Doctor" />
-                        <h3 className="text-xl font-semibold text-primaryText">Doctors Practice Room</h3>
+                        <h3 className="text-xl font-semibold text-headerText">Doctors Practice Room</h3>
                     </div>
 
                     {/* Description Section */}

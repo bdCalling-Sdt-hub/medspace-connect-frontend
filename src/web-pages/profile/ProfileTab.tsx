@@ -1,5 +1,5 @@
 'use client';
-import { Button, ConfigProvider, Tabs, TabsProps } from 'antd';
+import { ConfigProvider, Tabs, TabsProps } from 'antd';
 import Profile from './merchant/Profile';
 import MyPost from './merchant/MyPost';
 import MyPackage from './merchant/MyPackage';
@@ -8,8 +8,11 @@ import DoctorProfile from './doctor/DoctorProfile';
 import MyInterest from './doctor/MyInterest';
 import MyFavorite from './doctor/MyFavorite';
 import PostSpace from './merchant/PostSpace';
+import { useEffect, useState } from 'react';
 
 const ProfileTab = () => {
+    const [role, setRole] = useState<string | null>('provider');
+
     const itemsForMerchant: TabsProps['items'] = [
         {
             key: '1',
@@ -31,7 +34,13 @@ const ProfileTab = () => {
             label: 'Change Password',
             children: <ChangePassword />,
         },
+        {
+            key: '5',
+            disabled: true,
+            label: <PostSpace />,
+        },
     ];
+
     const itemsForDoctor: TabsProps['items'] = [
         {
             key: '1',
@@ -53,12 +62,18 @@ const ProfileTab = () => {
             label: 'Change Password',
             children: <ChangePassword />,
         },
-        {
-            key: '5',
-            disabled: true,
-            label: <PostSpace />,
-        },
     ];
+
+    const getTabItems = () => {
+        if (role === 'provider') {
+            return itemsForMerchant;
+        } else if (role === 'doctor') {
+            return itemsForDoctor;
+        } else {
+            return []; // Return an empty array or handle undefined role
+        }
+    };
+
     return (
         <div className="container mx-auto">
             <ConfigProvider
@@ -71,8 +86,7 @@ const ProfileTab = () => {
                     },
                 }}
             >
-                <Tabs defaultActiveKey="1" items={itemsForMerchant} />
-                <Tabs defaultActiveKey="1" items={itemsForDoctor} />
+                {role && <Tabs defaultActiveKey="1" items={getTabItems()} />}
             </ConfigProvider>
         </div>
     );

@@ -6,7 +6,6 @@ import { FaPlus } from 'react-icons/fa6';
 import { Button, Form, Input, DatePicker, Select, Upload, ConfigProvider } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
-const { Option } = Select;
 const PostSpace = () => {
     const [modal, setModal] = useState(false);
     const onFinish = (values: any) => {
@@ -23,6 +22,7 @@ const PostSpace = () => {
         <Form className="p-2" layout="vertical" onFinish={onFinish}>
             <div className="flex items-center space-x-4 mb-6">
                 <Form.Item
+                    rules={[{ required: true, message: 'Please select an image' }]}
                     valuePropName="fileList" // Use fileList as the prop for value
                     getValueFromEvent={(e) => e.fileList}
                     name="images"
@@ -139,15 +139,15 @@ const PostSpace = () => {
         </Form>
     );
     return (
-        <div className="flex items-center md:ms-[650px] gap-5">
-            <h1 className="text-secondary text-xl">Remaining Post : 3/6</h1>
+        <div className="flex items-center md:ms-[280px] gap-5">
+            <h1 className="text-secondary text-lg">Remaining Post : 3/6</h1>
             <Button
                 onClick={() => setModal(true)}
                 icon={<FaPlus size={18} />}
                 shape="round"
                 className="px-6"
                 style={{
-                    height: '54px',
+                    height: '50px',
                     width: '141px',
                     backgroundColor: '#0A8FDC',
                     fontWeight: '500',

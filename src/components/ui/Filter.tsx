@@ -52,11 +52,11 @@ const Filter = () => {
     ];
 
     return (
-        <div className="bg-[#F7F7F7] pb-8 pt-2">
+        <div className="bg-[#F7F7F7] pb-8 pt-4 ">
             <div
                 className={`${
                     filter ? 'md:w-[900px]' : 'md:w-[725px]'
-                } flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:shadow-sm md:rounded-full overflow-hidden`}
+                } flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:drop-shadow-sm md:rounded-full overflow-hidden`}
             >
                 <div>
                     <input

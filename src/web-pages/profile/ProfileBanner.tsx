@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import hostbanner from '@/public/assets/cover-profile.svg';
+import hostbanner from '@/public/assets/banner.svg';
 import person from '@/public/assets/profile.png';
 
 import { CiEdit } from 'react-icons/ci';
@@ -90,7 +90,7 @@ const ProfileBanner = () => {
                         <div>
                             <h1 className="text-2xl text-[#4E4E4E]">Saiful Islam Fahim</h1>
 
-                            <p className="text-secondary text-[14px]  leading-6 font-normal">Merchant</p>
+                            <p className="text-secondary text-[14px]  leading-6 font-normal">Doctor</p>
                         </div>
                     </div>
                 </div>

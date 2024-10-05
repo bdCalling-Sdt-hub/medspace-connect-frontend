@@ -40,7 +40,7 @@ export default function CustomSlider() {
                             Back
                         </button>
                         <img
-                            className="w-full drop-shadow-md h-[330px] md:h-[530px] rounded-xl"
+                            className="w-full drop-shadow-md h-[330px] md:h-[500px] rounded-xl"
                             src="https://s3-alpha-sig.figma.com/img/afc3/8e04/6bb0d59328447c3ebf72c549bd40ea6b?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Z4eyZ--JiTzOFbgxMwrAuh0TbTv~p7g7I0ZBUAF4HfuAVfsuKcazFDSoAae0UN8CnmMsZwy16lKd3TCLGyzTz2jmEbpiBBBBtlOE6CLKfofBVjAGFBeeDp2JrAmhPqrgjNBC3XKhAT7actn5oJTw8-ZAO-3iribfLcmQbLg5Jdb5UjYr~lywSdP0gAWsNrds6LydAzgJ4v45oYgmwmCXoZwjSewg42YQIiGUhsiWJf5bfakw70yASNT6kQcESlZirdnWzwZqLYy7O9BI7KuFWRQNQnCq3kdzP9WiGuAQTE7zoD2VXlWqY9qYYLYF03Kh9M5FgVvKaZzxXJL4Q3Ajfw__"
                         />
                     </SwiperSlide>

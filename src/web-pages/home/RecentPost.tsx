@@ -28,7 +28,7 @@ const RecentPost = () => {
         infinite: true,
         speed: 500,
         arrows: true,
-        slidesToShow: 4, // Default for large screens
+        slidesToShow: 3, // Default for large screens
         slidesToScroll: 1,
         autoplay: true,
         dots: false,
@@ -68,7 +68,7 @@ const RecentPost = () => {
 
     return (
         <div className="container mx-auto my-10">
-            <h2 className="text-primaryText text-xl">Recent Post</h2>
+            <h2 className="text-secondaryText text-xl">Recent Post</h2>
             <br />
             <div className="slider-container mx-auto">
                 <Slider {...settings}>
