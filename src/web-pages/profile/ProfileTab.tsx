@@ -8,11 +8,10 @@ import DoctorProfile from './doctor/DoctorProfile';
 import MyInterest from './doctor/MyInterest';
 import MyFavorite from './doctor/MyFavorite';
 import PostSpace from './merchant/PostSpace';
-import { useEffect, useState } from 'react';
+import { useAppSelector } from '@/src/redux/hooks';
 
 const ProfileTab = () => {
-    const [role, setRole] = useState<string | null>('doctor');
-
+    const { user } = useAppSelector((state) => state.auth);
     const itemsForProvider: TabsProps['items'] = [
         {
             key: '1',
@@ -63,17 +62,7 @@ const ProfileTab = () => {
             children: <ChangePassword />,
         },
     ];
-
-    const getTabItems = () => {
-        if (role === 'provider') {
-            return itemsForProvider;
-        } else if (role === 'doctor') {
-            return itemsForDoctor;
-        } else {
-            return [];
-        }
-    };
-
+    const tabItems = user === 'doctor' ? itemsForDoctor : itemsForProvider;
     return (
         <div className="container mx-auto">
             <ConfigProvider
@@ -86,7 +75,7 @@ const ProfileTab = () => {
                     },
                 }}
             >
-                {role && <Tabs defaultActiveKey="1" items={getTabItems()} />}
+                <Tabs defaultActiveKey="1" items={tabItems} />
             </ConfigProvider>
         </div>
     );

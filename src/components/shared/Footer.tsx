@@ -2502,8 +2502,8 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="bg-[#222222] h-10 text-[#F7F7F7] text-center flex items-center justify-center">
-                <h1>© Copyright UX/UI {new Date().getFullYear()} Team Md. Asadujjaman Mahfuz</h1>
+            <div className="bg-[#222222] py-3 h-12 text-[#F7F7F7] text-center flex items-center justify-center">
+                <h1 className="text-sm">© Copyright UX/UI {new Date().getFullYear()} Team Md. Asadujjaman Mahfuz</h1>
             </div>
         </footer>
     );
