@@ -74,7 +74,7 @@ const RecentPost = () => {
                 <Slider {...settings}>
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
                         // Added padding and shadow to each slide/card
-                        <div key={index} className="p-4">
+                        <div key={index} className="p-1">
                             <div className="bg-white rounded-xl  drop-shadow-md">
                                 <MedicalSpaceCard key={index} />
                             </div>

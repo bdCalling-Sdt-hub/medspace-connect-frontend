@@ -3,9 +3,13 @@ import Card from '/public/assets/card.png';
 import Profile from '/public/assets/profile.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { IoLocationOutline } from 'react-icons/io5';
-const MedicalSpaceCard = () => {
+
+type TCard = {
+    favorite?: boolean;
+};
+const MedicalSpaceCard = ({ favorite = false }: TCard) => {
     return (
         <Link href={`details/1`} className=" bg-white max-w-[360px] mx-auto rounded-xl  drop-shadow-md ">
             {/* Image Section */}
@@ -20,7 +24,12 @@ const MedicalSpaceCard = () => {
                             <span className="text-2xl font-semibold text-primary">$500/</span>
                             <span className="text-primary">mon</span>
                         </p>
-                        <AiOutlineHeart className="text-yellow-400 text-2xl cursor-pointer" />
+
+                        {favorite ? (
+                            <AiFillHeart className="text-yellow-400 text-2xl cursor-pointer" />
+                        ) : (
+                            <AiOutlineHeart className="text-yellow-400 text-2xl cursor-pointer" />
+                        )}
                     </div>
 
                     <div className="flex items-center gap-5">

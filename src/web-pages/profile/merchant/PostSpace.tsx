@@ -3,7 +3,7 @@
 import Modal from '@/src/components/ui/Modal';
 import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
-import { Button, Form, Input, DatePicker, Select, Upload, ConfigProvider } from 'antd';
+import { Button, Form, Input, DatePicker, Select, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 const PostSpace = () => {

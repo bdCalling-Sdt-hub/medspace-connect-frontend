@@ -11,9 +11,9 @@ import PostSpace from './merchant/PostSpace';
 import { useEffect, useState } from 'react';
 
 const ProfileTab = () => {
-    const [role, setRole] = useState<string | null>('provider');
+    const [role, setRole] = useState<string | null>('doctor');
 
-    const itemsForMerchant: TabsProps['items'] = [
+    const itemsForProvider: TabsProps['items'] = [
         {
             key: '1',
             label: 'Profile',
@@ -66,11 +66,11 @@ const ProfileTab = () => {
 
     const getTabItems = () => {
         if (role === 'provider') {
-            return itemsForMerchant;
+            return itemsForProvider;
         } else if (role === 'doctor') {
             return itemsForDoctor;
         } else {
-            return []; // Return an empty array or handle undefined role
+            return [];
         }
     };
 
