@@ -1,139 +1,70 @@
-'use client';
-import React, { ChangeEvent, useState } from 'react';
-import { BiSend, BiSolidLeftArrow } from 'react-icons/bi';
 import Image from 'next/image';
-import { Button, Form, Input } from 'antd';
-import { LuImagePlus, LuX } from 'react-icons/lu';
+import React, { useState } from 'react';
+import { LuX } from 'react-icons/lu';
+import Profile from '@/public/assets/profile.png';
 
+const contacts = [
+    { name: 'Saiful Islam Fahim', role: 'Marchant', time: '08:00pm, today', image: Profile },
+    { name: 'Rafsan Opi', role: 'Marchant', time: '08:00pm, today', image: Profile },
+    { name: 'Nuruddin Repon', role: 'Marchant', time: '08:00pm, today', image: Profile },
+    { name: 'Kawsar Hamid', role: 'Marchant', time: '08:00pm, today', image: Profile },
+    { name: 'Nuruddin Repon', role: 'Marchant', time: '08:00pm, today', image: Profile },
+    { name: 'Kawsar Hamid', role: 'Marchant', time: '08:00pm, today', image: Profile },
+];
 const ChatBox = () => {
     const [open, setOpen] = useState(false);
-    const [image, setImage] = useState<File | null>(null);
-    const [text, setText] = useState<string | undefined>('');
-    const [form] = Form.useForm();
-
-    const handleChangeImage = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files?.[0]) {
-            setImage(event.target.files?.[0]);
-        }
-    };
-
-    const onSubmit = (values: object) => {
-        form.resetFields();
-        setImage(null);
-    };
-
     return (
-        <div
-            className={`
-                fixed flex items-end justify-center bottom-20 right-10 h-[451px] w-[433px] z-50 transition-all duration-200 ${
-                    open ? 'z-50' : '-z-0 '
-                }
-            `}
-        >
-            <div className="flex-1 overflow-hidden">
+        <div>
+            <div className="fixed z-[999] right-4 bottom-10">
+                {/* logo chat */}
                 <div
-                    className={`bg-white border-2 border-primary rounded-[13px] transition-all duration-200 ${
-                        open ? 'translate-x-0 z-[999] ' : 'translate-x-[360px] z-[999]'
-                    }`}
-                >
-                    {/* Header */}
-                    <div className="bg-primary px-4 flex items-center justify-between h-[60px] w-full rounded-t-[9px]">
-                        <LogoIcon />
-
-                        <div className="flex items-center gap-6">
-                            {/* Image Upload */}
-                            <input onChange={handleChangeImage} id="image" type="file" className="hidden" />
-                            <label
-                                htmlFor="image"
-                                className="w-10 h-10 cursor-pointer rounded-full bg-[#F7F7F7] flex items-center justify-center"
-                            >
-                                <LuImagePlus size={24} color="#0A8FDC" />
-                            </label>
-
-                            {/* Close Button */}
-                            <LuX className="cursor-pointer" onClick={() => setOpen(false)} color="#F7F7F7" size={24} />
-                        </div>
-                    </div>
-
-                    {/* Chat Body */}
-                    <div className="h-[325px] chat overflow-y-auto bg-white">
-                        {[...Array(20)].map((_, index) => (
-                            <MessageBubble key={index} index={index} />
-                        ))}
-                    </div>
-
-                    {/* Footer */}
-                    <div className="relative border-t-[1px] border-[#F0EFEF] p-2">
-                        {image && (
-                            <div className="absolute left-2 -top-16 border border-primary">
-                                <div className="relative w-16 h-16">
-                                    <Image
-                                        alt="message-image"
-                                        src={URL.createObjectURL(image)}
-                                        fill
-                                        onClick={() => setImage(null)}
-                                    />
-                                </div>
-                            </div>
-                        )}
-
-                        <Form form={form} onFinish={onSubmit} className="flex items-center gap-2">
-                            <Form.Item style={{ marginBottom: 0 }} name="text">
-                                <Input
-                                    value={text}
-                                    onChange={(e) => setText(e.target.value)}
-                                    placeholder="Message...."
-                                    style={{
-                                        width: '280px',
-                                        border: 'none',
-                                        background: '#F3F3F3',
-                                        borderRadius: 12,
-                                        outline: 'none',
-                                        boxShadow: 'none',
-                                        height: 40,
-                                    }}
-                                    className="placeholder:text-[#A1A1A1]"
-                                />
-                            </Form.Item>
-                            <Button
-                                disabled={!text}
-                                htmlType="submit"
-                                style={{
-                                    background: '#0A8FDC',
-                                    border: 'none',
-                                    width: 40,
-                                    height: 40,
-                                    borderRadius: '100%',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                }}
-                            >
-                                <BiSend size={20} color="white" />
-                            </Button>
-                        </Form>
-                    </div>
-                </div>
-            </div>
-
-            <div className="flex items-center">
-                <div className="w-6 h-6 flex items-center justify-center overflow-hidden">
-                    <BiSolidLeftArrow
-                        size={16}
-                        color="#0A8FDC"
-                        className={`${
-                            open
-                                ? 'translate-x-0 transition-all duration-200'
-                                : 'translate-x-5 transition-all duration-200'
-                        }`}
-                    />
-                </div>
-
-                <div
-                    onClick={() => setOpen(!open)}
+                    onClick={() => setOpen(!open)} // Toggle chatbox visibility
                     className="w-[50px] cursor-pointer flex items-center justify-center h-[50px] rounded-full border-2 p-2 border-primary"
                 >
                     <LogoIcon />
+                </div>
+            </div>
+
+            {/* chatbox */}
+
+            <div
+                className={`${
+                    open
+                        ? 'right-[4%] z-[50] bottom-[4%] duration-300'
+                        : '-right-[120%] md:-right-[20%] z-[10] bottom-[4%] duration-300'
+                } w-full max-w-[349px] fixed  border-primary border mx-auto bg-white rounded-xl shadow-lg overflow-hidden`}
+            >
+                {/* Header */}
+                <div className="bg-primary text-white p-4 flex justify-between items-center">
+                    <h2 className="text-lg ">Contacts</h2>
+                    <button onClick={() => setOpen(!open)}>
+                        <LuX className="text-white" size={24} />
+                    </button>
+                </div>
+
+                {/* Contact List */}
+                <div className="p-4 space-y-2 max-h-[500px] overflow-y-scroll">
+                    {contacts.map((contact, index) => (
+                        <div
+                            key={index}
+                            className="flex items-center shadow cursor-pointer bg-[#E9E9E9] hover:bg-[#FDFDFD] transition duration-200 p-3 rounded-lg"
+                        >
+                            <div className="w-12 h-12 mr-4 rounded-full overflow-hidden">
+                                <Image
+                                    src={contact.image}
+                                    alt={contact.name}
+                                    width={48}
+                                    height={48}
+                                    className="object-cover"
+                                />
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="text-lg font-semibold text-primaryText">{contact.name}</h3>
+                                <p className="text-sm text-primary">{contact.role}</p>
+                                <p className="text-xs text-primaryText">{contact.time}</p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
@@ -154,11 +85,6 @@ const LogoIcon = () => (
                 fill="#0A8FDC"
             />
         </g>
-        <defs>
-            <clipPath id="clip0_448_14422">
-                <rect width={32} height={32} fill="white" transform="translate(10 10)" />
-            </clipPath>
-        </defs>
     </svg>
 );
 
