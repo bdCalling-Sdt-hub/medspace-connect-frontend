@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import Logo from '/public/assets/logo.png';
+import Logo from '/public/assets/logo.svg';
 import Profile from '/public/assets/profile.png';
 import { Badge, Button, Dropdown } from 'antd';
 import { AiOutlineBell, AiOutlineMenu } from 'react-icons/ai';

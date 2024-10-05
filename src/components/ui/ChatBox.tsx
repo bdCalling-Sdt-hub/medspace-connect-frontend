@@ -18,7 +18,6 @@ const ChatBox = () => {
     };
 
     const onSubmit = (values: object) => {
-        console.log(values);
         form.resetFields();
         setImage(null);
     };

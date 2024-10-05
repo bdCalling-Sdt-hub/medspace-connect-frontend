@@ -1,9 +1,7 @@
 'use client';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import hostbanner from '@/public/assets/banner.png';
+import hostbanner from '@/public/assets/cover-profile.svg';
 import person from '@/public/assets/profile.png';
-import { Rate } from 'antd';
 
 import { CiEdit } from 'react-icons/ci';
 
@@ -20,6 +18,7 @@ const ProfileBanner = () => {
                     }}
                 >
                     <Image
+                        className=""
                         src={hostbanner}
                         alt="host-profile"
                         width={500}
@@ -29,8 +28,9 @@ const ProfileBanner = () => {
                             width: '100%',
                             zIndex: 0,
                             objectFit: 'cover',
-
+                            backgroundPosition: '',
                             borderRadius: '10px 10px 0 0',
+                            transform: 'scaleX(-1)',
                         }}
                     />
                     <label

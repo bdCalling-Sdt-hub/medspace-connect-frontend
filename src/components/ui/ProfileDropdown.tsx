@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Profile from '/public/assets/profile.png';
-import ProfileCover from '/public/assets/cover-profile.png';
+import ProfileCover from '/public/assets/cover-profile.svg';
 import { Button } from 'antd';
 import { CiLogin } from 'react-icons/ci';
 import Link from 'next/link';

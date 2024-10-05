@@ -30,12 +30,33 @@ const Filter = () => {
         router.push(`/search?${params.toString()}`);
     };
 
+    // options for dropdowns
+    const locationOptions = [
+        { label: 'New York', value: 'new_york' },
+        { label: 'Los Angeles', value: 'los_angeles' },
+    ];
+
+    const priceOptions = [
+        { label: '$100 - $500/m', value: '100-500' },
+        { label: '$500 - $1000/m', value: '500-1000' },
+    ];
+
+    const practiceTypeOptions = [
+        { label: 'Dental Care', value: 'dental_care' },
+        { label: 'Eye Care', value: 'eye_care' },
+    ];
+
+    const facilitiesOptions = [
+        { label: 'Wi-Fi', value: 'wifi' },
+        { label: 'Parking', value: 'parking' },
+    ];
+
     return (
         <div className="bg-[#F7F7F7] pb-8 pt-2">
             <div
                 className={`${
-                    filter ? 'md:w-[900px]' : 'md:w-[740px]'
-                } flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:shadow-lg md:rounded-full overflow-hidden`}
+                    filter ? 'md:w-[900px]' : 'md:w-[725px]'
+                } flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:shadow-sm md:rounded-full overflow-hidden`}
             >
                 <div>
                     <input
@@ -57,12 +78,53 @@ const Filter = () => {
                 <FilterButton filter={filter} setFilter={setFilter} />
                 <DropdownsContainer
                     filter={filter}
+                    location={location}
+                    price={price}
+                    practiceType={practiceType}
+                    facilities={facilities}
                     setLocation={setLocation}
                     setPrice={setPrice}
                     setPracticeType={setPracticeType}
                     setFacilities={setFacilities}
                     handleSearch={handleSearch}
+                    locationOptions={locationOptions}
+                    priceOptions={priceOptions}
+                    practiceTypeOptions={practiceTypeOptions}
+                    facilitiesOptions={facilitiesOptions}
                 />
+            </div>
+
+            <div className="container mx-auto">
+                <div className="flex flex-wrap items-center gap-4 my-4 text-[#CCCCCC] text-sm font-medium">
+                    {/* Filter Item */}
+                    {location && (
+                        <div className="flex items-center">
+                            <span className="capitalize">Place: {location}</span>
+                            <span className="ml-2 text-[#FBA51A]">✕</span>
+                        </div>
+                    )}
+                    {/* Filter Item */}
+                    {price && (
+                        <div className="flex items-center">
+                            <span className="capitalize">Price: {[price]}</span>
+                            <span className="ml-2 text-[#FBA51A]">✕</span>
+                        </div>
+                    )}
+                    {/* Filter Item */}
+                    {practiceType && (
+                        <div className="flex items-center">
+                            <span className="capitalize">Practice on: {practiceType}</span>
+                            <span className="ml-2 text-[#FBA51A]">✕</span>
+                        </div>
+                    )}
+                    {/* Filter Item */}
+                    {facilities && (
+                        <div className="flex items-center">
+                            <span className="capitalize">Facilities: {facilities}</span>
+                            <span className="ml-2 text-[#FBA51A]">✕</span>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -100,10 +162,10 @@ const FilterButton = ({ filter, setFilter }: { filter: boolean; setFilter: (valu
             filter ? (
                 <SearchOutlined size={20} className="text-white text-3xl" />
             ) : (
-                <IoOptionsOutline className="text-3xl mx-5" size={20} />
+                <IoOptionsOutline className="text-3xl mx-3" size={20} />
             )
         }
-        className="px-10 my-4 md:my-0"
+        className="px-4 my-4 md:my-0"
         style={{
             height: '54px',
             width: '141px',
@@ -117,57 +179,90 @@ const FilterButton = ({ filter, setFilter }: { filter: boolean; setFilter: (valu
 
 const DropdownsContainer = ({
     filter,
+
     setLocation,
     setPrice,
     setPracticeType,
     setFacilities,
     handleSearch,
+    locationOptions,
+    priceOptions,
+    practiceTypeOptions,
+    facilitiesOptions,
 }: {
     filter: boolean;
+    location: string;
+    price: string;
+    practiceType: string;
+    facilities: string;
     setLocation: (val: string) => void;
     setPrice: (val: string) => void;
     setPracticeType: (val: string) => void;
     setFacilities: (val: string) => void;
     handleSearch: () => void;
+    locationOptions: Array<{ label: string; value: string }>;
+    priceOptions: Array<{ label: string; value: string }>;
+    practiceTypeOptions: Array<{ label: string; value: string }>;
+    facilitiesOptions: Array<{ label: string; value: string }>;
 }) => (
     <div
         className={`${
             filter ? 'ms-0 duration-500 ' : 'ms-[500px] duration-500'
-        } flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-center w-full my-5 h-auto md:h-[64px] mx-auto px-1 md:shadow-lg rounded-full`}
+        } flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-center w-full my-5 h-auto md:h-[64px] mx-auto px-1  rounded-full`}
     >
-        <CustomSelect label="Location" onChange={setLocation} handleSearch={handleSearch} />
-        <CustomSelect label="Price" onChange={setPrice} handleSearch={handleSearch} />
-        <CustomSelect label="Practice Type" onChange={setPracticeType} handleSearch={handleSearch} />
-        <CustomSelect label="Facilities" onChange={setFacilities} handleSearch={handleSearch} />
+        <CustomSelect
+            options={locationOptions}
+            placeholder={'Location'}
+            onChange={setLocation}
+            handleSearch={handleSearch}
+        />
+        <CustomSelect options={priceOptions} placeholder={'Price'} onChange={setPrice} handleSearch={handleSearch} />
+        <CustomSelect
+            options={practiceTypeOptions}
+            placeholder={'Practice Type'}
+            onChange={setPracticeType}
+            handleSearch={handleSearch}
+        />
+        <CustomSelect
+            options={facilitiesOptions}
+            placeholder={'Facilities'}
+            onChange={setFacilities}
+            handleSearch={handleSearch}
+        />
     </div>
 );
 
 const CustomSelect = ({
-    label,
+    options,
+    placeholder,
     onChange,
     handleSearch,
 }: {
-    label: string;
+    options: Array<{ label: string; value: string }>;
+    placeholder: string;
     onChange: (val: string) => void;
     handleSearch: () => void;
 }) => (
     <Select
         size="large"
-        defaultValue={label}
+        placeholder={placeholder}
         onChange={(value) => {
             onChange(value);
             handleSearch(); // Trigger search on dropdown selection
         }}
-        suffixIcon={<FaChevronDown size={20} color="#0A8FDC" />}
+        suffixIcon={<FaChevronDown size={18} color="#0A8FDC" />}
         style={{
-            width: '100%', // Full width on mobile, adjust on larger screens
-            maxWidth: '180px', // Ensure a max width on larger screens
+            width: '100%',
+            maxWidth: '180px',
             height: 54,
             borderRadius: 40,
             color: '#4E4E4E',
         }}
     >
-        <Option value={`${label.toLowerCase()}1`}>{`${label} 1`}</Option>
-        <Option value={`${label.toLowerCase()}2`}>{`${label} 2`}</Option>
+        {options.map((option) => (
+            <Option key={option.value} value={option.value}>
+                {option.label}
+            </Option>
+        ))}
     </Select>
 );
