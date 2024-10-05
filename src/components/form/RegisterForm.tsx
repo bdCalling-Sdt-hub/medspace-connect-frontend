@@ -27,7 +27,7 @@ const RegisterForm = ({
         setRegisterModal(false);
     };
     return (
-        <div className="p-8">
+        <div className="p-6">
             <div className="space-y-5 mb-5">
                 <h2 className="text-3xl text-[#333333] font-semibold text-center">Sign up</h2>
                 <p className="text-center text-gray-500 mb-6">Please Enter Your Personal Data</p>
@@ -131,13 +131,21 @@ const RegisterForm = ({
                         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />
                 </Form.Item>
-
-                {/* <Form.Item name="agreement" valuePropName="checked">
+                <Form.Item
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please accept the terms of service and privacy policy to proceed.',
+                        },
+                    ]}
+                    name="agreement"
+                    valuePropName="checked"
+                >
                     <Checkbox>
-                        I agree with <a className="text-blue-500">terms of service</a> and{' '}
-                        <a className="text-blue-500">policy</a>
+                        I agree to the <a className="text-primary">Terms of Service</a> and{' '}
+                        <a className="text-primary">Privacy Policy</a>
                     </Checkbox>
-                </Form.Item> */}
+                </Form.Item>
 
                 <Form.Item>
                     <Button

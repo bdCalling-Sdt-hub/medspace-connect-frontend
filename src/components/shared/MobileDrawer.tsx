@@ -8,7 +8,7 @@ const MobileDrawer = ({ open, onClose, items }: { open: boolean; onClose: () => 
                 <NavItems items={items} onClose={onClose} />
             </div>
             <div className="flex justify-center items-center gap-10 my-5">
-                <Button
+                {/* <Button
                     style={{
                         lineHeight: '24px',
                         height: '48px',
@@ -22,7 +22,7 @@ const MobileDrawer = ({ open, onClose, items }: { open: boolean; onClose: () => 
                     color="primary"
                 >
                     Create Account
-                </Button>
+                </Button> */}
             </div>
         </Drawer>
     );

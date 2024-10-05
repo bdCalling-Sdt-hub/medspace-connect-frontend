@@ -15,13 +15,14 @@ import LoginForm from '../form/LoginForm';
 import RegisterForm from '../form/RegisterForm';
 import VerificationForm from '../form/VerificationForm';
 import NotificationDropdown from '../ui/NotificationDropdown';
+import { useAppSelector } from '@/src/redux/hooks';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
     const [loginModal, setLoginModal] = useState(false);
     const [otpModal, setOtpModal] = useState(false);
     const [registerModal, setRegisterModal] = useState(false);
-
+    const { user } = useAppSelector((state) => state.auth);
     const showDrawer = () => {
         setOpen(true);
     };
@@ -30,13 +31,13 @@ const Navbar = () => {
         setOpen(false);
     };
 
-    const items = [
+    const commonItems = [
         { label: 'Home', path: '/' },
         { label: 'About', path: '/about' },
         { label: 'News', path: '/news' },
         { label: 'Supports', path: '/supports' },
-        { label: 'Packages', path: '/packages' },
     ];
+    const items = user === 'provider' ? [...commonItems, { label: 'Packages', path: '/packages' }] : commonItems;
 
     const handleLogin = (values: any) => {
         // TODO: Implement login logic
@@ -67,70 +68,76 @@ const Navbar = () => {
                     </div>
 
                     {/* Action Items for Desktop */}
-                    <div className="hidden md:flex items-center gap-10">
-                        <Button
-                            onClick={() => setLoginModal(true)}
-                            type="link"
-                            style={{
-                                lineHeight: '24px',
-                                fontWeight: 500,
-                                backgroundColor: 'transparent',
-                                color: '#0A8FDC',
-                            }}
-                        >
-                            Login
-                        </Button>
-                        <Button
-                            onClick={() => setRegisterModal(true)}
-                            style={{
-                                border: '1px solid #0A8FDC',
-                                lineHeight: '24px',
-                                height: '48px',
-                                fontWeight: 500,
-                                width: '174px',
-                                backgroundColor: '#F7F7F7',
-                                color: '#0A8FDC',
-                                borderRadius: '60px',
-                            }}
-                        >
-                            Create Account
-                        </Button>
-
-                        <Dropdown
-                            className="cursor-pointer"
-                            placement="bottomRight"
-                            dropdownRender={NotificationDropdown}
-                            trigger={['click']}
-                        >
-                            <Badge color="#FBA51A" count={5}>
-                                <AiOutlineBell size={24} color="#767676" />
-                            </Badge>
-                        </Dropdown>
-                        <Dropdown placement="bottomRight" dropdownRender={ProfileDropdown} trigger={['click']}>
-                            <div
-                                style={{
-                                    height: 44,
-                                    width: 90,
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    backgroundColor: '#f5f5f5',
-                                    borderRadius: '50px',
-                                    padding: '4px 10px',
-                                    cursor: 'pointer',
-                                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                                }}
-                            >
-                                <Image width={40} height={40} alt="profile" src={Profile} />
-                                <DownOutlined
+                    <div className="hidden md:flex items-center gap-5">
+                        {user ? (
+                            <>
+                                <Dropdown
+                                    className="cursor-pointer"
+                                    placement="bottomRight"
+                                    dropdownRender={NotificationDropdown}
+                                    trigger={['click']}
+                                >
+                                    <Badge color="#FBA51A" count={5}>
+                                        <AiOutlineBell size={24} color="#767676" />
+                                    </Badge>
+                                </Dropdown>
+                                <Dropdown placement="bottomRight" dropdownRender={ProfileDropdown} trigger={['click']}>
+                                    <div
+                                        style={{
+                                            height: 44,
+                                            width: 90,
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            backgroundColor: '#f5f5f5',
+                                            borderRadius: '50px',
+                                            padding: '4px 10px',
+                                            cursor: 'pointer',
+                                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                                        }}
+                                    >
+                                        <Image width={40} height={40} alt="profile" src={Profile} />
+                                        <DownOutlined
+                                            style={{
+                                                fontSize: '16px',
+                                                color: '#1890ff',
+                                                paddingLeft: '8px',
+                                                paddingRight: '8px',
+                                            }}
+                                        />
+                                    </div>
+                                </Dropdown>
+                            </>
+                        ) : (
+                            <>
+                                <Button
+                                    onClick={() => setLoginModal(true)}
+                                    type="link"
                                     style={{
-                                        fontSize: '16px',
-                                        color: '#1890ff',
-                                        paddingLeft: '8px',
-                                        paddingRight: '8px',
+                                        lineHeight: '24px',
+                                        fontWeight: 500,
+                                        backgroundColor: 'transparent',
+                                        color: '#0A8FDC',
                                     }}
-                                />
-                            </div>
-                        </Dropdown>
+                                >
+                                    Login
+                                </Button>
+                                <Button
+                                    onClick={() => setRegisterModal(true)}
+                                    style={{
+                                        border: '1px solid #0A8FDC',
+                                        lineHeight: '24px',
+                                        height: '48px',
+                                        fontWeight: 500,
+                                        width: '174px',
+                                        backgroundColor: '#F7F7F7',
+                                        color: '#0A8FDC',
+                                        borderRadius: '60px',
+                                    }}
+                                >
+                                    Create Account
+                                </Button>
+                            </>
+                        )}
                     </div>
 
                     {/* Mobile Menu Icon */}

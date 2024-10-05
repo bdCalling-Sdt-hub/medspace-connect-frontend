@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { IoLocationOutline } from 'react-icons/io5';
 const MyMedicalSpacePostCard = ({ setEditModal }: { setEditModal: Dispatch<SetStateAction<boolean>> }) => {
     return (
-        <div className="relative overflow-hidden">
+        <div className="bg-white max-w-[360px] mx-auto rounded-xl  drop-shadow-md  relative overflow-hidden">
             {/* edit button */}
             <div className="absolute z-[99] top-4 right-0 bg-[#FDFDFD] px-6 py-3 rounded-s-full ">
                 <button onClick={() => setEditModal(true)} className="text-secondaryText flex items-center gap-3">
@@ -22,7 +22,7 @@ const MyMedicalSpacePostCard = ({ setEditModal }: { setEditModal: Dispatch<SetSt
                     Edit
                 </button>
             </div>
-            <Link href={`details/1`} className=" bg-white max-w-[360px] mx-auto rounded-xl  drop-shadow-md ">
+            <Link href={`details/1`} className=" ">
                 <div className="p-3">
                     <Image height={219} width={344} className=" object-cover" src={Card} alt="Doctor's Practice Room" />
                     <div className="p-4">

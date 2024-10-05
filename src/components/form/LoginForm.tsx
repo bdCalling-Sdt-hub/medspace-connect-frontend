@@ -5,6 +5,8 @@ import Modal from '../ui/Modal';
 import ForgetForm from './ForgetForm';
 import VerificationForm from './VerificationForm';
 import NewPasswordForm from './NewPasswordFrom';
+import { useAppDispatch } from '@/src/redux/hooks';
+import { login } from '@/src/redux/features/auth/authSlice';
 
 const LoginForm = ({
     onFinish,
@@ -16,6 +18,7 @@ const LoginForm = ({
     setLoginModal: Dispatch<SetStateAction<boolean>>;
     setRegisterModal: Dispatch<SetStateAction<boolean>>;
 }) => {
+    const dispatch = useAppDispatch();
     const [forgetModal, setForgetModal] = useState(false);
     const [otpModal, setOtpModal] = useState(false);
     const [newPasswordModal, setNewPasswordModal] = useState(false);
@@ -101,6 +104,30 @@ const LoginForm = ({
 
                     <Form.Item>
                         <Button
+                            onClick={() => {
+                                dispatch(login('doctor'));
+                                setLoginModal(false);
+                            }}
+                            htmlType="submit"
+                            shape="round"
+                            className="px-6 my-2"
+                            style={{
+                                height: '50px',
+                                width: '100%',
+                                backgroundColor: '#0A8FDC',
+                                fontWeight: '500',
+                                border: 'none',
+                                color: '#fff',
+                            }}
+                        >
+                            Sign In As Doctor
+                        </Button>
+
+                        <Button
+                            onClick={() => {
+                                dispatch(login('provider'));
+                                setLoginModal(false);
+                            }}
                             htmlType="submit"
                             shape="round"
                             className="px-6"
@@ -113,7 +140,7 @@ const LoginForm = ({
                                 color: '#fff',
                             }}
                         >
-                            Sign In
+                            Sign In As Provider
                         </Button>
                     </Form.Item>
                 </Form>

@@ -3,10 +3,7 @@ import Profile from '/public/assets/profile.png';
 import ProfileCover from '/public/assets/cover-profile.svg';
 import { Button } from 'antd';
 import Link from 'next/link';
-import { useAppDispatch } from '@/src/redux/hooks';
-import { login } from '@/src/redux/features/auth/authSlice';
 const ProfileDropdown = () => {
-    const dispatch = useAppDispatch();
     return (
         <div className="w-[263px] min-h-[226px] mx-auto bg-white shadow-md rounded-lg overflow-hidden ml-5 pb-2">
             {/* Profile Header with Background */}
@@ -34,7 +31,6 @@ const ProfileDropdown = () => {
             <div className="text-center mt-4">
                 <Link className="flex flex-col justify-center items-center gap-3 mx-auto" href={'/profile'}>
                     <Button
-                        onClick={() => dispatch(login('doctor'))}
                         style={{
                             border: 'none',
                             height: 30,
@@ -45,21 +41,7 @@ const ProfileDropdown = () => {
                             padding: '4px 12px',
                         }}
                     >
-                        View Profile as Doctor
-                    </Button>
-                    <Button
-                        onClick={() => dispatch(login('provider'))}
-                        style={{
-                            border: 'none',
-                            height: 30,
-
-                            backgroundColor: '#0A8FDC',
-                            color: '#fff',
-                            borderRadius: 32,
-                            padding: '4px 12px',
-                        }}
-                    >
-                        View Profile as Provider
+                        View Profile
                     </Button>
                 </Link>
             </div>
