@@ -33,7 +33,7 @@ const PostSpace = () => {
                 </Form.Item>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
                 <Form.Item
                     label={<span className="custom-label">Post Title</span>}
                     name="postTitle"
@@ -41,24 +41,25 @@ const PostSpace = () => {
                 >
                     <Input style={{ borderRadius: '24px', height: '48px' }} placeholder="Doctors Practice Room" />
                 </Form.Item>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full ">
+                    <Form.Item
+                        label={<span className="custom-label">Price</span>}
+                        name="price"
+                        rules={[{ required: true, message: 'Please enter the price!' }]}
+                    >
+                        <Input style={{ borderRadius: '24px', height: '48px' }} placeholder="$150" />
+                    </Form.Item>
 
-                <Form.Item
-                    label={<span className="custom-label">Price</span>}
-                    name="price"
-                    rules={[{ required: true, message: 'Please enter the price!' }]}
-                >
-                    <Input style={{ borderRadius: '24px', height: '48px' }} placeholder="$150" />
-                </Form.Item>
-
-                <Form.Item
-                    label={<span className="custom-label">Price Type</span>}
-                    name="priceType"
-                    rules={[{ required: true, message: 'Please select the price type!' }]}
-                >
-                    <Select placeholder="Select Price Type" style={{ height: '48px', borderRadius: 40 }}>
-                        <Select.Option value="demo">Demo</Select.Option>
-                    </Select>
-                </Form.Item>
+                    <Form.Item
+                        label={<span className="custom-label">Price Type</span>}
+                        name="priceType"
+                        rules={[{ required: true, message: 'Please select the price type!' }]}
+                    >
+                        <Select placeholder="Select Price Type" style={{ height: '48px', borderRadius: 40 }}>
+                            <Select.Option value="demo">Demo</Select.Option>
+                        </Select>
+                    </Form.Item>
+                </div>
 
                 <Form.Item
                     label={<span className="custom-label">Location</span>}

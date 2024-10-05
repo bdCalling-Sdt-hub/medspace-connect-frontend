@@ -34,7 +34,7 @@ export default function CustomSlider() {
                     <SwiperSlide key={index}>
                         <button
                             onClick={handleBack}
-                            className="flex items-center z-[999] text-primaryText gap-3 absolute top-5 left-0 bg-white px-8 py-4 rounded-r-full"
+                            className="flex items-center z-[999] text-primaryText gap-3 fixed top-5 left-0 bg-white px-8 py-4 rounded-r-full"
                         >
                             <BiArrowBack />
                             Back
@@ -49,7 +49,7 @@ export default function CustomSlider() {
             <div className="my-5">
                 <Swiper
                     onSwiper={setThumbsSwiper}
-                    spaceBetween={-100}
+                    spaceBetween={20}
                     slidesPerView={4}
                     freeMode={true}
                     watchSlidesProgress={true}
@@ -60,7 +60,7 @@ export default function CustomSlider() {
                         return (
                             <SwiperSlide key={index}>
                                 <img
-                                    className="w-[160px] md:h-[140] rounded-xl cursor-pointer"
+                                    className="w-full md:h-[140] rounded-xl cursor-pointer"
                                     src="https://s3-alpha-sig.figma.com/img/afc3/8e04/6bb0d59328447c3ebf72c549bd40ea6b?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Z4eyZ--JiTzOFbgxMwrAuh0TbTv~p7g7I0ZBUAF4HfuAVfsuKcazFDSoAae0UN8CnmMsZwy16lKd3TCLGyzTz2jmEbpiBBBBtlOE6CLKfofBVjAGFBeeDp2JrAmhPqrgjNBC3XKhAT7actn5oJTw8-ZAO-3iribfLcmQbLg5Jdb5UjYr~lywSdP0gAWsNrds6LydAzgJ4v45oYgmwmCXoZwjSewg42YQIiGUhsiWJf5bfakw70yASNT6kQcESlZirdnWzwZqLYy7O9BI7KuFWRQNQnCq3kdzP9WiGuAQTE7zoD2VXlWqY9qYYLYF03Kh9M5FgVvKaZzxXJL4Q3Ajfw__"
                                 />
                             </SwiperSlide>

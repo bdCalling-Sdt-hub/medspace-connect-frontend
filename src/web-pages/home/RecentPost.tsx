@@ -1,4 +1,3 @@
-'use client';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -29,7 +28,6 @@ const RecentPost = () => {
         infinite: true,
         speed: 500,
         arrows: true,
-
         slidesToShow: 4, // Default for large screens
         slidesToScroll: 1,
         autoplay: true,
@@ -71,14 +69,17 @@ const RecentPost = () => {
     return (
         <div className="container mx-auto my-10">
             <h2 className="text-primaryText text-xl">Recent Post</h2>
-            {/* cards */}
             <br />
-
             <div className="slider-container mx-auto">
                 <Slider {...settings}>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
-                        return <MedicalSpaceCard key={index} />;
-                    })}
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
+                        // Added padding and shadow to each slide/card
+                        <div key={index} className="p-4">
+                            <div className="bg-white rounded-xl  drop-shadow-md">
+                                <MedicalSpaceCard key={index} />
+                            </div>
+                        </div>
+                    ))}
                 </Slider>
             </div>
         </div>

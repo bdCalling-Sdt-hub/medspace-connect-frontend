@@ -27,9 +27,9 @@ const SpaceDetails = (params: any) => {
                             </p>
                         </div>
                     </div>
-                    <div className="col-span-12 md:col-span-5  p-5">
+                    <div className="col-span-12 md:col-span-5 space-y-4  p-5">
                         {/* booking section */}
-                        <div className="bg-white drop-shadow-md space-y-5 p-8 rounded-md">
+                        <div className="bg-white drop-shadow-xl space-y-5 p-8 rounded-xl">
                             <h1 className="text-2xl text-primaryText font-semibold">Doctors Practice Room</h1>
                             <div className="flex items-center gap-3">
                                 <Image height={33} width={33} className="rounded-full" src={Profile} alt="profile" />
@@ -50,11 +50,16 @@ const SpaceDetails = (params: any) => {
                                     <p className="text-primaryText">Dental care</p>
                                 </div>
                                 <div className="flex items-center gap-5">
-                                    <p className="bg-secondary text-white py-0.5 px-1 drop-shadow-xl rounded">
-                                        Facilities
-                                    </p>
+                                    <p className="text-primaryText/60">Facilities</p>
                                     <span className="text-primaryText/60">:</span>
-                                    <p className="text-primaryText">furnished / Newest/ Hospital</p>
+                                    <p className="text-primaryText">
+                                        {['Furnished', 'Newest', 'Hospital'].map((item, index, array) => (
+                                            <span key={item}>
+                                                {item}
+                                                {index < array.length - 1 && <span className="mx-1">/</span>}
+                                            </span>
+                                        ))}
+                                    </p>
                                 </div>
                                 <div className="flex items-center gap-5">
                                     <p className="text-primaryText/60">Opening Date :</p>
@@ -79,22 +84,27 @@ const SpaceDetails = (params: any) => {
                                 </Button>
                             </div>
                         </div>
-                        <div className=" mx-auto p-4 drop-shadow-md  rounded-lg shadow-lg">
+                        <div className=" mx-auto p-5 drop-shadow-xl bg-white  rounded-xl">
                             <div className="h-[383px] w-full ">
                                 <div className="flex items-center my-2 gap-4">
                                     <IoLocationOutline className="text-secondary" size={24} />
                                     <p className="text-gray-700">55/A, b park road, Abcd area, New York</p>
                                 </div>
-                                <ReactMapGL
-                                    initialViewState={{
-                                        longitude: -100,
-                                        latitude: 40,
-                                        zoom: 1,
-                                    }}
-                                    style={{ width: '100%', height: 300, borderRadius: 100 }}
-                                    mapboxAccessToken="pk.eyJ1Ijoib2huYWRpciIsImEiOiJjbGYzbXB2cG4wcjNsM3FuZGkyeXgzaGp3In0.UW7J5lIaWc-P3nXa2WmRxQ"
-                                    mapStyle="mapbox://styles/mapbox/streets-v9"
-                                />
+                                <div
+                                    className="overflow-hidden"
+                                    style={{ width: '100%', height: 350, borderRadius: '10px', overflow: 'hidden' }}
+                                >
+                                    <ReactMapGL
+                                        initialViewState={{
+                                            longitude: -100,
+                                            latitude: 40,
+                                            zoom: 1,
+                                        }}
+                                        style={{ width: '100%', height: '100%' }} // Keep the map's size flexible
+                                        mapboxAccessToken="pk.eyJ1Ijoib2huYWRpciIsImEiOiJjbGYzbXB2cG4wcjNsM3FuZGkyeXgzaGp3In0.UW7J5lIaWc-P3nXa2WmRxQ"
+                                        mapStyle="mapbox://styles/mapbox/streets-v9"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
