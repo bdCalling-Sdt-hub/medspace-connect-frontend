@@ -1,12 +1,13 @@
 'use client';
 import React from 'react';
 
-import CustomSlider from './CustomSlider';
 import Subscribe from '@/src/web-pages/home/Subscribe';
 import BookingDetails from '@/src/web-pages/details/BookingDetails';
 import LocationMap from '@/src/web-pages/details/LocationMap';
+import CustomSlider from '../../details/[id]/CustomSlider';
+import MyPostBookingDetails from '@/src/components/ui/MyPostBookingDetails';
 
-const SpaceDetails = (params: any) => {
+const MyPostDetails = () => {
     return (
         <>
             <div className="container my-4">
@@ -14,7 +15,6 @@ const SpaceDetails = (params: any) => {
                     <div className="col-span-12 md:col-span-7 p-2">
                         <CustomSlider needBack needFav />
                         <div className="my-4 space-y-5">
-                            {/* Description */}
                             <h1 className="text-3xl text-[#333333]">Description</h1>
                             <p className="text-primaryText">
                                 amet, ex Ut adipiscing sodales. massa placerat. Sed eget fringilla gravida nisi Donec eu
@@ -26,9 +26,7 @@ const SpaceDetails = (params: any) => {
                         </div>
                     </div>
                     <div className="col-span-12 md:col-span-5 space-y-4 p-2">
-                        {/* Booking Section */}
-                        <BookingDetails />
-                        {/* Location Map */}
+                        <MyPostBookingDetails />
                         <LocationMap />
                     </div>
                 </div>
@@ -38,4 +36,4 @@ const SpaceDetails = (params: any) => {
     );
 };
 
-export default SpaceDetails;
+export default MyPostDetails;

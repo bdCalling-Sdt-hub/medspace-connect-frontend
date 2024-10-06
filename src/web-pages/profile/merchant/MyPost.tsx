@@ -176,7 +176,6 @@ const MyPost = () => {
                 <MyMedicalSpacePostCard setEditModal={setEditModal} key={index} />
             ))}
 
-            {/* Modal for Editing Post */}
             <Modal body={renderForm()} open={editModal} setOpen={setEditModal} key="editModal" width={900} />
         </div>
     );

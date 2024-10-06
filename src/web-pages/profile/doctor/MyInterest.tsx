@@ -2,7 +2,6 @@ import CustomSlider from '@/src/app/(website)/details/[id]/CustomSlider';
 import Modal from '@/src/components/ui/Modal';
 import { useState } from 'react';
 import Image from 'next/image';
-import { AiOutlineHeart } from 'react-icons/ai';
 import Profile from '@/public/assets/profile.png';
 import Card from '@/public/assets/card.png';
 import { IoLocationOutline } from 'react-icons/io5';
@@ -52,8 +51,6 @@ const MyInterest = () => {
                                     <span className="text-2xl font-semibold text-primary">$500/</span>
                                     <span className="text-primary">mon</span>
                                 </p>
-
-                                <AiOutlineHeart className="text-yellow-400 text-2xl cursor-pointer" />
                             </div>
 
                             <div className="flex items-center gap-5">

@@ -15,10 +15,13 @@ import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import { BiArrowBack } from 'react-icons/bi';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 type TSliderProps = {
     needBack?: boolean;
+    needFav?: boolean;
 };
-export default function CustomSlider({ needBack }: TSliderProps) {
+export default function CustomSlider({ needBack = false, needFav = false }: TSliderProps) {
     const router = useRouter();
     const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
     const handleBack = () => {
@@ -34,16 +37,29 @@ export default function CustomSlider({ needBack }: TSliderProps) {
             >
                 {[...Array(5)].map((item, index) => (
                     <SwiperSlide key={index}>
-                        {needBack && (
-                            <button
-                                onClick={handleBack}
-                                className="flex items-center z-[999] text-primaryText gap-3 fixed top-5 left-0 bg-white px-8 py-4 rounded-r-full"
-                            >
-                                <BiArrowBack />
-                                Back
-                            </button>
-                        )}
-                        <img
+                        <div>
+                            {needBack && (
+                                <button
+                                    onClick={handleBack}
+                                    className="flex items-center z-[999] text-primaryText gap-3 fixed top-5 left-0 bg-white px-8 py-4 rounded-r-full"
+                                >
+                                    <BiArrowBack />
+                                    Back
+                                </button>
+                            )}
+                            {needFav && (
+                                <button
+                                    onClick={handleBack}
+                                    className="flex items-center z-[999] text-primaryText gap-3 fixed top-5 right-4 bg-white p-4 rounded-full"
+                                >
+                                    <AiOutlineHeart className="text-yellow-400 text-2xl cursor-pointer" />
+                                </button>
+                            )}
+                        </div>
+                        <Image
+                            width={500}
+                            height={500}
+                            alt="img"
                             className="w-full drop-shadow-md h-[330px] md:h-[500px] rounded-xl"
                             src="https://s3-alpha-sig.figma.com/img/afc3/8e04/6bb0d59328447c3ebf72c549bd40ea6b?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Z4eyZ--JiTzOFbgxMwrAuh0TbTv~p7g7I0ZBUAF4HfuAVfsuKcazFDSoAae0UN8CnmMsZwy16lKd3TCLGyzTz2jmEbpiBBBBtlOE6CLKfofBVjAGFBeeDp2JrAmhPqrgjNBC3XKhAT7actn5oJTw8-ZAO-3iribfLcmQbLg5Jdb5UjYr~lywSdP0gAWsNrds6LydAzgJ4v45oYgmwmCXoZwjSewg42YQIiGUhsiWJf5bfakw70yASNT6kQcESlZirdnWzwZqLYy7O9BI7KuFWRQNQnCq3kdzP9WiGuAQTE7zoD2VXlWqY9qYYLYF03Kh9M5FgVvKaZzxXJL4Q3Ajfw__"
                         />
@@ -63,7 +79,10 @@ export default function CustomSlider({ needBack }: TSliderProps) {
                     {[...Array(4)].map((item, index) => {
                         return (
                             <SwiperSlide key={index}>
-                                <img
+                                <Image
+                                    width={200}
+                                    height={140}
+                                    alt="img"
                                     className="w-full md:h-[140] rounded-xl cursor-pointer"
                                     src="https://s3-alpha-sig.figma.com/img/afc3/8e04/6bb0d59328447c3ebf72c549bd40ea6b?Expires=1728864000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Z4eyZ--JiTzOFbgxMwrAuh0TbTv~p7g7I0ZBUAF4HfuAVfsuKcazFDSoAae0UN8CnmMsZwy16lKd3TCLGyzTz2jmEbpiBBBBtlOE6CLKfofBVjAGFBeeDp2JrAmhPqrgjNBC3XKhAT7actn5oJTw8-ZAO-3iribfLcmQbLg5Jdb5UjYr~lywSdP0gAWsNrds6LydAzgJ4v45oYgmwmCXoZwjSewg42YQIiGUhsiWJf5bfakw70yASNT6kQcESlZirdnWzwZqLYy7O9BI7KuFWRQNQnCq3kdzP9WiGuAQTE7zoD2VXlWqY9qYYLYF03Kh9M5FgVvKaZzxXJL4Q3Ajfw__"
                                 />

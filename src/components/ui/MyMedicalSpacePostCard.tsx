@@ -22,31 +22,30 @@ const MyMedicalSpacePostCard = ({ setEditModal }: { setEditModal: Dispatch<SetSt
                     Edit
                 </button>
             </div>
-            <Link href={`details/1`} className=" ">
-                <div className="p-3">
-                    <Image height={219} width={344} className=" object-cover" src={Card} alt="Doctor's Practice Room" />
-                    <div className="p-4">
-                        <div className="flex justify-between items-center mb-2">
-                            <p className="flex items-center">
-                                <span className="text-2xl font-semibold text-primary">$500/</span>
-                                <span className="text-primary">mon</span>
-                            </p>
-                            <p className="text-green-600">Active</p>
-                        </div>
 
-                        <div className="flex items-center gap-5">
-                            <Image height={33} width={33} className=" rounded-full" src={Profile} alt="Doctor" />
-                            <h3 className="text-xl font-semibold text-headerText">Doctors Practice Room</h3>
-                        </div>
-
-                        {/* Description Section */}
-                        <div className="flex items-center mt-3 text-primaryText">
-                            <IoLocationOutline size={24} />
-                            <p className=" ml-2 text-sm">55/A, b park road, Abcd area, city</p>
-                        </div>
+            <div className="p-3">
+                <Image height={219} width={344} className=" object-cover" src={Card} alt="Doctor's Practice Room" />
+                <Link href={`my-post/${1}`} className="p-4">
+                    <div className="flex justify-between items-center mb-2">
+                        <p className="flex items-center">
+                            <span className="text-2xl font-semibold text-primary">$500/</span>
+                            <span className="text-primary">mon</span>
+                        </p>
+                        <p className="text-green-600">Active</p>
                     </div>
-                </div>
-            </Link>
+
+                    <div className="flex items-center gap-5">
+                        <Image height={33} width={33} className=" rounded-full" src={Profile} alt="Doctor" />
+                        <h3 className="text-xl font-semibold text-headerText">Doctors Practice Room</h3>
+                    </div>
+
+                    {/* Description Section */}
+                    <div className="flex items-center mt-3 text-primaryText">
+                        <IoLocationOutline size={24} />
+                        <p className=" ml-2 text-sm">55/A, b park road, Abcd area, city</p>
+                    </div>
+                </Link>
+            </div>
         </div>
     );
 };
