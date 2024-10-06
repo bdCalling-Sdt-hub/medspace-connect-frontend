@@ -4,8 +4,10 @@ import hostbanner from '@/public/assets/banner.svg';
 import person from '@/public/assets/profile.png';
 
 import { CiEdit } from 'react-icons/ci';
+import { useAppSelector } from '@/src/redux/hooks';
 
 const ProfileBanner = () => {
+    const { user } = useAppSelector((state) => state.auth);
     return (
         <div className="container mx-auto my-10">
             <div className="relative lg:h-[200px] h-[250px]">
@@ -90,7 +92,7 @@ const ProfileBanner = () => {
                         <div>
                             <h1 className="text-2xl text-[#4E4E4E]">Saiful Islam Fahim</h1>
 
-                            <p className="text-secondary text-[14px]  leading-6 font-normal">Doctor</p>
+                            <p className="text-secondary text-[14px]  leading-6 font-normal capitalize">{user}</p>
                         </div>
                     </div>
                 </div>

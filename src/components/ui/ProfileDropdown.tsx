@@ -5,7 +5,9 @@ import { Button } from 'antd';
 import Link from 'next/link';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { logOut } from '@/src/redux/features/auth/authSlice';
+import { useRouter } from 'next/navigation';
 const ProfileDropdown = () => {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     return (
         <div className="w-[263px] min-h-[226px] mx-auto bg-white shadow-md rounded-lg overflow-hidden ml-5 pb-2">
@@ -54,7 +56,10 @@ const ProfileDropdown = () => {
 
             {/* Log Out Section */}
             <div
-                onClick={() => dispatch(logOut())}
+                onClick={() => {
+                    dispatch(logOut());
+                    router.push('/');
+                }}
                 className="flex justify-start gap-4 cursor-pointer items-center px-6 py-2"
             >
                 <svg width={15} height={15} viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">

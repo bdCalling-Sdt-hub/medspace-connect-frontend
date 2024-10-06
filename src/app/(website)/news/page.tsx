@@ -25,7 +25,7 @@ const NewsPage = () => {
                                     <h1 className="text-2xl font-semibold my-3 text-[#FAFAFA]">
                                         Why doctors have to take our service{' '}
                                     </h1>
-                                    <Link href={`/newsDetails/${index + 1}`}>
+                                    <Link href={`/news/${index + 1}`}>
                                         <div className="text-[#FAFAFA] flex items-center gap-2 underline">
                                             <p>Visit Now</p>
                                         </div>
