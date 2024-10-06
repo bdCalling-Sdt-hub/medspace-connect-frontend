@@ -48,10 +48,7 @@ export default function CustomSlider({ needBack = false, needFav = false }: TSli
                                 </button>
                             )}
                             {needFav && (
-                                <button
-                                    onClick={handleBack}
-                                    className="flex items-center z-[999] text-primaryText gap-3 fixed top-5 right-4 bg-white p-4 rounded-full"
-                                >
+                                <button className="flex items-center z-[999] text-primaryText gap-3 fixed top-5 right-4 bg-white p-4 rounded-full">
                                     <AiOutlineHeart className="text-yellow-400 text-2xl cursor-pointer" />
                                 </button>
                             )}

@@ -7,6 +7,7 @@ import VerificationForm from './VerificationForm';
 import NewPasswordForm from './NewPasswordFrom';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { login } from '@/src/redux/features/auth/authSlice';
+import { useRouter } from 'next/navigation';
 
 const LoginForm = ({
     onFinish,
@@ -22,6 +23,7 @@ const LoginForm = ({
     const [forgetModal, setForgetModal] = useState(false);
     const [otpModal, setOtpModal] = useState(false);
     const [newPasswordModal, setNewPasswordModal] = useState(false);
+    const router = useRouter();
 
     const handleForget = (values: any) => {
         // TODO: Implement login logic
@@ -107,6 +109,7 @@ const LoginForm = ({
                             onClick={() => {
                                 dispatch(login('doctor'));
                                 setLoginModal(false);
+                                router.push('/profile');
                             }}
                             htmlType="submit"
                             shape="round"
@@ -127,6 +130,7 @@ const LoginForm = ({
                             onClick={() => {
                                 dispatch(login('provider'));
                                 setLoginModal(false);
+                                router.push('/profile');
                             }}
                             htmlType="submit"
                             shape="round"

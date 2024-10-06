@@ -89,6 +89,7 @@ const Navbar = () => {
                                             display: 'flex',
                                             alignItems: 'center',
                                             backgroundColor: '#f5f5f5',
+                                            gap: 5,
                                             borderRadius: '50px',
                                             padding: '4px 10px',
                                             cursor: 'pointer',
@@ -96,14 +97,21 @@ const Navbar = () => {
                                         }}
                                     >
                                         <Image width={40} height={40} alt="profile" src={Profile} />
-                                        <DownOutlined
-                                            style={{
-                                                fontSize: '16px',
-                                                color: '#1890ff',
-                                                paddingLeft: '8px',
-                                                paddingRight: '8px',
-                                            }}
-                                        />
+                                        <svg
+                                            width={25}
+                                            height={25}
+                                            viewBox="0 0 25 25"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path
+                                                d="M6.34473 9.67603L12.3447 15.676L18.3447 9.67603"
+                                                stroke="#0A8FDC"
+                                                strokeWidth={2}
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
                                     </div>
                                 </Dropdown>
                             </>
