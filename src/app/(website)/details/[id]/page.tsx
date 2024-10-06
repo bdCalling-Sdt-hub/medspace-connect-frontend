@@ -12,7 +12,7 @@ const SpaceDetails = (params: any) => {
             <div className="container my-4">
                 <div className="grid grid-cols-12">
                     <div className="col-span-12 md:col-span-7 p-2">
-                        <CustomSlider />
+                        <CustomSlider needBack />
                         <div className="my-4 space-y-5">
                             {/* Description */}
                             <h1 className="text-3xl text-[#333333]">Description</h1>
