@@ -1,34 +1,32 @@
 import Link from 'next/link';
 import Logo from '/public/assets/logo.svg';
 import Image from 'next/image';
+
 const Footer = () => {
     return (
-        <footer className="bg-[#F4F4F4]  h-[264px]">
-            <div className="container mx-auto h-full flex flex-wrap justify-between items-center">
+        <footer className="bg-[#F4F4F4] py-6 md:h-[264px]">
+            <div className="container mx-auto h-full flex flex-col md:flex-row flex-wrap justify-between items-center space-y-6 md:space-y-0">
                 {/* Logo Section */}
-                <div className="flex items-center">
-                    <Image width={283} height={80} src={Logo} alt="Keven Service Logo" className=" mr-4" />
+                <div className="flex justify-center md:justify-start items-center">
+                    <Image width={283} height={80} src={Logo} alt="Keven Service Logo" className="mr-4" />
                 </div>
 
                 {/* Terms, Privacy, FAQ */}
-                <div className="text-primaryText space-y-10  text-start">
+                <div className="text-primaryText space-y-3 md:space-y-10 text-center md:text-start">
                     <p className="hover:text-primaryText/90 cursor-pointer">
                         <Link href="/terms-&-condition"> Terms & Conditions</Link>
                     </p>
-
                     <p className="hover:text-primaryText/90 cursor-pointer">
                         <Link href="/privacy-policy">Privacy Policy</Link>
                     </p>
-
                     <p className="hover:text-primaryText/90 cursor-pointer">
                         <Link href="/faq">FAQ</Link>
                     </p>
                 </div>
 
                 {/* Social Media Icons */}
-                <div>
-                    <h1 className="text-primaryText text-lg my-5">Follow Us</h1>
-
+                <div className="text-center">
+                    <h1 className="text-primaryText text-lg my-2">Follow Us</h1>
                     <div className="flex space-x-4">
                         <a href="#" className="text-blue-600 hover:text-blue-800">
                             <svg
@@ -2502,7 +2500,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className="bg-[#222222] py-3 h-12 text-[#F7F7F7] text-center flex items-center justify-center">
+            <div className="bg-[#222222] py-3 mt-5 text-[#F7F7F7] text-center flex items-center justify-center">
                 <h1 className="text-sm">© Copyright UX/UI {new Date().getFullYear()} Team Md. Asadujjaman Mahfuz</h1>
             </div>
         </footer>

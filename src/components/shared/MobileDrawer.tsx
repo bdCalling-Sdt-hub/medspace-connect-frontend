@@ -1,28 +1,35 @@
 import { Drawer, Button } from 'antd';
 import NavItems from './NavItems';
 
-const MobileDrawer = ({ open, onClose, items }: { open: boolean; onClose: () => void; items: any[] }) => {
+const MobileDrawer = ({
+    open,
+    onClose,
+    items,
+    setLoginModal,
+}: {
+    open: boolean;
+    onClose: () => void;
+    items: any[];
+    setLoginModal: any;
+}) => {
     return (
         <Drawer placement="left" onClose={onClose} open={open}>
             <div className="flex flex-col items-center gap-8">
                 <NavItems items={items} onClose={onClose} />
             </div>
             <div className="flex justify-center items-center gap-10 my-5">
-                {/* <Button
+                <Button
+                    onClick={() => setLoginModal(true)}
+                    type="link"
                     style={{
                         lineHeight: '24px',
-                        height: '48px',
-                        width: '174px',
-                        backgroundColor: '#F7F7F7',
-                        padding: '10px',
+                        fontWeight: 500,
+                        backgroundColor: 'transparent',
                         color: '#0A8FDC',
-                        borderRadius: '60px',
-                        border: '1px solid #0A8FDC',
                     }}
-                    color="primary"
                 >
-                    Create Account
-                </Button> */}
+                    Login
+                </Button>
             </div>
         </Drawer>
     );

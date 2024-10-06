@@ -53,9 +53,7 @@ const SupportPage = () => {
                         {/* info container */}
                         <div className="text-center">
                             <h1 className="text-[#00809E] text-2xl">Email</h1>
-                            <p className="text-primaryText text-[14px] leading-[21px] font-normal">
-                                Al. Brucknera Aleksandra 63, <br /> Wrocław 51-410
-                            </p>
+                            <p className="text-primaryText text-[14px] leading-[21px] font-normal">john@example.com</p>
                         </div>
                     </div>
                     <div className="relative bg-white group w-[319px] h-[220px] rounded-2xl mx-auto flex items-center justify-center">
@@ -75,9 +73,7 @@ const SupportPage = () => {
                         {/* info container */}
                         <div className="text-center">
                             <h1 className="text-[#00809E] text-2xl">Get In Touch</h1>
-                            <p className="text-primaryText text-[14px] leading-[21px] font-normal">
-                                Al. Brucknera Aleksandra 63, <br /> Wrocław 51-410
-                            </p>
+                            <p className="text-primaryText text-[14px] leading-[21px] font-normal">123-456-7890</p>
                         </div>
                     </div>
                 </div>

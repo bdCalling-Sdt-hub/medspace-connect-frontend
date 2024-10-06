@@ -1,6 +1,6 @@
 'use client';
 import { Button, Select } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoOptionsOutline } from 'react-icons/io5';
 import { SearchOutlined } from '@ant-design/icons';
 import { FaChevronDown } from 'react-icons/fa6';
@@ -29,6 +29,10 @@ const Filter = () => {
 
         router.push(`/search?${params.toString()}`);
     };
+    useEffect(() => {
+        const isMobile = window.innerWidth <= 768;
+        setFilter(isMobile);
+    }, []);
 
     // options for dropdowns
     const locationOptions = [
@@ -100,28 +104,36 @@ const Filter = () => {
                     {location && (
                         <div className="flex items-center">
                             <span className="capitalize">Place: {location}</span>
-                            <span className="ml-2 text-[#FBA51A]">✕</span>
+                            <button onClick={() => setLocation('')} className="ml-2 text-[#FBA51A]">
+                                ✕
+                            </button>
                         </div>
                     )}
                     {/* Filter Item */}
                     {price && (
                         <div className="flex items-center">
                             <span className="capitalize">Price: {[price]}</span>
-                            <span className="ml-2 text-[#FBA51A]">✕</span>
+                            <button onClick={() => setPrice('')} className="ml-2 text-[#FBA51A]">
+                                ✕
+                            </button>
                         </div>
                     )}
                     {/* Filter Item */}
                     {practiceType && (
                         <div className="flex items-center">
                             <span className="capitalize">Practice on: {practiceType}</span>
-                            <span className="ml-2 text-[#FBA51A]">✕</span>
+                            <button onClick={() => setPracticeType('')} className="ml-2 text-[#FBA51A]">
+                                ✕
+                            </button>
                         </div>
                     )}
                     {/* Filter Item */}
                     {facilities && (
                         <div className="flex items-center">
                             <span className="capitalize">Facilities: {facilities}</span>
-                            <span className="ml-2 text-[#FBA51A]">✕</span>
+                            <button onClick={() => setFacilities('')} className="ml-2 text-[#FBA51A]">
+                                ✕
+                            </button>
                         </div>
                     )}
                 </div>

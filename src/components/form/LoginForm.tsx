@@ -51,7 +51,7 @@ const LoginForm = ({
     };
     return (
         <>
-            <div className="p-8">
+            <div className="md:p-8">
                 <div className="space-y-5 mb-5">
                     <h2 className="text-3xl text-[#333333] font-semibold text-center">Log in to your account</h2>
                     <p className="text-center text-gray-500 mb-6">Please enter your email and password to continue</p>

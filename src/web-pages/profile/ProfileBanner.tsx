@@ -39,8 +39,8 @@ const ProfileBanner = () => {
                         htmlFor="imageUploadBanner"
                         style={{
                             position: 'absolute',
-                            top: 1,
-                            right: 0,
+                            top: 5,
+                            right: 5,
                             backgroundColor: 'white',
                             width: 35,
                             height: 35,
