@@ -34,7 +34,7 @@ const Navbar = () => {
     const commonItems = [
         { label: 'Home', path: '/' },
         { label: 'About', path: '/about' },
-        { label: 'News', path: '/news' },
+        // { label: 'News', path: '/news' },
         { label: 'Supports', path: '/supports' },
     ];
     const items = user === 'provider' ? [...commonItems, { label: 'Packages', path: '/packages' }] : commonItems;

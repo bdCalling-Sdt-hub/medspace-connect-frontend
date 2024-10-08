@@ -34,7 +34,7 @@ const MyPackage = () => {
                                 </svg>
                             </div>
                             <div className="ml-4">
-                                <h2 className="text-primary font-bold text-2xl">STANDARD</h2>
+                                <h2 className="text-primary font-bold text-2xl">PRO</h2>
                                 <p className="text-gray-600 font-medium">Package</p>
                             </div>
                         </div>

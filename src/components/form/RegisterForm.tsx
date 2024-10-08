@@ -135,15 +135,21 @@ const RegisterForm = ({
                     rules={[
                         {
                             required: true,
-                            message: 'Please accept the terms of service and privacy policy to proceed.',
+                            message: 'Please accept the terms & condition and user agreement.',
                         },
                     ]}
                     name="agreement"
                     valuePropName="checked"
                 >
                     <Checkbox>
-                        I agree to the <a className="text-primary">Terms of Service</a> and{' '}
-                        <a className="text-primary">Privacy Policy</a>
+                        I agree to the{' '}
+                        <a href="terms-&-condition" className="text-primary">
+                            Terms & Condition
+                        </a>{' '}
+                        and{' '}
+                        <a href="/user-agreement" className="text-primary">
+                            user agreement
+                        </a>
                     </Checkbox>
                 </Form.Item>
 

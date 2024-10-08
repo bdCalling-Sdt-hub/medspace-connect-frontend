@@ -59,7 +59,7 @@ const MyPostBookingDetails = () => (
                     color: '#fff',
                 }}
             >
-                Mark as Sold
+                Mark as Occupied
             </Button>
         </div>
     </div>

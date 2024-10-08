@@ -3,7 +3,7 @@
 import Modal from '@/src/components/ui/Modal';
 import { useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
-import { Button, Form, Input, DatePicker, Select, Upload } from 'antd';
+import { Button, Form, Input, DatePicker, Select, Upload, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 const PostSpace = () => {
@@ -22,12 +22,37 @@ const PostSpace = () => {
         <Form className="p-2" layout="vertical" onFinish={onFinish}>
             <div className="flex items-center space-x-4 mb-6">
                 <Form.Item
-                    rules={[{ required: true, message: 'Please select an image' }]}
-                    valuePropName="fileList" // Use fileList as the prop for value
-                    getValueFromEvent={(e) => e.fileList}
                     name="images"
+                    label="Upload Images"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please select at least 2 images!',
+                        },
+                        {
+                            validator: (_, value) => {
+                                if (value && value.fileList.length < 2) {
+                                    return Promise.reject(new Error('You must upload at least 2 images!'));
+                                }
+                                return Promise.resolve();
+                            },
+                        },
+                    ]}
                 >
-                    <Upload multiple listType="picture-card" className="avatar-uploader" showUploadList={true}>
+                    <Upload
+                        maxCount={7} // Maximum number of files
+                        multiple
+                        listType="picture-card"
+                        className="avatar-uploader"
+                        showUploadList={true}
+                        onChange={(info) => {
+                            if (info.file.status === 'done') {
+                                message.success(`${info.file.name} file uploaded successfully`);
+                            } else if (info.file.status === 'error') {
+                                message.error(`${info.file.name} file upload failed.`);
+                            }
+                        }}
+                    >
                         {uploadButton}
                     </Upload>
                 </Form.Item>
@@ -56,7 +81,8 @@ const PostSpace = () => {
                         rules={[{ required: true, message: 'Please select the price type!' }]}
                     >
                         <Select placeholder="Select Price Type" style={{ height: '48px', borderRadius: 40 }}>
-                            <Select.Option value="demo">Demo</Select.Option>
+                            <Select.Option value="monthly">Monthly</Select.Option>
+                            <Select.Option value="yearly">Yearly</Select.Option>
                         </Select>
                     </Form.Item>
                 </div>
@@ -107,12 +133,24 @@ const PostSpace = () => {
                 </Form.Item>
             </div>
 
+            <Form.Item
+                rules={[{ required: true, message: 'Please enter ideal occupant specialty' }]}
+                label={<span className="custom-label">Ideal occupant specialty</span>}
+                name="idealOccupant"
+            >
+                <TextArea
+                    style={{ borderRadius: '24px', height: 'auto', paddingTop: 10 }}
+                    rows={3}
+                    cols={3}
+                    placeholder="Please type ideal occupant specialty"
+                />
+            </Form.Item>
             <Form.Item label={<span className="custom-label">Description</span>} name="description">
                 <TextArea
-                    style={{ borderRadius: '24px', height: 'auto', paddingTop: 20 }}
-                    rows={4}
-                    cols={4}
-                    placeholder="Asadujjaman"
+                    style={{ borderRadius: '24px', height: 'auto', paddingTop: 10 }}
+                    rows={3}
+                    cols={3}
+                    placeholder="Please type a description"
                 />
             </Form.Item>
 
@@ -139,7 +177,7 @@ const PostSpace = () => {
         </Form>
     );
     return (
-        <div className="flex items-center md:ms-[280px] gap-5">
+        <div className="flex items-center md:ms-[350px] gap-5">
             <h1 className="text-secondary text-lg">Remaining Post : 3/6</h1>
             <Button
                 onClick={() => setModal(true)}

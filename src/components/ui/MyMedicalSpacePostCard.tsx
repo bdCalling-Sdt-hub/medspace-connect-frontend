@@ -5,7 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 import { IoLocationOutline } from 'react-icons/io5';
-const MyMedicalSpacePostCard = ({ setEditModal }: { setEditModal: Dispatch<SetStateAction<boolean>> }) => {
+const MyMedicalSpacePostCard = ({
+    setEditModal,
+    index,
+}: {
+    setEditModal: Dispatch<SetStateAction<boolean>>;
+    index: number;
+}) => {
     return (
         <div className="bg-white max-w-[360px] mx-auto rounded-xl  drop-shadow-md  relative overflow-hidden">
             {/* edit button */}
@@ -31,7 +37,9 @@ const MyMedicalSpacePostCard = ({ setEditModal }: { setEditModal: Dispatch<SetSt
                             <span className="text-2xl font-semibold text-primary">$500/</span>
                             <span className="text-primary">mon</span>
                         </p>
-                        <p className="text-green-600">Active</p>
+                        <p className={index % 2 === 0 ? 'text-green-600' : 'text-red-600'}>
+                            {index % 2 === 0 ? 'Active' : 'Occupied'}
+                        </p>
                     </div>
 
                     <div className="flex items-center gap-5">

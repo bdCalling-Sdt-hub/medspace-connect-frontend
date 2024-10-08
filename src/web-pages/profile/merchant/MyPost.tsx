@@ -173,7 +173,7 @@ const MyPost = () => {
         <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             {/* Render Medical Post Cards */}
             {[...Array(2)].map((_, index) => (
-                <MyMedicalSpacePostCard setEditModal={setEditModal} key={index} />
+                <MyMedicalSpacePostCard index={index} setEditModal={setEditModal} key={index} />
             ))}
 
             <Modal body={renderForm()} open={editModal} setOpen={setEditModal} key="editModal" width={900} />

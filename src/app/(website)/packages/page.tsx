@@ -3,32 +3,35 @@ import { Button } from 'antd';
 const PackagePage = () => {
     const packages = [
         {
-            id: 1,
-            title: 'Essentials',
-            price: '$10',
-            priceType: 'Month',
-            features: ['3 Post', '3 Month validity', 'Basic Support'],
-        },
-        {
             id: 2,
-            title: 'Premium',
-            price: '$30',
+            title: 'Basic',
+            price: '$7.99',
             priceType: 'Month',
-            features: ['10 Post', '6 Month validity', 'Priority Support'],
+            features: [
+                'One space post',
+                'Valid for as long as space is listed',
+                'Priority Support',
+                'Easy Listing Management',
+            ],
         },
         {
             id: 3,
             title: 'Pro',
-            price: '$50',
+            price: '$14.99',
             priceType: 'Month',
-            features: ['Unlimited Post', '12 Month validity', 'Premium Support'],
+            features: [
+                'Unlimited Space Posts',
+                'Valid for as long as space is listed',
+                'Unlimited messaging',
+                'Premium Support',
+            ],
         },
     ];
 
     return (
         <div className="container min-h-screen mx-auto my-20">
             <h2 className="text-primary text-2xl font-semibold my-10">Our Packages </h2>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 place-items-center">
+            <div className="grid grid-cols-1 md:px-[200px] gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 place-items-center">
                 {packages.map((pkg) => {
                     return (
                         <div key={pkg.id} className="w-full  duration-300 mx-auto p-6 bg-gray-100 rounded-lg shadow-md">

@@ -17,7 +17,12 @@ const Footer = () => {
                         <Link href="/terms-&-condition"> Terms & Conditions</Link>
                     </p>
                     <p className="hover:text-primaryText/90 cursor-pointer">
-                        <Link href="/privacy-policy">Privacy Policy</Link>
+                        <Link
+                            href="/user-agreement
+                        "
+                        >
+                            User Agreement
+                        </Link>
                     </p>
                     <p className="hover:text-primaryText/90 cursor-pointer">
                         <Link href="/faq">FAQ</Link>
