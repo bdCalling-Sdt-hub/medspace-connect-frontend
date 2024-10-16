@@ -8,7 +8,7 @@ const Professional = () => {
             <h2 className="text-secondaryText text-xl mx-2">Professional</h2>
 
             <div className="grid grid-cols-1 my-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-3 justify-center items-center mx-auto">
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => {
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item, index) => {
                     return <MedicalSpaceCard key={index} />;
                 })}
             </div>

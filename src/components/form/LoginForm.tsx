@@ -91,7 +91,7 @@ const LoginForm = ({
 
                     <div className="flex justify-between items-center my-5">
                         <Form.Item name="remember" valuePropName="checked" noStyle>
-                            <Checkbox>Remember Password</Checkbox>
+                            <Checkbox>Stay Logged In</Checkbox>
                         </Form.Item>
                         <a
                             onClick={() => {

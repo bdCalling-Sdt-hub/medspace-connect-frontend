@@ -25,7 +25,7 @@ const NewPasswordForm = ({ onFinish }: { onFinish: (values: any) => void }) => {
                     <Input.Password placeholder="******" style={{ borderRadius: '24px', height: '48px' }} />
                 </Form.Item>
                 <Form.Item
-                    label={<span className="custom-label">Email</span>}
+                    label={<span className="custom-label">Confirm Password</span>}
                     name="password"
                     rules={[{ required: true, message: 'Please enter confirm password!' }]}
                 >

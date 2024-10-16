@@ -27,7 +27,7 @@ const RegisterForm = ({
         setRegisterModal(false);
     };
     return (
-        <div className="md:p-6">
+        <div className="md:p-4">
             <div className="space-y-5 mb-5">
                 <h2 className="text-3xl text-[#333333] font-semibold text-center">Sign up</h2>
                 <p className="text-center text-gray-500 mb-6">Please Enter Your Personal Data</p>
@@ -132,20 +132,20 @@ const RegisterForm = ({
                     />
                 </Form.Item>
                 <Form.Item
+                    name="agreement"
+                    valuePropName="checked" // Link checkbox value to form
                     rules={[
                         {
                             required: true,
                             message: 'Please accept the terms & condition and user agreement.',
                         },
                     ]}
-                    name="agreement"
-                    valuePropName="checked"
                 >
                     <Checkbox>
                         I agree to the{' '}
                         <a href="terms-&-condition" className="text-primary">
                             Terms & Condition
-                        </a>{' '}
+                        </a>
                         and{' '}
                         <a href="/user-agreement" className="text-primary">
                             user agreement

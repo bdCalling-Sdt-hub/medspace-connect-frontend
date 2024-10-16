@@ -10,7 +10,7 @@ export default function CommonLayout({
     children: React.ReactNode;
 }>) {
     const pathname = usePathname();
-    console.log(pathname);
+    // console.log(pathname);
     return (
         <div>
             <ChatBox />
