@@ -1,6 +1,4 @@
 'use client';
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -38,14 +36,14 @@ export default function CustomSlider({ needBack = false, needFav = false }: TSli
                             {needBack && (
                                 <button
                                     onClick={handleBack}
-                                    className="flex items-center z-[999] text-primaryText gap-3 fixed top-5 left-0 bg-white px-8 py-4 rounded-r-full"
+                                    className="flex items-center z-[999] text-primaryText gap-3 fixed md:top-5 top-8 left-0 bg-white px-6 py-3  rounded-r-full"
                                 >
                                     <BiArrowBack />
                                     Back
                                 </button>
                             )}
                             {needFav && (
-                                <button className="flex items-center z-[999] text-primaryText gap-3 fixed top-5 right-4 bg-white p-4 rounded-full">
+                                <button className="flex items-center z-[999] text-primaryText gap-3 fixed md:top-5 top-8 right-4 bg-white py-3 px-3  rounded-full">
                                     <AiOutlineHeart className="text-yellow-400 text-2xl cursor-pointer" />
                                 </button>
                             )}
@@ -54,7 +52,7 @@ export default function CustomSlider({ needBack = false, needFav = false }: TSli
                             width={500}
                             height={500}
                             alt="img"
-                            className="w-full drop-shadow-md h-[330px] md:h-[500px] rounded-xl"
+                            className="w-full drop-shadow-md h-full rounded-xl"
                             src={SpaceImg}
                         />
                     </SwiperSlide>

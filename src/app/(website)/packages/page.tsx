@@ -5,7 +5,7 @@ const PackagePage = () => {
         {
             id: 2,
             title: 'Basic',
-            price: '$9.99',
+            price: '$8.00',
             priceType: 'Month',
             features: [
                 'One space post',
@@ -17,7 +17,7 @@ const PackagePage = () => {
         {
             id: 3,
             title: 'Pro',
-            price: '$14.99',
+            price: '$12.00',
             priceType: 'Month',
             features: [
                 'Unlimited Space Posts',

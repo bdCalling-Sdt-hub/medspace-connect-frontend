@@ -1,280 +1,171 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import { Button, Select } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { FilterButton } from './filter/FilterButton';
+import { SearchInput } from './filter/SearchInput';
 import { IoOptionsOutline } from 'react-icons/io5';
-import { SearchOutlined } from '@ant-design/icons';
-import { FaChevronDown } from 'react-icons/fa6';
+import { CustomSelect } from './filter/CustomSelect';
+import {
+    facilitiesOptions,
+    locationOptions,
+    practiceNeedOptions,
+    practiceTypeOptions,
+    priceOptions,
+} from '@/src/const/const';
+import FilterModal from './filter/FilterModal';
+import { FilterItem } from './filter/FilterItem';
+import {
+    clearFilter,
+    setFacilities,
+    setLocation,
+    setPracticeNeed,
+    setPracticeType,
+    setPrice,
+    setSearchQuery,
+} from '@/src/redux/features/filter/FilterSlice';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { useRouter } from 'next/navigation';
 
-const { Option } = Select;
-
 const Filter = () => {
-    const [filter, setFilter] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [location, setLocation] = useState('');
-    const [price, setPrice] = useState('');
-    const [practiceType, setPracticeType] = useState('');
-    const [facilities, setFacilities] = useState('');
-
+    const dispatch = useAppDispatch();
     const router = useRouter();
 
-    const handleSearch = () => {
-        const params = new URLSearchParams();
-
-        if (searchQuery) params.set('search', searchQuery);
-        if (location) params.set('location', location);
-        if (price) params.set('price', price);
-        if (practiceType) params.set('practiceType', practiceType);
-        if (facilities) params.set('facilities', facilities);
-
-        router.push(`/search?${params.toString()}`);
+    // Filter states from Redux
+    const { searchQuery, location, price, practiceType, facilities, practiceNeed } = useAppSelector(
+        (state) => state.filter
+    );
+    const [isFilterActive, setIsFilterActive] = useState(false);
+    const [filterModalOpen, setFilterModalOpen] = useState(false);
+    const clearFilterState = (filterKey: any) => {
+        dispatch(clearFilter(filterKey));
     };
-    useEffect(() => {
-        const isMobile = window.innerWidth <= 768;
-        setFilter(isMobile);
-    }, []);
-
-    // options for dropdowns
-    const locationOptions = [
-        { label: 'New York', value: 'new_york' },
-        { label: 'Los Angeles', value: 'los_angeles' },
-    ];
-
-    const priceOptions = [
-        { label: '$100 - $500/m', value: '100-500' },
-        { label: '$500 - $1000/m', value: '500-1000' },
-    ];
-
-    const practiceTypeOptions = [
-        { label: 'Dental Care', value: 'dental_care' },
-        { label: 'Eye Care', value: 'eye_care' },
-    ];
-
-    const facilitiesOptions = [
-        { label: 'Wi-Fi', value: 'wifi' },
-        { label: 'Parking', value: 'parking' },
-    ];
 
     return (
-        <div className="bg-[#F7F7F7] pb-8 pt-4 ">
+        <div className="bg-[#F7F7F7] md:pb-8 pb-3 pt-4">
+            {/* filter section for desktop device */}
             <div
-                className={`${
-                    filter ? 'md:w-[900px]' : 'md:w-[725px]'
-                } flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:drop-shadow-sm md:rounded-full overflow-hidden`}
+                className={`hidden ${
+                    isFilterActive ? 'w-[900px]' : 'md:w-[725px]'
+                } md:flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:drop-shadow-sm md:rounded-full overflow-hidden`}
             >
-                <div>
-                    <input
-                        placeholder="Search here"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                        className="my-5 md:hidden rounded-3xl border-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none border-transparent px-8 py-5 text-primaryText"
-                    />
-                </div>
-                <div className="hidden md:block">
-                    <SearchInput
-                        filter={filter}
-                        value={searchQuery}
-                        setSearchQuery={setSearchQuery}
-                        handleSearch={handleSearch}
-                    />
-                </div>
-                <FilterButton filter={filter} setFilter={setFilter} />
-                <DropdownsContainer
-                    filter={filter}
-                    location={location}
-                    price={price}
-                    practiceType={practiceType}
-                    facilities={facilities}
-                    setLocation={setLocation}
-                    setPrice={setPrice}
-                    setPracticeType={setPracticeType}
-                    setFacilities={setFacilities}
-                    handleSearch={handleSearch}
-                    locationOptions={locationOptions}
-                    priceOptions={priceOptions}
-                    practiceTypeOptions={practiceTypeOptions}
-                    facilitiesOptions={facilitiesOptions}
+                <SearchInput
+                    filter={isFilterActive}
+                    value={searchQuery as string}
+                    setSearchQuery={(query) => {
+                        dispatch(setSearchQuery(query));
+                        router.push(`/search`);
+                    }}
                 />
+                <FilterButton filter={isFilterActive} setFilter={setIsFilterActive} />
+                <div
+                    className={`${
+                        isFilterActive ? 'ms-0' : 'ms-[500px]'
+                    } duration-500 flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-center w-full my-5 h-auto md:h-[64px] mx-auto px-1 rounded-full`}
+                >
+                    <CustomSelect
+                        options={locationOptions}
+                        placeholder="Location"
+                        onChange={(value) => {
+                            dispatch(setLocation(value));
+                            router.push(`/search`);
+                        }}
+                    />
+                    <CustomSelect
+                        options={priceOptions}
+                        placeholder="Price"
+                        onChange={(value) => {
+                            dispatch(setPrice(value));
+                            router.push(`/search`);
+                        }}
+                    />
+                    <CustomSelect
+                        options={practiceTypeOptions}
+                        placeholder="Practice Type"
+                        onChange={(value) => {
+                            dispatch(setPracticeType(value));
+                            router.push(`/search`);
+                        }}
+                    />
+                    <CustomSelect
+                        options={practiceNeedOptions}
+                        placeholder="Practice Need"
+                        onChange={(value) => {
+                            dispatch(setPracticeNeed(value));
+                            router.push(`/search`);
+                        }}
+                    />
+                    <CustomSelect
+                        options={facilitiesOptions}
+                        placeholder="Facilities"
+                        onChange={(value) => {
+                            dispatch(setFacilities(value));
+                            router.push(`/search`);
+                        }}
+                    />
+                </div>
             </div>
 
+            {/* filter section for mobile device */}
+            <div className="md:hidden flex justify-center items-center gap-4">
+                <input
+                    value={searchQuery as string}
+                    onChange={(e) => dispatch(setSearchQuery(e.target.value))}
+                    // onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                    className="h-12 px-4 rounded-full border-none outline-none ring-0 focus:outline-none focus:ring-0"
+                    type="text"
+                    placeholder="search here"
+                />
+                <button
+                    onClick={() => setFilterModalOpen(true)}
+                    className="rounded-full h-12 px-3 py-2 bg-primary text-white"
+                >
+                    <IoOptionsOutline className="text-2xl" />
+                </button>
+            </div>
+
+            {/* Section for showing selected values */}
             <div className="container mx-auto">
-                <div className="flex flex-wrap items-center gap-4 my-4 text-[#CCCCCC] text-sm font-medium">
-                    {/* Filter Item */}
+                <div className="flex flex-wrap justify-center items-center gap-4 my-4 text-[#CCCCCC] text-sm font-medium">
                     {location && (
-                        <div className="flex items-center">
-                            <span className="capitalize">Place: {location}</span>
-                            <button onClick={() => setLocation('')} className="ml-2 text-[#FBA51A]">
-                                ✕
-                            </button>
-                        </div>
+                        <FilterItem label="Place" value={location} clearFilter={() => clearFilterState('location')} />
                     )}
-                    {/* Filter Item */}
-                    {price && (
-                        <div className="flex items-center">
-                            <span className="capitalize">Price: {[price]}</span>
-                            <button onClick={() => setPrice('')} className="ml-2 text-[#FBA51A]">
-                                ✕
-                            </button>
-                        </div>
-                    )}
-                    {/* Filter Item */}
+                    {price && <FilterItem label="Price" value={price} clearFilter={() => clearFilterState('price')} />}
                     {practiceType && (
-                        <div className="flex items-center">
-                            <span className="capitalize">Practice on: {practiceType}</span>
-                            <button onClick={() => setPracticeType('')} className="ml-2 text-[#FBA51A]">
-                                ✕
-                            </button>
-                        </div>
+                        <FilterItem
+                            label="Practice on"
+                            value={practiceType}
+                            clearFilter={() => clearFilterState('practiceType')}
+                        />
                     )}
-                    {/* Filter Item */}
+                    {practiceNeed && (
+                        <FilterItem
+                            label="Practice Need"
+                            value={practiceNeed}
+                            clearFilter={() => clearFilterState('practiceNeed')}
+                        />
+                    )}
                     {facilities && (
-                        <div className="flex items-center">
-                            <span className="capitalize">Facilities: {facilities}</span>
-                            <button onClick={() => setFacilities('')} className="ml-2 text-[#FBA51A]">
-                                ✕
-                            </button>
-                        </div>
+                        <FilterItem
+                            label="Facilities"
+                            value={facilities}
+                            clearFilter={() => clearFilterState('facilities')}
+                        />
                     )}
                 </div>
             </div>
+
+            <FilterModal
+                key={'filterModal'}
+                setPrice={(value) => dispatch(setPrice(value))}
+                setFacilities={(value) => dispatch(setFacilities(value))}
+                setPracticeType={(value) => dispatch(setPracticeType(value))}
+                setLocation={(value) => dispatch(setLocation(value))}
+                setPracticeNeed={(value) => dispatch(setPracticeNeed(value))}
+                setOpen={setFilterModalOpen}
+                open={filterModalOpen}
+            />
         </div>
     );
 };
 
 export default Filter;
-
-const SearchInput = ({
-    filter,
-    value,
-    setSearchQuery,
-    handleSearch,
-}: {
-    filter: boolean;
-    value: string;
-    setSearchQuery: (val: string) => void;
-    handleSearch: () => void;
-}) => (
-    <input
-        placeholder="Search here"
-        value={value}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-        className={`bg-transparent ${
-            filter ? '-ms-[600px] duration-500' : 'duration-500'
-        } flex-1 h-[54px] min-w-full min-h-[200px] md:min-w-[600px] text-sm border-none focus:outline-none focus:ring-0 focus-visible:ring-0 focus-visible:outline-none border-transparent px-4 md:px-8 py-2 text-primaryText`}
-    />
-);
-
-const FilterButton = ({ filter, setFilter }: { filter: boolean; setFilter: (value: boolean) => void }) => (
-    <Button
-        onClick={() => setFilter(!filter)}
-        shape="round"
-        icon={
-            filter ? (
-                <SearchOutlined size={20} className="text-white text-3xl" />
-            ) : (
-                <IoOptionsOutline className="text-3xl mx-3" size={20} />
-            )
-        }
-        className="px-4 my-4 md:my-0"
-        style={{
-            height: '54px',
-            width: '141px',
-            backgroundColor: '#0A8FDC',
-            color: '#fff',
-        }}
-    >
-        {filter ? '' : 'Filter'}
-    </Button>
-);
-
-const DropdownsContainer = ({
-    filter,
-
-    setLocation,
-    setPrice,
-    setPracticeType,
-    setFacilities,
-    handleSearch,
-    locationOptions,
-    priceOptions,
-    practiceTypeOptions,
-    facilitiesOptions,
-}: {
-    filter: boolean;
-    location: string;
-    price: string;
-    practiceType: string;
-    facilities: string;
-    setLocation: (val: string) => void;
-    setPrice: (val: string) => void;
-    setPracticeType: (val: string) => void;
-    setFacilities: (val: string) => void;
-    handleSearch: () => void;
-    locationOptions: Array<{ label: string; value: string }>;
-    priceOptions: Array<{ label: string; value: string }>;
-    practiceTypeOptions: Array<{ label: string; value: string }>;
-    facilitiesOptions: Array<{ label: string; value: string }>;
-}) => (
-    <div
-        className={`${
-            filter ? 'ms-0 duration-500 ' : 'ms-[500px] duration-500'
-        } flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 items-center w-full my-5 h-auto md:h-[64px] mx-auto px-1  rounded-full`}
-    >
-        <CustomSelect
-            options={locationOptions}
-            placeholder={'Location'}
-            onChange={setLocation}
-            handleSearch={handleSearch}
-        />
-        <CustomSelect options={priceOptions} placeholder={'Price'} onChange={setPrice} handleSearch={handleSearch} />
-        <CustomSelect
-            options={practiceTypeOptions}
-            placeholder={'Practice Type'}
-            onChange={setPracticeType}
-            handleSearch={handleSearch}
-        />
-        <CustomSelect
-            options={facilitiesOptions}
-            placeholder={'Facilities'}
-            onChange={setFacilities}
-            handleSearch={handleSearch}
-        />
-    </div>
-);
-
-const CustomSelect = ({
-    options,
-    placeholder,
-    onChange,
-    handleSearch,
-}: {
-    options: Array<{ label: string; value: string }>;
-    placeholder: string;
-    onChange: (val: string) => void;
-    handleSearch: () => void;
-}) => (
-    <Select
-        size="large"
-        placeholder={placeholder}
-        onChange={(value) => {
-            onChange(value);
-            handleSearch(); // Trigger search on dropdown selection
-        }}
-        suffixIcon={<FaChevronDown size={18} color="#0A8FDC" />}
-        style={{
-            width: '100%',
-            maxWidth: '180px',
-            height: 54,
-            borderRadius: 40,
-            color: '#4E4E4E',
-        }}
-    >
-        {options.map((option) => (
-            <Option key={option.value} value={option.value}>
-                {option.label}
-            </Option>
-        ))}
-    </Select>
-);

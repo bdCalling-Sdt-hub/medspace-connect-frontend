@@ -3,9 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '/public/assets/logo.svg';
 import Profile from '/public/assets/profile.png';
-import { Badge, Button, Dropdown } from 'antd';
+import { Badge, Button, Dropdown, FormProps } from 'antd';
 import { AiOutlineBell, AiOutlineMenu } from 'react-icons/ai';
-import { DownOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import ProfileDropdown from '../ui/ProfileDropdown';
 import Modal from '../ui/Modal';
@@ -37,20 +36,24 @@ const Navbar = () => {
         // { label: 'News', path: '/news' },
         { label: 'Supports', path: '/supports' },
     ];
-    const items = user === 'provider' ? [...commonItems, { label: 'Packages', path: '/packages' }] : commonItems;
+    const items = user === 'space-provider' ? [...commonItems, { label: 'Packages', path: '/packages' }] : commonItems;
 
-    const handleLogin = (values: any) => {
+    const handleLogin: FormProps<Record<string, string>>['onFinish'] = (values) => {
         // TODO: Implement login logic
         console.log('Login form submitted', values);
         setLoginModal(false);
     };
-    const handleRegister = (values: any) => {
+    const handleRegister: FormProps<Record<string, string>>['onFinish'] = (values) => {
         // TODO: Implement login logic
         console.log('Login form submitted', values);
 
         //? after registration is successful
         setRegisterModal(false);
         setOtpModal(true);
+    };
+    const verifyOtp: FormProps<Record<string, string>>['onFinish'] = (values) => {
+        console.log('otv verify', values);
+        setOtpModal(false);
     };
 
     return (
@@ -186,7 +189,7 @@ const Navbar = () => {
                 width={693}
             />
             <Modal
-                body={<VerificationForm onFinish={handleRegister} />}
+                body={<VerificationForm onFinish={verifyOtp} />}
                 open={otpModal}
                 setOpen={setOtpModal}
                 key="register-otp"

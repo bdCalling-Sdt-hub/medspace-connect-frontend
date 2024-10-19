@@ -59,13 +59,7 @@ const LoginForm = ({
                     <p className="text-center text-gray-500 mb-6">Please enter your email and password to continue</p>
                 </div>
 
-                <Form
-                    layout="vertical"
-                    name="login"
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    className="space-y-4"
-                >
+                <Form layout="vertical" name="login" initialValues={{ remember: true }} onFinish={onFinish}>
                     <Form.Item
                         label={<span className="custom-label">Email</span>}
                         name="email"
@@ -107,7 +101,7 @@ const LoginForm = ({
                     <Form.Item>
                         <Button
                             onClick={() => {
-                                dispatch(login('doctor'));
+                                dispatch(login('space-seeker'));
                                 setLoginModal(false);
                                 router.push('/profile');
                             }}
@@ -123,12 +117,12 @@ const LoginForm = ({
                                 color: '#fff',
                             }}
                         >
-                            Sign In As Doctor
+                            Sign In As Space Seeker
                         </Button>
 
                         <Button
                             onClick={() => {
-                                dispatch(login('provider'));
+                                dispatch(login('space-provider'));
                                 setLoginModal(false);
                                 router.push('/profile');
                             }}
@@ -144,7 +138,7 @@ const LoginForm = ({
                                 color: '#fff',
                             }}
                         >
-                            Sign In As Provider
+                            Sign In As Space Provider
                         </Button>
                     </Form.Item>
                 </Form>

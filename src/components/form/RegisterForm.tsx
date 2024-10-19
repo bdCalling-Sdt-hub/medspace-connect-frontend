@@ -12,11 +12,9 @@ const RegisterForm = ({
     setLoginModal: Dispatch<SetStateAction<boolean>>;
     setRegisterModal: Dispatch<SetStateAction<boolean>>;
 }) => {
-    const [userType, setUserType] = useState('doctor');
+    const [userType, setUserType] = useState('seeker');
 
     const [form] = Form.useForm();
-
-    // Update the role field when the userType changes
     useEffect(() => {
         form.setFieldsValue({
             role: userType,
@@ -35,16 +33,16 @@ const RegisterForm = ({
             {/* User Type Toggle */}
             <div className="flex justify-center space-x-4 mb-6">
                 <Button
-                    onClick={() => setUserType('doctor')}
+                    onClick={() => setUserType('seeker')}
                     type="primary"
                     size="large"
                     className="rounded-full px-6"
                     style={{
-                        backgroundColor: userType === 'doctor' ? '#0A8FDC' : '#F7F7F7',
-                        color: userType === 'doctor' ? 'white' : '#999999',
+                        backgroundColor: userType === 'seeker' ? '#0A8FDC' : '#F7F7F7',
+                        color: userType === 'seeker' ? 'white' : '#999999',
                     }}
                 >
-                    Doctor
+                    I am looking for a space
                 </Button>
                 <Button
                     onClick={() => setUserType('merchant')}
@@ -56,19 +54,12 @@ const RegisterForm = ({
                         color: userType === 'merchant' ? 'white' : '#999999',
                     }}
                 >
-                    Space Provider
+                    I am listing a space
                 </Button>
             </div>
 
             {/* Signup Form */}
-            <Form
-                form={form}
-                layout="vertical"
-                name="signup"
-                initialValues={{ remember: true }}
-                onFinish={onFinish}
-                className="space-y-4"
-            >
+            <Form form={form} layout="vertical" name="signup" initialValues={{ remember: true }} onFinish={onFinish}>
                 {/* Hidden field for role */}
                 <Form.Item name="role" hidden>
                     <Input />

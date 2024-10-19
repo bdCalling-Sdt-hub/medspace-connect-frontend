@@ -8,6 +8,7 @@ import { useAppSelector } from '@/src/redux/hooks';
 
 const ProfileBanner = () => {
     const { user } = useAppSelector((state) => state.auth);
+    console.log(user);
     return (
         <div className="container mx-auto my-10">
             <div className="relative lg:h-[200px] h-[250px]">
