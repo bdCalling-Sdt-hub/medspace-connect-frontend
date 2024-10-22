@@ -12,6 +12,7 @@ import { useAppSelector } from '@/src/redux/hooks';
 
 const ProfileTab = () => {
     const { user } = useAppSelector((state) => state.auth);
+    console.log(user);
     const itemsForProvider: TabsProps['items'] = [
         {
             key: '1',
@@ -40,7 +41,7 @@ const ProfileTab = () => {
         },
     ];
 
-    const itemsForDoctor: TabsProps['items'] = [
+    const itemsForSeeker: TabsProps['items'] = [
         {
             key: '1',
             label: 'Profile Details',
@@ -62,7 +63,7 @@ const ProfileTab = () => {
             children: <ChangePassword />,
         },
     ];
-    const tabItems = user === 'doctor' ? itemsForDoctor : itemsForProvider;
+    const tabItems = user === 'space-seeker' ? itemsForSeeker : itemsForProvider;
     return (
         <div className="container mx-auto">
             <ConfigProvider

@@ -30,7 +30,7 @@ const Footer = () => {
                 </div>
 
                 {/* Social Media Icons */}
-                <div className="text-center">
+                <div className="text-center md:text-start">
                     <h1 className="text-primaryText text-lg my-2">Follow Us</h1>
                     <div className="flex space-x-4">
                         <a href="#" className="text-blue-600 hover:text-blue-800">

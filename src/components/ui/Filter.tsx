@@ -35,7 +35,7 @@ const Filter = () => {
         (state) => state.filter
     );
     const [isFilterActive, setIsFilterActive] = useState(false);
-    const [filterModalOpen, setFilterModalOpen] = useState(false);
+    const [filterModalOpen, setFilterModalOpen] = useState(false); // this is for mobile devices
     const clearFilterState = (filterKey: any) => {
         dispatch(clearFilter(filterKey));
     };
@@ -44,9 +44,12 @@ const Filter = () => {
         <div className="bg-[#F7F7F7] md:pb-8 pb-3 pt-4">
             {/* filter section for desktop device */}
             <div
+                style={{
+                    boxShadow: '0px 3px 12px 6px #0000000D',
+                }}
                 className={`hidden ${
                     isFilterActive ? 'w-[900px]' : 'md:w-[725px]'
-                } md:flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1 md:drop-shadow-sm md:rounded-full overflow-hidden`}
+                } md:flex flex-col md:flex-row items-center h-auto md:h-[64px] mx-auto md:bg-white px-1  md:rounded-full overflow-hidden`}
             >
                 <SearchInput
                     filter={isFilterActive}
@@ -125,7 +128,7 @@ const Filter = () => {
 
             {/* Section for showing selected values */}
             <div className="container mx-auto">
-                <div className="flex flex-wrap justify-center items-center gap-4 my-4 text-[#CCCCCC] text-sm font-medium">
+                <div className="flex h-full flex-wrap justify-center items-center gap-4 my-4 text-[#CCCCCC] text-sm font-medium">
                     {location && (
                         <FilterItem label="Place" value={location} clearFilter={() => clearFilterState('location')} />
                     )}
