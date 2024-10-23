@@ -19,14 +19,14 @@ const SupportPage = () => {
                     height={1000}
                     width={1000}
                     className="w-full hidden md:block absolute top-[10%] z-[1] object-cover"
-                    src={'/assets/support1.png'}
+                    src={'/assets/support2.svg'}
                     alt=""
                 />
                 <Image
                     height={1000}
                     width={1000}
                     className="w-full hidden md:block absolute top-[0] z-[2] object-cover"
-                    src={'/assets/support2.png'}
+                    src={'/assets/support1.svg'}
                     alt=""
                 />
 

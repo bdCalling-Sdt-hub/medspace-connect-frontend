@@ -12,7 +12,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
                     <ConfigProvider
                         theme={{
                             token: {
-                                fontFamily: 'Poppins',
+                                fontFamily: '',
                             },
                             components: {
                                 Form: {
