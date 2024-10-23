@@ -22,7 +22,7 @@ const FAQPage: React.FC = () => {
 
     return (
         <>
-            <div className="container mx-auto my-5">
+            <div className="container mx-auto my-5 ">
                 <h2 className="text-primary text-2xl font-semibold my-4">FAQ Section</h2>
                 <div className="md:max-w-5xl mx-auto">
                     <div className="text-center my-10 space-y-4">

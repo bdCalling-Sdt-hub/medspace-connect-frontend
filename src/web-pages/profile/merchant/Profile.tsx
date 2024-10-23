@@ -35,7 +35,7 @@ const Profile = () => {
 
                 <Row gutter={[16, 16]}>
                     <Col xs={24} sm={12}>
-                        <Form.Item label={<span className="custom-label">Contact No</span>} name="contact">
+                        <Form.Item label={<span className="custom-label">Contact No.</span>} name="contact">
                             <Input placeholder="+9910003030" style={{ borderRadius: '24px', height: '48px' }} />
                         </Form.Item>
                     </Col>
@@ -51,7 +51,7 @@ const Profile = () => {
 
                 <Row gutter={[16, 16]}>
                     <Col xs={24} sm={12}>
-                        <Form.Item label={<span className="custom-label">N.ID/Passport</span>} name="nid">
+                        <Form.Item label={<span className="custom-label">NPI No.</span>} name="nid">
                             <Input placeholder="1651612652" style={{ borderRadius: '24px', height: '48px' }} />
                         </Form.Item>
                     </Col>

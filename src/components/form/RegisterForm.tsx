@@ -124,11 +124,15 @@ const RegisterForm = ({
                 </Form.Item>
                 <Form.Item
                     name="agreement"
-                    valuePropName="checked" // Link checkbox value to form
+                    valuePropName="checked"
                     rules={[
                         {
-                            required: true,
-                            message: 'Please accept the terms & condition and user agreement.',
+                            validator: (_, value) =>
+                                value
+                                    ? Promise.resolve()
+                                    : Promise.reject(
+                                          new Error('Please accept the terms & condition and user agreement.')
+                                      ),
                         },
                     ]}
                 >
@@ -136,7 +140,7 @@ const RegisterForm = ({
                         I agree to the{' '}
                         <a href="terms-&-condition" className="text-primary">
                             Terms & Condition
-                        </a>
+                        </a>{' '}
                         and{' '}
                         <a href="/user-agreement" className="text-primary">
                             user agreement

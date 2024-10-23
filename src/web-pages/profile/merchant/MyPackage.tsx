@@ -1,5 +1,6 @@
 'use client';
 import { Button } from 'antd';
+import Link from 'next/link';
 
 const MyPackage = () => {
     return (
@@ -59,20 +60,22 @@ const MyPackage = () => {
                         </ul>
 
                         <div className="text-center">
-                            <Button
-                                shape="round"
-                                className="px-6"
-                                style={{
-                                    height: '54px',
-                                    width: '100%',
-                                    backgroundColor: '#0A8FDC',
-                                    fontSize: 16,
-                                    border: 'none',
-                                    color: '#fff',
-                                }}
-                            >
-                                Renew Package
-                            </Button>
+                            <Link href={'/packages'}>
+                                <Button
+                                    shape="round"
+                                    className="px-6"
+                                    style={{
+                                        height: '54px',
+                                        width: '100%',
+                                        backgroundColor: '#0A8FDC',
+                                        fontSize: 16,
+                                        border: 'none',
+                                        color: '#fff',
+                                    }}
+                                >
+                                    Renew Package
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 );

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 
-import { Inter } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
 import Providers from '../provider/Providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Poppins({ subsets: ['latin'], weight: ['400'] });
 
 export const metadata: Metadata = {
-    title: 'Keven Service',
+    title: 'MedSpace Connect',
     description: 'The best service in the world',
 };
 

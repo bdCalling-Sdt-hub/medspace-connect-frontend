@@ -1,4 +1,5 @@
 import { ConfigProvider, Select } from 'antd';
+import { CiCircleRemove } from 'react-icons/ci';
 import { FaChevronDown } from 'react-icons/fa6';
 const { Option } = Select;
 export const CustomSelect = ({
@@ -15,25 +16,28 @@ export const CustomSelect = ({
         theme={{
             components: {
                 Select: {
-                    // colorText: 'red',
+                    selectorBg: '#EEEEEE',
+                    borderRadius: 50,
+                    fontSizeIcon: 16,
+                    colorIcon: '#0A8FDC',
                 },
             },
         }}
     >
         <Select
+            allowClear
+            removeIcon={<CiCircleRemove style={{ color: '#FF0000', fontSize: '18px' }} />} // Custom clear icon with styles
             size="large"
-            placeholder={<p className="mr-4">{placeholder} </p>}
+            placeholder={<p className="mr-4">{placeholder}</p>}
             onChange={(value) => {
                 onChange(value);
-                // handleSearch();
             }}
-            suffixIcon={<FaChevronDown className="mx-4" size={16} color="#0A8FDC" />}
+            suffixIcon={<FaChevronDown className="" size={18} color="#0A8FDC" />} // Custom dropdown icon
             style={{
                 width: '100%',
-                // maxWidth: '180px',
                 height: 54,
-                borderRadius: 40,
-                color: '#4E4E4E',
+                borderRadius: 60,
+                color: '#4E4E4E', // Text color
             }}
         >
             {options.map((option) => (

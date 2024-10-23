@@ -1,4 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import Subscribe from '@/src/web-pages/home/Subscribe';
+import Image from 'next/image';
 import React from 'react';
 import { BsMailbox } from 'react-icons/bs';
 import { FaMapLocationDot } from 'react-icons/fa6';
@@ -7,13 +9,28 @@ import { LuPhoneCall } from 'react-icons/lu';
 const SupportPage = () => {
     return (
         <>
-            <div className="bg-[#5BB4E8] py-20">
-                <div className="text-center space-y-8 text-white">
+            <div className=" bg-[#5BB4E8] md:bg-[#F7F7F7] py-20 relative overflow-hidden">
+                <div className="text-center relative z-[3] space-y-8 text-white">
                     <h1 className="text-4xl ">Help & Support</h1>
                     <p className="text-lg leading-4">Get in touch and let us know how we can help</p>
                 </div>
                 {/* contact option */}
-                <div className="container my-20 items-center mx-auto  grid lg:grid-cols-3 grid-cols-1 gap-4 pb-20">
+                <Image
+                    height={1000}
+                    width={1000}
+                    className="w-full hidden md:block absolute top-[10%] z-[1] object-cover"
+                    src={'/assets/support1.png'}
+                    alt=""
+                />
+                <Image
+                    height={1000}
+                    width={1000}
+                    className="w-full hidden md:block absolute top-[0] z-[2] object-cover"
+                    src={'/assets/support2.png'}
+                    alt=""
+                />
+
+                <div className="container z-[3] relative my-20 items-center mx-auto  grid lg:grid-cols-3 grid-cols-1 gap-4 pb-20">
                     <div className="relative bg-white group w-[319px] h-[220px] rounded-2xl mx-auto flex items-center justify-center">
                         {/* float icon */}
                         <div className="bg-transparent  p-3 absolute -translate-x-1/2  left-1/2 -top-16 rounded-full">
