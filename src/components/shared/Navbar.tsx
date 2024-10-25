@@ -159,7 +159,13 @@ const Navbar = () => {
             </nav>
 
             {/* Mobile Drawer */}
-            <MobileDrawer setLoginModal={setLoginModal} open={open} onClose={onClose} items={items} />
+            <MobileDrawer
+                setRegisterModal={setRegisterModal}
+                setLoginModal={setLoginModal}
+                open={open}
+                onClose={onClose}
+                items={items}
+            />
 
             {/* Modals */}
             <Modal

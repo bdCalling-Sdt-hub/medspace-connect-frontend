@@ -2506,7 +2506,7 @@ const Footer = () => {
             </div>
 
             <div className="bg-[#222222] py-3 mt-5 text-[#F7F7F7] text-center flex items-center justify-center">
-                <h1 className="text-sm">© Copyright UX/UI {new Date().getFullYear()} Team Md. Asadujjaman Mahfuz</h1>
+                <h1 className="text-sm">© Copyright {new Date().getFullYear()} Medspace Connect, Inc</h1>
             </div>
         </footer>
     );

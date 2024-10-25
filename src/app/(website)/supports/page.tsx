@@ -9,7 +9,7 @@ import { LuPhoneCall } from 'react-icons/lu';
 const SupportPage = () => {
     return (
         <>
-            <div className=" bg-[#5BB4E8] md:bg-[#F7F7F7] py-20 relative overflow-hidden">
+            <div className=" bg-[#5BB4E8] md:bg-[#F7F7F7] py-20 relative min-h-[90vh] overflow-hidden">
                 <div className="text-center relative z-[3] space-y-8 text-white">
                     <h1 className="text-4xl ">Help & Support</h1>
                     <p className="text-lg leading-4">Get in touch and let us know how we can help</p>
