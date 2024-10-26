@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Logo from '/public/assets/logo.svg';
+import LogoOwn from '/public/assets/logo-own.svg';
 import Profile from '/public/assets/profile.png';
 import { Badge, Button, Dropdown, FormProps } from 'antd';
 import { AiOutlineBell, AiOutlineMenu } from 'react-icons/ai';
@@ -62,7 +63,8 @@ const Navbar = () => {
                 <div className="flex justify-between items-center h-full">
                     {/* Logo */}
                     <Link href={'/'}>
-                        <Image alt="Logo" src={Logo} width={180} height={40} />
+                        {/* <Image className="size-[80px]" alt="Logo" src={LogoOwn} width={180} height={40} /> */}
+                        <Image className="w-full" alt="Logo" src={Logo} width={180} height={50} />
                     </Link>
 
                     {/* Nav Items for Desktop */}

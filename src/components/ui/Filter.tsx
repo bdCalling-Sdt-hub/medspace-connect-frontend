@@ -109,12 +109,12 @@ const Filter = () => {
             </div>
 
             {/* filter section for mobile device */}
-            <div className="md:hidden flex justify-center items-center gap-4">
+            <div className="md:hidden flex justify-center items-center gap-4 mx-4">
                 <input
                     value={searchQuery as string}
                     onChange={(e) => dispatch(setSearchQuery(e.target.value))}
                     // onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                    className="h-12 px-4 rounded-full border-none outline-none ring-0 focus:outline-none focus:ring-0"
+                    className="h-12 w-full px-4 rounded-full border-none outline-none ring-0 focus:outline-none focus:ring-0"
                     type="text"
                     placeholder="search here"
                 />

@@ -6,13 +6,13 @@ const Subscribe = () => {
     return (
         <div>
             <div
-                className="bg-cover bg-center relative h-full md:max-h-[144px] py-5 px-2"
+                className="bg-cover bg-center relative h-full md:max-h-[144px] py-8 px-2"
                 style={{ backgroundImage: `url(${SubscribePng.src})` }}
             >
                 <div className="absolute inset-0 bg-black opacity-65"></div>
 
                 <div className="relative z-10 mx-auto text-center">
-                    <div className="container mx-auto text-start grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="container mx-auto text-center md:text-start grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="mb-4 md:mb-0">
                             <h2 className="text-lg md:text-xl font-semibold text-[#EEEEEE] mb-2 md:mb-4">
                                 Subscribe To Our Email Alerts
