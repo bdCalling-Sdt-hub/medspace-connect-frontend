@@ -88,13 +88,9 @@ const RegisterForm = ({
                 <Form.Item
                     label={<span className="custom-label">Contact No</span>}
                     name="contactNo"
-                    rules={[{ required: true, message: 'Please enter your contact number!' }]}
+                    rules={[{ required: false, message: 'Please enter your contact number!' }]}
                 >
-                    <Input
-                        size="large"
-                        placeholder="Asadujjaman@gmail.com"
-                        style={{ borderRadius: '24px', height: '48px' }}
-                    />
+                    <Input size="large" placeholder="+18888888" style={{ borderRadius: '24px', height: '48px' }} />
                 </Form.Item>
 
                 <Form.Item
