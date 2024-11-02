@@ -31,7 +31,7 @@ const VerificationForm = ({ onFinish }: { onFinish: (values: any) => void }) => 
                   <div className="space-y-5 mb-5">
                         <h2 className="text-3xl text-[#333333] font-semibold text-center">Verification code</h2>
                         <p className="text-center max-w-[60ch] mx-auto text-gray-500 mb-6">
-                              We sent a reset link to {email} enter 5 digit code that is mentioned in the email
+                              We sent a reset link to {email} enter 4 digit code that is mentioned in the email
                         </p>
                   </div>
 

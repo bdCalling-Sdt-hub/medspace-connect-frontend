@@ -1,50 +1,102 @@
 'use client';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, notification } from 'antd';
 import { Dispatch, SetStateAction, useState } from 'react';
 import Modal from '../ui/Modal';
 import ForgetForm from './ForgetForm';
 import VerificationForm from './VerificationForm';
 import NewPasswordForm from './NewPasswordFrom';
 import { useAppDispatch } from '@/src/redux/hooks';
-import { login } from '@/src/redux/features/auth/authSlice';
 import { useRouter } from 'next/navigation';
-
-const LoginForm = ({
-      onFinish,
-      setLoginModal,
-      setRegisterModal,
-}: {
+import {
+      useForgetPasswordMutation,
+      useResetPasswordMutation,
+      useVerifyEmailMutation,
+} from '@/src/redux/features/auth/authApi';
+type TLoginFormProps = {
       onFinish: (values: any) => void;
       setForgetModal?: Dispatch<SetStateAction<boolean>>;
       setLoginModal: Dispatch<SetStateAction<boolean>>;
       setRegisterModal: Dispatch<SetStateAction<boolean>>;
-}) => {
+};
+const LoginForm = ({ onFinish, setLoginModal, setRegisterModal }: TLoginFormProps) => {
+      // *<<<==========✅✅============>>>
+      // ?           RTK Hooks
       const dispatch = useAppDispatch();
+      const [forgetPassword] = useForgetPasswordMutation();
+      const [verifyEmail] = useVerifyEmailMutation();
+      const [resetPassword] = useResetPasswordMutation();
+      // *<<<==========✅✅============>>>
+
       const [forgetModal, setForgetModal] = useState(false);
       const [otpModal, setOtpModal] = useState(false);
       const [newPasswordModal, setNewPasswordModal] = useState(false);
       const router = useRouter();
 
-      const handleForget = (values: any) => {
-            // TODO: Implement login logic
-            console.log('Login form submitted', values);
+      const handleForget = async (values: any) => {
+            try {
+                  const res = await forgetPassword(values).unwrap();
 
-            //? after success set otp modal true
-            setForgetModal(false);
-            setOtpModal(true);
+                  if (res.success) {
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                        localStorage.setItem('email', values.email);
+                        setForgetModal(false);
+                        setOtpModal(true);
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to sent forgot otp',
+                  });
+            }
       };
-      const handleVerifyOtp = (values: any) => {
-            // TODO: Implement login logic
-            console.log('Login form submitted', values);
+      const handleVerifyOtp = async (values: any) => {
+            const verifyData = {
+                  email: localStorage.getItem('email'),
+                  oneTimeCode: Number(values.oneTimeCode),
+            };
+            try {
+                  const res = await verifyEmail(verifyData).unwrap();
 
-            //? after success set new password modal true
-            setOtpModal(false);
-            setNewPasswordModal(true);
+                  if (res.success) {
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                        localStorage.setItem('oneTimeToken', res.data);
+                        localStorage.removeItem('email');
+                        //? after success set new password modal true
+                        setOtpModal(false);
+                        setNewPasswordModal(true);
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to verify otp',
+                  });
+            }
       };
-      const handleSetNewPassword = (values: any) => {
-            // TODO: Implement login logic
-            console.log('Login form submitted', values);
-            setNewPasswordModal(false);
+      const handleSetNewPassword = async (values: FormData) => {
+            try {
+                  const res = await resetPassword(values).unwrap();
+
+                  if (res.success) {
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                        localStorage.removeItem('email');
+                        setNewPasswordModal(false);
+                        router.push('/login');
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to sent set new password',
+                  });
+            }
       };
 
       const handleModal = () => {
@@ -146,7 +198,7 @@ const LoginForm = ({
                         body={<NewPasswordForm onFinish={handleSetNewPassword} />}
                         open={newPasswordModal}
                         setOpen={setNewPasswordModal}
-                        key="newpassword"
+                        key="newPassword"
                         width={600}
                   />
             </>

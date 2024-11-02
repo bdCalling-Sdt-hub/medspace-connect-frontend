@@ -35,6 +35,10 @@ const authApi = baseApi.injectEndpoints({
                               url: '/auth/reset-password',
                               method: 'POST',
                               body: data,
+                              headers: {
+                                    'Content-Type': 'application/json',
+                                    Authorization: `Bearer ${localStorage.getItem('oneTimeToken')}`,
+                              },
                         };
                   },
             }),
