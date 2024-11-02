@@ -14,21 +14,25 @@ import LoginForm from '../form/LoginForm';
 import RegisterForm from '../form/RegisterForm';
 import VerificationForm from '../form/VerificationForm';
 import NotificationDropdown from '../ui/NotificationDropdown';
-import { useAppSelector } from '@/src/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { useRegisterUserMutation } from '@/src/redux/features/user/userApi';
-import { useVerifyEmailMutation } from '@/src/redux/features/auth/authApi';
+import { useLoginUserMutation, useVerifyEmailMutation } from '@/src/redux/features/auth/authApi';
+import { decodedUser } from '@/src/utils/decodeUser';
+import { setUser } from '@/src/redux/features/auth/authSlice';
 
 const Navbar = () => {
       const [open, setOpen] = useState(false);
       const [loginModal, setLoginModal] = useState(false);
       const [otpModal, setOtpModal] = useState(false);
       const [registerModal, setRegisterModal] = useState(false);
+      const dispatch = useAppDispatch();
 
       // *<<<==========✅✅============>>>
       // ?           RTK Hooks
       // *<<<==========✅✅============>>>
       const [registerUser] = useRegisterUserMutation();
       const [verifyEmail] = useVerifyEmailMutation();
+      const [loginUser] = useLoginUserMutation();
       const { user } = useAppSelector((state) => state.auth);
       const showDrawer = () => {
             setOpen(true);
@@ -38,19 +42,37 @@ const Navbar = () => {
             setOpen(false);
       };
 
-      const commonItems = [
+      const items = [
             { label: 'Home', path: '/' },
             { label: 'About', path: '/about' },
             // { label: 'News', path: '/news' },
             { label: 'Supports', path: '/supports' },
+            { label: 'Packages', path: '/packages' },
       ];
-      const items =
-            user === 'space-provider' ? [...commonItems, { label: 'Packages', path: '/packages' }] : commonItems;
 
-      const handleLogin: FormProps<Record<string, string>>['onFinish'] = (values) => {
-            // TODO: Implement login logic
-            console.log('Login form submitted', values);
-            setLoginModal(false);
+      const handleLogin: FormProps<Record<string, string>>['onFinish'] = async (values) => {
+            try {
+                  const res = await loginUser(values).unwrap();
+                  console.log(res);
+                  if (res.success) {
+                        const user = decodedUser(res.data);
+                        const decodedData = {
+                              user,
+                              token: res.data,
+                        };
+                        dispatch(setUser(decodedData));
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                        setLoginModal(false);
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to login',
+                  });
+            }
       };
       const handleRegister: FormProps<Record<string, string>>['onFinish'] = async (values) => {
             try {
@@ -102,7 +124,6 @@ const Navbar = () => {
                         <div className="flex justify-between items-center h-full">
                               {/* Logo */}
                               <Link href={'/'}>
-                                    {/* <Image className="size-[80px]" alt="Logo" src={LogoOwn} width={180} height={40} /> */}
                                     <Image className="w-full" alt="Logo" src={Logo} width={180} height={50} />
                               </Link>
 
