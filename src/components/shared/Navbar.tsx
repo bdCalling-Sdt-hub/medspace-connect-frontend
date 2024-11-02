@@ -42,18 +42,21 @@ const Navbar = () => {
             setOpen(false);
       };
 
-      const items = [
+      const commonItems = [
             { label: 'Home', path: '/' },
             { label: 'About', path: '/about' },
-            // { label: 'News', path: '/news' },
             { label: 'Supports', path: '/supports' },
-            { label: 'Packages', path: '/packages' },
       ];
+
+      const items =
+            user?.role == 'SPACEPROVIDER'
+                  ? [...commonItems, { label: 'Packages', path: '/packages' }]
+                  : [...commonItems];
 
       const handleLogin: FormProps<Record<string, string>>['onFinish'] = async (values) => {
             try {
                   const res = await loginUser(values).unwrap();
-                  console.log(res);
+
                   if (res.success) {
                         const user = decodedUser(res.data);
                         const decodedData = {
@@ -66,7 +69,6 @@ const Navbar = () => {
                               placement: 'topRight',
                               duration: 5,
                         });
-                        setLoginModal(false);
                   }
             } catch (error: any) {
                   notification.error({

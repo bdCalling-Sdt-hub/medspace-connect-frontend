@@ -5,15 +5,11 @@ import ProfileCover from '/public/assets/cover-profile.svg';
 import { Button } from 'antd';
 import Link from 'next/link';
 import { useAppDispatch } from '@/src/redux/hooks';
-import { useRouter } from 'next/navigation';
 import { logoutUser } from '@/src/redux/features/auth/authSlice';
 const ProfileDropdown = () => {
-      const router = useRouter();
       const dispatch = useAppDispatch();
-
       const handleLogout = () => {
             dispatch(logoutUser());
-            // router.push('/');
       };
       return (
             <div className="w-[263px] min-h-[226px] mx-auto bg-white shadow-md rounded-lg overflow-hidden ml-5 pb-2">
