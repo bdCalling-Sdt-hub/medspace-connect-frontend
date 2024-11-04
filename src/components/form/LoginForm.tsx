@@ -90,7 +90,11 @@ const LoginForm = ({ onFinish, setLoginModal, setRegisterModal }: TLoginFormProp
                         });
                         localStorage.removeItem('email');
                         setNewPasswordModal(false);
-                        router.push('/login');
+                        notification.success({
+                              message: 'Please login again with your new password',
+                              placement: 'topRight',
+                              duration: 5,
+                        });
                   }
             } catch (error: any) {
                   notification.error({
