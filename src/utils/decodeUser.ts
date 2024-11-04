@@ -1,11 +1,15 @@
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
-export function decodedUser(token: string) {
+interface CustomJwtPayload extends JwtPayload {
+      role?: string;
+}
+
+export function decodedUser(token: string): CustomJwtPayload {
       if (!token) {
             throw new Error('Token is required');
       }
 
-      const user = jwtDecode(token);
+      const user = jwtDecode<CustomJwtPayload>(token);
 
       return user;
 }
