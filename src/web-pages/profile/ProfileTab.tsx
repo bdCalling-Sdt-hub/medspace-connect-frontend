@@ -9,60 +9,39 @@ import MyInterest from './doctor/MyInterest';
 import MyFavorite from './doctor/MyFavorite';
 import PostSpace from './merchant/PostSpace';
 import { useAppSelector } from '@/src/redux/hooks';
+
 const ProfileTab = () => {
       const { user } = useAppSelector((state) => state.auth);
 
+      // Define tabs for each role
       const itemsForProvider: TabsProps['items'] = [
-            {
-                  key: '1',
-                  label: 'Profile',
-                  children: <Profile />,
-            },
-            {
-                  key: '2',
-                  label: 'My Post',
-                  children: <MyPost />,
-            },
-            {
-                  key: '3',
-                  label: 'Package History',
-                  children: <MyPackage />,
-            },
-            {
-                  key: '4',
-                  label: 'Change Password',
-                  children: <ChangePassword />,
-            },
-            {
-                  key: '5',
-                  disabled: true,
-                  label: <PostSpace />,
-            },
+            { key: '1', label: 'Profile', children: <Profile /> },
+            { key: '2', label: 'My Post', children: <MyPost /> },
+            { key: '3', label: 'Package History', children: <MyPackage /> },
+            { key: '4', label: 'Change Password', children: <ChangePassword /> },
+            { key: '5', disabled: true, label: <PostSpace /> },
       ];
 
       const itemsForSeeker: TabsProps['items'] = [
-            {
-                  key: '1',
-                  label: 'Profile Details',
-                  children: <DoctorProfile />,
-            },
-            {
-                  key: '2',
-                  label: 'My Interests',
-                  children: <MyInterest />,
-            },
-            {
-                  key: '3',
-                  label: 'My Favorites',
-                  children: <MyFavorite />,
-            },
-            {
-                  key: '4',
-                  label: 'Change Password',
-                  children: <ChangePassword />,
-            },
+            { key: '1', label: 'Profile Details', children: <DoctorProfile /> },
+            { key: '2', label: 'My Interests', children: <MyInterest /> },
+            { key: '3', label: 'My Favorites', children: <MyFavorite /> },
+            { key: '4', label: 'Change Password', children: <ChangePassword /> },
       ];
-      const tabItems = user?.role === 'SPACESEEKER' ? itemsForSeeker : itemsForProvider;
+
+      // Determine tab items based on role using switch
+      const getTabItems = () => {
+            switch (user?.role) {
+                  case 'SPACESEEKER':
+                        return itemsForSeeker;
+                  case 'SPACEPROVIDER':
+                  default:
+                        return itemsForProvider;
+            }
+      };
+
+      const tabItems = getTabItems();
+
       return (
             <div className="container mx-auto">
                   <ConfigProvider

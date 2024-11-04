@@ -19,6 +19,7 @@ import { useRegisterUserMutation } from '@/src/redux/features/user/userApi';
 import { useLoginUserMutation, useVerifyEmailMutation } from '@/src/redux/features/auth/authApi';
 import { decodedUser } from '@/src/utils/decodeUser';
 import { setUser } from '@/src/redux/features/auth/authSlice';
+import { setAccessToken } from '@/src/utils/accessToken';
 
 const Navbar = () => {
       const [open, setOpen] = useState(false);
@@ -64,11 +65,13 @@ const Navbar = () => {
                               token: res.data,
                         };
                         dispatch(setUser(decodedData));
+                        setAccessToken(res.data);
                         notification.success({
                               message: res.message,
                               placement: 'topRight',
                               duration: 5,
                         });
+                        setLoginModal(false);
                   }
             } catch (error: any) {
                   notification.error({

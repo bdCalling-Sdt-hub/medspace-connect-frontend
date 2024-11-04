@@ -6,9 +6,11 @@ import { Button } from 'antd';
 import Link from 'next/link';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { logoutUser } from '@/src/redux/features/auth/authSlice';
+import { removeAccessToken } from '@/src/utils/accessToken';
 const ProfileDropdown = () => {
       const dispatch = useAppDispatch();
       const handleLogout = () => {
+            removeAccessToken();
             dispatch(logoutUser());
       };
       return (
