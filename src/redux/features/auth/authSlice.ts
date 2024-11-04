@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 type TUser = {
-      userEmail: string;
+      email: string;
       role: 'ADMIN' | 'SPACESEEKER' | 'SPACEPROVIDER';
       iat: number;
       exp: number;

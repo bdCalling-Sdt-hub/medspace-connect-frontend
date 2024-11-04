@@ -9,23 +9,30 @@ import MyInterest from './doctor/MyInterest';
 import MyFavorite from './doctor/MyFavorite';
 import PostSpace from './merchant/PostSpace';
 import { useAppSelector } from '@/src/redux/hooks';
+import { useGetUserProfileQuery } from '@/src/redux/features/user/userApi';
 
 const ProfileTab = () => {
       const { user } = useAppSelector((state) => state.auth);
+      const { data: myProfile, isFetching } = useGetUserProfileQuery([]);
+      if (isFetching) {
+            return <div>Loading...</div>;
+      }
+
+      console.log(myProfile);
 
       // Define tabs for each role
       const itemsForProvider: TabsProps['items'] = [
-            { key: '1', label: 'Profile', children: <Profile /> },
-            { key: '2', label: 'My Post', children: <MyPost /> },
-            { key: '3', label: 'Package History', children: <MyPackage /> },
+            { key: '1', label: 'Profile', children: <Profile myProfile={myProfile!} /> },
+            { key: '2', label: 'My Post', children: <MyPost myProfile={myProfile!} /> },
+            { key: '3', label: 'Package History', children: <MyPackage myProfile={myProfile!} /> },
             { key: '4', label: 'Change Password', children: <ChangePassword /> },
-            { key: '5', disabled: true, label: <PostSpace /> },
+            { key: '5', disabled: true, label: <PostSpace myProfile={myProfile!} /> },
       ];
 
       const itemsForSeeker: TabsProps['items'] = [
-            { key: '1', label: 'Profile Details', children: <DoctorProfile /> },
-            { key: '2', label: 'My Interests', children: <MyInterest /> },
-            { key: '3', label: 'My Favorites', children: <MyFavorite /> },
+            { key: '1', label: 'Profile Details', children: <DoctorProfile myProfile={myProfile!} /> },
+            { key: '2', label: 'My Interests', children: <MyInterest myProfile={myProfile!} /> },
+            { key: '3', label: 'My Favorites', children: <MyFavorite myProfile={myProfile!} /> },
             { key: '4', label: 'Change Password', children: <ChangePassword /> },
       ];
 
