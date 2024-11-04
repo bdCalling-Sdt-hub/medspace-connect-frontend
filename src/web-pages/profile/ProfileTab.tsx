@@ -19,8 +19,6 @@ const ProfileTab = () => {
       const { user } = useAppSelector((state) => state.auth);
       const { data: myProfile, isFetching } = useGetUserProfileQuery([]);
       const [modal, setModal] = useState(false);
-      const [activeKey, setActiveKey] = useState('1');
-      console.log(activeKey);
 
       // Loading state for profile data
       if (isFetching) {
@@ -53,7 +51,7 @@ const ProfileTab = () => {
       // Tab items for the provider role
       const itemsForProvider: TabsProps['items'] = [
             { key: '1', label: 'Profile', children: <Profile myProfile={myProfile!} /> },
-            { key: '2', label: 'My Post', children: <MyPost myProfile={myProfile!} /> },
+            { key: '2', label: 'My Post', children: <MyPost /> },
             { key: '3', label: 'Package History', children: <MyPackage myProfile={myProfile!} /> },
             { key: '4', label: 'Change Password', children: <ChangePassword /> },
             {
@@ -97,12 +95,7 @@ const ProfileTab = () => {
                               },
                         }}
                   >
-                        <Tabs
-                              defaultActiveKey="1"
-                              activeKey={activeKey}
-                              onChange={(key) => setActiveKey(key)}
-                              items={tabItems}
-                        />
+                        <Tabs defaultActiveKey="1" items={tabItems} />
                   </ConfigProvider>
             </div>
       );

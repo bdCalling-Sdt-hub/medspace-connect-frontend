@@ -28,6 +28,18 @@ const spaceApi = baseApi.injectEndpoints({
                         return response.data;
                   },
             }),
+            getMySpace: build.query({
+                  query: () => {
+                        return {
+                              url: '/space/my-spaces',
+                              method: 'GET',
+                        };
+                  },
+                  providesTags: ['spaces'],
+                  transformResponse: (response: TApiResponse<TSpace[]>) => {
+                        return response.data;
+                  },
+            }),
 
             createSpace: build.mutation({
                   query: (data) => {
@@ -76,4 +88,4 @@ const spaceApi = baseApi.injectEndpoints({
       }),
 });
 
-export const { useCreateSpaceMutation } = spaceApi;
+export const { useCreateSpaceMutation, useGetMySpaceQuery } = spaceApi;

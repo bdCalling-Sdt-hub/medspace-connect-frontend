@@ -7,10 +7,11 @@ import { PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import moment from 'moment';
 import { TUser } from '@/src/redux/features/user/userApi';
-type TProps = {
-      myProfile: TUser;
-};
-const MyPost = ({ myProfile }: TProps) => {
+import { useGetMySpaceQuery } from '@/src/redux/features/space/spaceApi';
+
+const MyPost = () => {
+      const { data: mySpace, isFetching } = useGetMySpaceQuery([]);
+      console.log(mySpace);
       const [editModal, setEditModal] = useState(false);
       const [editPostData, setEditPostData] = useState({
             images: [],
@@ -189,8 +190,8 @@ const MyPost = ({ myProfile }: TProps) => {
       return (
             <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
                   {/* Render Medical Post Cards */}
-                  {[...Array(2)].map((_, index) => (
-                        <MyMedicalSpacePostCard index={index} setEditModal={setEditModal} key={index} />
+                  {mySpace?.map((space, index) => (
+                        <MyMedicalSpacePostCard space={space} index={index} setEditModal={setEditModal} key={index} />
                   ))}
 
                   <Modal body={renderForm()} open={editModal} setOpen={setEditModal} key="editModal" width={900} />

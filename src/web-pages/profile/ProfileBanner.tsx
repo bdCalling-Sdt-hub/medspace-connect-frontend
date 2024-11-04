@@ -1,13 +1,37 @@
 'use client';
 import Image from 'next/image';
 import hostbanner from '@/public/assets/banner.svg';
-import person from '@/public/assets/profile.png';
 import { CiEdit } from 'react-icons/ci';
 import { useAppSelector } from '@/src/redux/hooks';
+import { useGetUserProfileQuery, useUpdateUserProfileMutation } from '@/src/redux/features/user/userApi';
+import { notification } from 'antd';
 
 const ProfileBanner = () => {
       const { user } = useAppSelector((state) => state.auth);
-
+      const { data: myProfile } = useGetUserProfileQuery([]);
+      const [updateProfile] = useUpdateUserProfileMutation();
+      const handleUpdateProfile = async (image: File) => {
+            console.log(image);
+            try {
+                  const formData = new FormData();
+                  formData.append('profile', image);
+                  const res = await updateProfile(formData).unwrap();
+                  if (res.success) {
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to update profile',
+                  });
+            }
+      };
+      const handleUpdateBanner = (image: File) => {
+            console.log(image);
+      };
       return (
             <div className="container mx-auto my-10">
                   <div className="relative lg:h-[200px] h-[250px]">
@@ -26,7 +50,19 @@ const ProfileBanner = () => {
                               >
                                     <CiEdit size={25} color="#929394" />
                               </label>
-                              <input id="imageUploadBanner" type="file" style={{ display: 'none' }} />
+                              <input
+                                    id="imageUploadBanner"
+                                    onChange={(e) => {
+                                          const file = e.target.files?.[0];
+                                          if (file) {
+                                                handleUpdateBanner(file);
+                                          } else {
+                                                console.log('No image selected');
+                                          }
+                                    }}
+                                    type="file"
+                                    style={{ display: 'none' }}
+                              />
                         </div>
 
                         <div className="lg:w-[430px] w-[80%] absolute left-0 top-1/2 transform -translate-y-1/2 p-3 rounded-r-[90px] bg-[#E7F4FC]">
@@ -34,7 +70,8 @@ const ProfileBanner = () => {
                                     {/* Profile Image */}
                                     <div className="relative">
                                           <Image
-                                                src={person}
+                                                unoptimized
+                                                src={myProfile?.user?.profile as string}
                                                 alt="host-profile"
                                                 width={120}
                                                 height={120}
@@ -46,11 +83,23 @@ const ProfileBanner = () => {
                                           >
                                                 <CiEdit size={25} color="#929394" />
                                           </label>
-                                          <input id="imageUpload" type="file" style={{ display: 'none' }} />
+                                          <input
+                                                id="imageUpload"
+                                                type="file"
+                                                onChange={(e) => {
+                                                      const file = e.target.files?.[0];
+                                                      if (file) {
+                                                            handleUpdateProfile(file);
+                                                      } else {
+                                                            console.log('No image selected');
+                                                      }
+                                                }}
+                                                style={{ display: 'none' }}
+                                          />
                                     </div>
 
                                     <div>
-                                          <h1 className="text-2xl text-[#4E4E4E]">Saiful Islam Fahim</h1>
+                                          <h1 className="text-2xl text-[#4E4E4E]">{myProfile?.user?.name}</h1>
                                           <p className="text-secondary text-[14px] leading-6 font-normal capitalize">
                                                 {user?.role === 'SPACESEEKER'
                                                       ? 'Space Seeker'

@@ -17,12 +17,19 @@ const PostSpace = ({ modal, setModal }: TProps) => {
       const [createSpace] = useCreateSpaceMutation();
       const [form] = Form.useForm();
       const onFinish = async (values: any) => {
+            console.log(values.spaceImages);
             try {
                   const obj = { ...values, price: Number(values.price) };
+                  const spaceImages = values.spaceImages.fileList.map((file: any) => file.originFileObj);
+
+                  delete obj.spaceImages;
                   const data = JSON.stringify(obj);
-                  const spaceImages = values.spaceImages.fileList;
+
                   const formData = new FormData();
-                  formData.append('spaceImages', spaceImages);
+                  spaceImages.forEach((file: File) => {
+                        formData.append('spaceImages', file);
+                  });
+
                   formData.append('data', data);
 
                   const res = await createSpace(formData).unwrap();
