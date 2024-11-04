@@ -1,22 +1,46 @@
 'use client';
-/* eslint-disable @next/next/no-img-element */
 import Modal from '@/src/components/ui/Modal';
-import { useState } from 'react';
-import { FaPlus } from 'react-icons/fa6';
-import { Button, Form, Input, DatePicker, Select, Upload, message, ConfigProvider } from 'antd';
+import { Dispatch, SetStateAction } from 'react';
+
+import { Button, Form, Input, DatePicker, Select, Upload, message, ConfigProvider, notification } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import { BiChevronDown } from 'react-icons/bi';
 import { MdOutlineCalendarMonth } from 'react-icons/md';
-import { TUser } from '@/src/redux/features/user/userApi';
-type TProps = {
-      myProfile: TUser;
-};
-const PostSpace = ({ myProfile }: TProps) => {
-      const [modal, setModal] = useState(false);
 
-      const onFinish = (values: any) => {
-            console.log('Form Submitted:', values);
+import { useCreateSpaceMutation } from '@/src/redux/features/space/spaceApi';
+type TProps = {
+      setModal: Dispatch<SetStateAction<boolean>>;
+      modal: boolean;
+};
+const PostSpace = ({ modal, setModal }: TProps) => {
+      const [createSpace] = useCreateSpaceMutation();
+      const [form] = Form.useForm();
+      const onFinish = async (values: any) => {
+            try {
+                  const obj = { ...values, price: Number(values.price) };
+                  const data = JSON.stringify(obj);
+                  const spaceImages = values.spaceImages.fileList;
+                  const formData = new FormData();
+                  formData.append('spaceImages', spaceImages);
+                  formData.append('data', data);
+
+                  const res = await createSpace(formData).unwrap();
+
+                  if (res.success) {
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                        form.resetFields();
+                        setModal(false);
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to create space',
+                  });
+            }
       };
 
       const uploadButton = (
@@ -38,10 +62,10 @@ const PostSpace = ({ myProfile }: TProps) => {
                         },
                   }}
             >
-                  <Form className="p-2" layout="vertical" onFinish={onFinish}>
+                  <Form form={form} className="p-2" layout="vertical" onFinish={onFinish}>
                         <div className="flex items-center space-x-4 mb-6">
                               <Form.Item
-                                    name="images"
+                                    name="spaceImages"
                                     label="Upload Images"
                                     rules={[
                                           {
@@ -61,7 +85,7 @@ const PostSpace = ({ myProfile }: TProps) => {
                                     ]}
                               >
                                     <Upload
-                                          maxCount={7} // Maximum number of files
+                                          maxCount={5}
                                           multiple
                                           listType="picture-card"
                                           className="avatar-uploader"
@@ -82,10 +106,11 @@ const PostSpace = ({ myProfile }: TProps) => {
                         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
                               <Form.Item
                                     label={<span className="custom-label">Post Title</span>}
-                                    name="postTitle"
+                                    name="title"
                                     rules={[{ required: true, message: 'Please enter the post title!' }]}
                               >
                                     <Input
+                                          type="text"
                                           style={{ borderRadius: '24px', height: '48px' }}
                                           placeholder="Doctors Practice Room"
                                     />
@@ -176,18 +201,22 @@ const PostSpace = ({ myProfile }: TProps) => {
                         <Form.Item
                               rules={[{ required: true, message: 'Please enter ideal occupant specialty' }]}
                               label={<span className="custom-label">Ideal occupant specialty</span>}
-                              name="idealOccupant"
+                              name="specialty"
                         >
                               <TextArea
-                                    style={{ borderRadius: '24px', height: 'auto', paddingTop: 10 }}
+                                    style={{ borderRadius: '10px', height: 'auto', paddingTop: 10 }}
                                     rows={2}
                                     cols={2}
                                     placeholder="Please type ideal occupant specialty"
                               />
                         </Form.Item>
-                        <Form.Item label={<span className="custom-label">Description</span>} name="description">
+                        <Form.Item
+                              label={<span className="custom-label">Description</span>}
+                              name="description"
+                              rules={[{ required: true, message: 'Please enter the description!' }]}
+                        >
                               <TextArea
-                                    style={{ borderRadius: '24px', height: 'auto', paddingTop: 10 }}
+                                    style={{ borderRadius: '10px', height: 'auto', paddingTop: 10 }}
                                     rows={3}
                                     cols={3}
                                     placeholder="Please type a description"
@@ -218,27 +247,7 @@ const PostSpace = ({ myProfile }: TProps) => {
             </ConfigProvider>
       );
       return (
-            <div className="flex items-center md:ms-[100%] gap-5">
-                  <h1 className="text-secondary text-lg">
-                        Remaining Post : {myProfile.spacesPosted}/{myProfile.allowedSpaces}
-                  </h1>
-                  <Button
-                        onClick={() => setModal(true)}
-                        icon={<FaPlus size={18} />}
-                        shape="round"
-                        className="px-6"
-                        style={{
-                              height: '50px',
-                              width: '141px',
-                              backgroundColor: '#0A8FDC',
-                              fontWeight: '500',
-                              border: 'none',
-                              color: '#fff',
-                        }}
-                  >
-                        New Post
-                  </Button>
-
+            <div className="flex items-center gap-5">
                   <Modal width={900} open={modal} setOpen={setModal} key={'post'} body={body} />
             </div>
       );

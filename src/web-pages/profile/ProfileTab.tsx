@@ -1,5 +1,11 @@
 'use client';
-import { ConfigProvider, Tabs, TabsProps } from 'antd';
+import { Button, ConfigProvider, Tabs, TabsProps } from 'antd';
+import { FaPlus } from 'react-icons/fa6';
+import { useState } from 'react';
+import { useAppSelector } from '@/src/redux/hooks';
+import { useGetUserProfileQuery } from '@/src/redux/features/user/userApi';
+
+// Importing components based on roles
 import Profile from './merchant/Profile';
 import MyPost from './merchant/MyPost';
 import MyPackage from './merchant/MyPackage';
@@ -8,25 +14,53 @@ import DoctorProfile from './doctor/DoctorProfile';
 import MyInterest from './doctor/MyInterest';
 import MyFavorite from './doctor/MyFavorite';
 import PostSpace from './merchant/PostSpace';
-import { useAppSelector } from '@/src/redux/hooks';
-import { useGetUserProfileQuery } from '@/src/redux/features/user/userApi';
 
 const ProfileTab = () => {
       const { user } = useAppSelector((state) => state.auth);
       const { data: myProfile, isFetching } = useGetUserProfileQuery([]);
+      const [modal, setModal] = useState(false);
+      const [activeKey, setActiveKey] = useState('1');
+      console.log(activeKey);
+
+      // Loading state for profile data
       if (isFetching) {
             return <div>Loading...</div>;
       }
 
-      console.log(myProfile);
+      const ButtonModal = (
+            <div onClick={() => setModal(true)} className="flex items-center gap-2">
+                  <h1 className="text-secondary text-nowrap text-lg">
+                        Remaining Post : {myProfile?.spacesPosted}/{myProfile?.allowedSpaces}
+                  </h1>
+                  <Button
+                        icon={<FaPlus size={18} />}
+                        shape="round"
+                        className="px-6"
+                        style={{
+                              height: '50px',
+                              width: '141px',
+                              backgroundColor: '#0A8FDC',
+                              fontWeight: '500',
+                              border: 'none',
+                              color: '#fff',
+                        }}
+                  >
+                        New Post
+                  </Button>
+            </div>
+      );
 
-      // Define tabs for each role
+      // Tab items for the provider role
       const itemsForProvider: TabsProps['items'] = [
             { key: '1', label: 'Profile', children: <Profile myProfile={myProfile!} /> },
             { key: '2', label: 'My Post', children: <MyPost myProfile={myProfile!} /> },
             { key: '3', label: 'Package History', children: <MyPackage myProfile={myProfile!} /> },
             { key: '4', label: 'Change Password', children: <ChangePassword /> },
-            { key: '5', disabled: true, label: <PostSpace myProfile={myProfile!} /> },
+            {
+                  key: '5',
+                  label: <div>{ButtonModal}</div>,
+                  children: <PostSpace modal={modal} setModal={setModal} />,
+            },
       ];
 
       const itemsForSeeker: TabsProps['items'] = [
@@ -36,7 +70,7 @@ const ProfileTab = () => {
             { key: '4', label: 'Change Password', children: <ChangePassword /> },
       ];
 
-      // Determine tab items based on role using switch
+      // Function to determine tabs based on user role
       const getTabItems = () => {
             switch (user?.role) {
                   case 'SPACESEEKER':
@@ -47,21 +81,28 @@ const ProfileTab = () => {
             }
       };
 
+      // Getting the appropriate tabs for the current user role
       const tabItems = getTabItems();
 
       return (
-            <div className="container mx-auto">
+            <div className="container relative mx-auto">
                   <ConfigProvider
                         theme={{
                               components: {
                                     Tabs: {
                                           itemColor: '#6B6B6B',
                                           fontFamily: 'inherit',
+                                          colorBorder: 'red',
                                     },
                               },
                         }}
                   >
-                        <Tabs defaultActiveKey="1" items={tabItems} />
+                        <Tabs
+                              defaultActiveKey="1"
+                              activeKey={activeKey}
+                              onChange={(key) => setActiveKey(key)}
+                              items={tabItems}
+                        />
                   </ConfigProvider>
             </div>
       );
