@@ -1,5 +1,6 @@
 import { TApiResponse } from '@/src/types';
 import { baseApi } from '../api/baseApi';
+import { TUser } from '../user/userApi';
 export type TSpace = {
       spaceImages: string[];
 
@@ -12,6 +13,10 @@ export type TSpace = {
       practiceFor: string;
       facilities: string[];
       description: string;
+
+      providerId?: {
+            profile: string;
+      };
 };
 
 const spaceApi = baseApi.injectEndpoints({
@@ -67,6 +72,7 @@ const spaceApi = baseApi.injectEndpoints({
                               body: args.data,
                         };
                   },
+                  invalidatesTags: ['spaces'],
             }),
             updateSpaceImage: build.mutation({
                   query: (args) => {
@@ -88,4 +94,4 @@ const spaceApi = baseApi.injectEndpoints({
       }),
 });
 
-export const { useCreateSpaceMutation, useGetMySpaceQuery } = spaceApi;
+export const { useCreateSpaceMutation, useGetMySpaceQuery, useUpdateSpaceMutation } = spaceApi;

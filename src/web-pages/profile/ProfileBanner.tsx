@@ -5,13 +5,14 @@ import { CiEdit } from 'react-icons/ci';
 import { useAppSelector } from '@/src/redux/hooks';
 import { useGetUserProfileQuery, useUpdateUserProfileMutation } from '@/src/redux/features/user/userApi';
 import { notification } from 'antd';
+import { imageUrl } from '@/src/redux/features/api/baseApi';
 
 const ProfileBanner = () => {
       const { user } = useAppSelector((state) => state.auth);
       const { data: myProfile } = useGetUserProfileQuery([]);
       const [updateProfile] = useUpdateUserProfileMutation();
       const handleUpdateProfile = async (image: File) => {
-            console.log(image);
+            // console.log(image);
             try {
                   const formData = new FormData();
                   formData.append('profile', image);
@@ -29,20 +30,39 @@ const ProfileBanner = () => {
                   });
             }
       };
-      const handleUpdateBanner = (image: File) => {
-            console.log(image);
+      const handleUpdateBanner = async (image: File) => {
+            // console.log(image);
+            try {
+                  const formData = new FormData();
+                  formData.append('banner', image);
+                  const res = await updateProfile(formData).unwrap();
+                  if (res.success) {
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to update banner',
+                  });
+            }
       };
+
       return (
             <div className="container mx-auto my-10">
                   <div className="relative lg:h-[200px] h-[250px]">
                         {/* Banner Image */}
                         <div className="relative h-full w-full">
                               <Image
-                                    src={hostbanner}
+                                    unoptimized
+                                    // src={hostbanner}
+                                    src={`${imageUrl}/${myProfile?.user?.banner}`}
                                     alt="host-profile"
                                     width={500}
                                     height={400}
-                                    className="h-full w-full object-cover rounded-t-[10px] transform scale-x-[-1]"
+                                    className="h-full w-full object-cover rounded-t-[10px] "
                               />
                               <label
                                     htmlFor="imageUploadBanner"
@@ -71,11 +91,11 @@ const ProfileBanner = () => {
                                     <div className="relative">
                                           <Image
                                                 unoptimized
-                                                src={myProfile?.user?.profile as string}
+                                                src={`${imageUrl}/${myProfile?.user?.profile}`}
                                                 alt="host-profile"
                                                 width={120}
                                                 height={120}
-                                                className="rounded-full"
+                                                className="rounded-full size-[120px]"
                                           />
                                           <label
                                                 htmlFor="imageUpload"

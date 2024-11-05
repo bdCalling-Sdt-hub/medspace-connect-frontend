@@ -12,7 +12,7 @@ export interface TUser {
             profile: string;
             status: string;
             verified: boolean;
-
+            banner: string;
             subscription?: string;
       };
       allowedSpaces?: number;
@@ -35,6 +35,7 @@ const authApi = baseApi.injectEndpoints({
                   transformResponse: (response: TApiResponse<TUser>) => {
                         return response.data;
                   },
+                  providesTags: ['users'],
             }),
             registerUser: build.mutation({
                   query: (data) => {
@@ -53,6 +54,7 @@ const authApi = baseApi.injectEndpoints({
                               body: data,
                         };
                   },
+                  invalidatesTags: ['users'],
             }),
       }),
 });

@@ -208,7 +208,7 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                         <Form.Item
                               rules={[{ required: true, message: 'Please enter ideal occupant specialty' }]}
                               label={<span className="custom-label">Ideal occupant specialty</span>}
-                              name="specialty"
+                              name="speciality"
                         >
                               <TextArea
                                     style={{ borderRadius: '10px', height: 'auto', paddingTop: 10 }}

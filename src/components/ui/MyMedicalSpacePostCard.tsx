@@ -1,26 +1,31 @@
 'use client';
 import { TSpace } from '@/src/redux/features/space/spaceApi';
 import Card from '/public/assets/card.png';
-import Profile from '/public/assets/profile.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 import { IoLocationOutline } from 'react-icons/io5';
+import { imageUrl } from '@/src/redux/features/api/baseApi';
 const MyMedicalSpacePostCard = ({
       setEditModal,
-      index,
+      setModalData,
       space,
 }: {
       setEditModal: Dispatch<SetStateAction<boolean>>;
+      setModalData: any;
       index: number;
       space: TSpace;
 }) => {
+      // console.log(`${imageUrl}/${space?.spaceImages[0]}`);
       return (
             <div className="bg-white max-w-[360px] mx-auto rounded-xl  drop-shadow-md  relative overflow-hidden">
                   {/* edit button */}
                   <div className="absolute z-[99] top-4 right-0 bg-[#FDFDFD] px-6 py-3 rounded-s-full ">
                         <button
-                              onClick={() => setEditModal(true)}
+                              onClick={() => {
+                                    setEditModal(true);
+                                    setModalData(space);
+                              }}
                               className="text-secondaryText flex items-center gap-3"
                         >
                               <span>
@@ -42,39 +47,41 @@ const MyMedicalSpacePostCard = ({
                   </div>
 
                   <div className="p-3">
-                        <Image
-                              height={219}
-                              width={344}
-                              className=" object-cover"
-                              src={Card}
-                              alt="Doctor's Practice Room"
-                        />
+                        <div className="w-[336px] h-[260px] mx-auto">
+                              <Image
+                                    height={219}
+                                    width={344}
+                                    className="w-full h-full object-cover rounded-xl"
+                                    src={`${imageUrl}/${space?.spaceImages[0]}`}
+                                    alt="Doctor's Practice Room"
+                              />
+                        </div>
                         <Link href={`my-post/${1}`} className="p-4">
                               <div className="flex justify-between items-center mb-2">
                                     <p className="flex items-center">
                                           <span className="text-2xl font-semibold text-primary">${space?.price}/</span>
                                           <span className="text-primary">mon</span>
                                     </p>
-                                    <p className={index % 2 === 0 ? 'text-green-600' : 'text-red-600'}>
-                                          {index % 2 === 0 ? 'Active' : 'Occupied'}
+                                    <p className={space?.status == 'ACTIVE' ? 'text-green-600' : 'text-red-600'}>
+                                          {space?.status == 'ACTIVE' ? 'Active' : 'Occupied'}
                                     </p>
                               </div>
 
                               <div className="flex items-center gap-5">
                                     <Image
-                                          src={space.spaceImages[0]}
-                                          height={33}
-                                          width={33}
-                                          className=" rounded-full"
+                                          src={`${imageUrl}/${space?.providerId?.profile}`}
+                                          height={30}
+                                          width={30}
+                                          className=" rounded-full object-cover size-[30px]"
                                           alt="Doctor"
                                     />
-                                    <h3 className="text-xl font-semibold text-headerText">Doctors Practice Room</h3>
+                                    <h3 className="text-xl font-semibold text-headerText">{space?.title}</h3>
                               </div>
 
                               {/* Description Section */}
                               <div className="flex items-center mt-3 text-primaryText">
                                     <IoLocationOutline size={24} />
-                                    <p className=" ml-2 text-sm">55/A, b park road, Abcd area, city</p>
+                                    <p className=" ml-2 text-sm">{space?.location}</p>
                               </div>
                         </Link>
                   </div>

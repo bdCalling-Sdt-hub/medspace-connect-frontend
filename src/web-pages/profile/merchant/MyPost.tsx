@@ -1,32 +1,65 @@
 'use client';
 import MyMedicalSpacePostCard from '@/src/components/ui/MyMedicalSpacePostCard';
 import Modal from '@/src/components/ui/Modal';
-import { useState } from 'react';
-import { Button, Form, Input, DatePicker, Select, Upload } from 'antd';
+import { useEffect, useState } from 'react';
+import { Button, Form, Input, DatePicker, Select, Upload, notification } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import moment from 'moment';
 import { TUser } from '@/src/redux/features/user/userApi';
-import { useGetMySpaceQuery } from '@/src/redux/features/space/spaceApi';
-
+import { useGetMySpaceQuery, useUpdateSpaceMutation } from '@/src/redux/features/space/spaceApi';
+type SpaceData = {
+      _id: string;
+      title: string;
+      price: string;
+      location: string;
+      description: string;
+      images: { url: string }[];
+      openingDate?: string;
+      priceType?: string;
+      practiceFor?: string;
+      facilities?: string[];
+      speciality?: string;
+};
 const MyPost = () => {
+      const [form] = Form.useForm();
       const { data: mySpace, isFetching } = useGetMySpaceQuery([]);
-      console.log(mySpace);
-      const [editModal, setEditModal] = useState(false);
-      const [editPostData, setEditPostData] = useState({
-            images: [],
-            postTitle: 'Doctors Practice Room',
-            price: '150',
-            priceType: 'demo',
-            location: '22/96A, New York, USA',
-            openingDate: '2024-10-01',
-            practiceFor: 'dentalCare',
-            facilities: ['furnished', 'newest'],
-            description: 'Description of the practice room...',
-      });
+      const [updateSpace] = useUpdateSpaceMutation();
 
-      const onFinish = (values: any) => {
-            console.log('Form Submitted:', values);
+      const [editModal, setEditModal] = useState(false);
+      const [modalData, setModalData] = useState<SpaceData>();
+
+      const onFinish = async (values: any) => {
+            try {
+                  const updateSpaceInfo = {
+                        id: modalData?._id,
+                        data: {
+                              title: values.title,
+                              price: values.price,
+                              location: values.location,
+                              description: values.description,
+                              // images: values.images.map((img: any) => ({ url: img.originFileObj.url })),
+                              openingDate: values.openingDate ? values.openingDate.toISOString() : '',
+                              priceType: values.priceType,
+                              practiceFor: values.practiceFor,
+                              facilities: values.facilities,
+                              speciality: values.speciality,
+                        },
+                  };
+                  const res = await updateSpace(updateSpaceInfo).unwrap();
+                  if (res.success) {
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                        setEditModal(false);
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to update space',
+                  });
+            }
       };
 
       const uploadButton = (
@@ -36,21 +69,22 @@ const MyPost = () => {
             </div>
       );
 
-      // Form layout and fields with initial values
       const renderForm = () => (
             <Form
                   className="p-2"
                   layout="vertical"
                   onFinish={onFinish}
                   initialValues={{
-                        postTitle: editPostData.postTitle,
-                        price: editPostData.price,
-                        priceType: editPostData.priceType,
-                        location: editPostData.location,
-                        openingDate: moment(editPostData.openingDate),
-                        practiceFor: editPostData.practiceFor,
-                        facilities: editPostData.facilities,
-                        description: editPostData.description,
+                        title: modalData?.title || '',
+                        price: modalData?.price || '',
+                        location: modalData?.location || '',
+                        description: modalData?.description || '',
+                        images: modalData?.images || [],
+                        openingDate: modalData?.openingDate ? moment(modalData.openingDate) : null,
+                        priceType: modalData?.priceType || '',
+                        speciality: modalData?.speciality || '',
+                        practiceFor: modalData?.practiceFor || '',
+                        facilities: modalData?.facilities || [],
                   }}
             >
                   {/* Image Upload */}
@@ -59,7 +93,7 @@ const MyPost = () => {
                               name="images"
                               valuePropName="fileList"
                               getValueFromEvent={(e) => e.fileList}
-                              rules={[{ required: true, message: 'Please select an image' }]}
+                              // rules={[{ required: true, message: 'Please select an image' }]}
                         >
                               <Upload
                                     multiple
@@ -74,11 +108,7 @@ const MyPost = () => {
 
                   {/* Post Title, Price, and Location Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
-                        <Form.Item
-                              name="postTitle"
-                              label="Post Title"
-                              rules={[{ required: true, message: 'Please enter the post title!' }]}
-                        >
+                        <Form.Item name="title" label="Post Title">
                               <Input
                                     style={{ borderRadius: '24px', height: '48px' }}
                                     placeholder="Doctors Practice Room"
@@ -86,19 +116,11 @@ const MyPost = () => {
                         </Form.Item>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                              <Form.Item
-                                    name="price"
-                                    label="Price"
-                                    rules={[{ required: true, message: 'Please enter the price!' }]}
-                              >
+                              <Form.Item name="price" label="Price">
                                     <Input style={{ borderRadius: '24px', height: '48px' }} placeholder="$150" />
                               </Form.Item>
 
-                              <Form.Item
-                                    name="priceType"
-                                    label="Price Type"
-                                    rules={[{ required: true, message: 'Please select the price type!' }]}
-                              >
+                              <Form.Item name="priceType" label="Price Type">
                                     <Select
                                           placeholder="Select Price Type"
                                           style={{ height: '48px', borderRadius: 40 }}
@@ -108,41 +130,25 @@ const MyPost = () => {
                               </Form.Item>
                         </div>
 
-                        <Form.Item
-                              name="location"
-                              label="Location"
-                              rules={[{ required: true, message: 'Please enter the location!' }]}
-                        >
+                        <Form.Item name="location" label="Location">
                               <Input
                                     style={{ borderRadius: '24px', height: '48px' }}
                                     placeholder="22/96A, New York, USA"
                               />
                         </Form.Item>
 
-                        <Form.Item
-                              name="openingDate"
-                              label="Opening Date"
-                              rules={[{ required: true, message: 'Please enter the opening date!' }]}
-                        >
+                        <Form.Item name="openingDate" label="Opening Date">
                               <DatePicker className="w-full" style={{ borderRadius: '24px', height: '48px' }} />
                         </Form.Item>
 
-                        <Form.Item
-                              name="practiceFor"
-                              label="Practice for"
-                              rules={[{ required: true, message: 'Please select practice type!' }]}
-                        >
+                        <Form.Item name="practiceFor" label="Practice for">
                               <Select style={{ borderRadius: '24px', height: '48px' }} placeholder="Select Practice">
                                     <Select.Option value="dentalCare">Dental Care</Select.Option>
                                     <Select.Option value="surgery">Surgery</Select.Option>
                               </Select>
                         </Form.Item>
 
-                        <Form.Item
-                              name="facilities"
-                              label="Facilities"
-                              rules={[{ required: true, message: 'Please select the facilities!' }]}
-                        >
+                        <Form.Item name="facilities" label="Facilities">
                               <Select
                                     mode="multiple"
                                     style={{ borderRadius: '24px', height: '48px' }}
@@ -156,9 +162,16 @@ const MyPost = () => {
                   </div>
 
                   {/* Description Field */}
+                  <Form.Item name="speciality" label="Ideal occupant specialty">
+                        <TextArea
+                              style={{ borderRadius: '10px', height: 'auto', paddingTop: 20 }}
+                              rows={4}
+                              placeholder="Enter a description"
+                        />
+                  </Form.Item>
                   <Form.Item name="description" label="Description">
                         <TextArea
-                              style={{ borderRadius: '24px', height: 'auto', paddingTop: 20 }}
+                              style={{ borderRadius: '10px', height: 'auto', paddingTop: 20 }}
                               rows={4}
                               placeholder="Enter a description"
                         />
@@ -191,7 +204,13 @@ const MyPost = () => {
             <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
                   {/* Render Medical Post Cards */}
                   {mySpace?.map((space, index) => (
-                        <MyMedicalSpacePostCard space={space} index={index} setEditModal={setEditModal} key={index} />
+                        <MyMedicalSpacePostCard
+                              setModalData={setModalData}
+                              space={space}
+                              index={index}
+                              setEditModal={setEditModal}
+                              key={index}
+                        />
                   ))}
 
                   <Modal body={renderForm()} open={editModal} setOpen={setEditModal} key="editModal" width={900} />

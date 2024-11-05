@@ -22,7 +22,7 @@ const Profile = ({ myProfile }: TProps) => {
                   });
             }
       };
-      console.log(myProfile);
+
       return (
             <div
                   className="form-container"
@@ -36,7 +36,7 @@ const Profile = ({ myProfile }: TProps) => {
             >
                   <Form
                         initialValues={{
-                              ...myProfile.user,
+                              ...myProfile?.user,
                         }}
                         layout="vertical"
                         onFinish={onFinish}
