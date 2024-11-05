@@ -1,13 +1,38 @@
 'use client';
 import React from 'react';
-import { Form, Input, Button, Row, Col } from 'antd';
-import { TUser } from '@/src/redux/features/user/userApi';
+import { Form, Input, Button, Row, Col, notification } from 'antd';
+import { TUser, useUpdateUserProfileMutation } from '@/src/redux/features/user/userApi';
 type TProps = {
       myProfile: TUser;
 };
 const DoctorProfile = ({ myProfile }: TProps) => {
-      const onFinish = (values: any) => {
-            console.log('Form Submitted:', values);
+      const [updateProfile] = useUpdateUserProfileMutation();
+      const onFinish = async (values: any) => {
+            console.log(values);
+            try {
+                  const updatedInfo = {
+                        ...values,
+                        education: {
+                              degree: values?.degree || '',
+                              institutionName: values?.institutionName,
+                              institutionLocation: values?.institutionLocation,
+                              startYear: values?.startYear,
+                              endYear: values?.endYear,
+                        },
+                  };
+                  const res = await updateProfile(updatedInfo).unwrap();
+                  if (res.success) {
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to update profile',
+                  });
+            }
       };
 
       return (
@@ -21,10 +46,29 @@ const DoctorProfile = ({ myProfile }: TProps) => {
                         margin: '0 auto',
                   }}
             >
-                  <Form layout="vertical" onFinish={onFinish}>
+                  <Form
+                        initialValues={{
+                              name: myProfile?.user?.name || 'Asadujjaman',
+                              email: myProfile?.user?.email || 'Asadujjaman@gmail.com',
+                              contact: myProfile?.user?.contact || '+9910003030',
+                              location: myProfile?.user?.location || '22/96A, New York, USA',
+                              NIDOrPassportNo: myProfile?.user?.NIDOrPassportNo || '1651612652',
+                              occupation: myProfile?.user?.occupation || 'Student',
+
+                              degree: myProfile?.user?.education?.degree || 'MBBS',
+                              startYear: myProfile?.user?.education?.startYear || '2019',
+                              endYear: myProfile?.user?.education?.endYear || '2024',
+                              institutionName:
+                                    myProfile?.user?.education?.institutionName || 'New York Medical College',
+                              institutionLocation:
+                                    myProfile?.user?.education?.institutionLocation || '22, New York, USA',
+                        }}
+                        layout="vertical"
+                        onFinish={onFinish}
+                  >
                         <Row gutter={[16, 16]}>
                               <Col xs={24} sm={12}>
-                                    <Form.Item label={<span className="custom-label">User Name</span>} name="username">
+                                    <Form.Item label={<span className="custom-label">User Name</span>} name="name">
                                           <Input
                                                 placeholder="Asadujjaman"
                                                 style={{ borderRadius: '24px', height: '48px' }}
@@ -65,7 +109,10 @@ const DoctorProfile = ({ myProfile }: TProps) => {
 
                         <Row gutter={[16, 16]}>
                               <Col xs={24} sm={12}>
-                                    <Form.Item label={<span className="custom-label">NPI No.</span>} name="nid">
+                                    <Form.Item
+                                          label={<span className="custom-label">NPI No.</span>}
+                                          name="NIDOrPassportNo"
+                                    >
                                           <Input
                                                 placeholder="1651612652"
                                                 style={{ borderRadius: '24px', height: '48px' }}
@@ -87,14 +134,14 @@ const DoctorProfile = ({ myProfile }: TProps) => {
 
                         <Row gutter={[16, 16]}>
                               <Col xs={24} sm={12}>
-                                    <Form.Item label={<span className="custom-label">Education</span>} name="education">
+                                    <Form.Item label={<span className="custom-label">Education</span>} name="degree">
                                           <Input placeholder="MBBS" style={{ borderRadius: '24px', height: '48px' }} />
                                     </Form.Item>
                               </Col>
                               <Col xs={12} sm={6}>
                                     <Form.Item
                                           label={<span className="custom-label">Started Year</span>}
-                                          name="startedYear"
+                                          name="startYear"
                                     >
                                           <Input placeholder="2019" style={{ borderRadius: '24px', height: '48px' }} />
                                     </Form.Item>
@@ -102,7 +149,7 @@ const DoctorProfile = ({ myProfile }: TProps) => {
                               <Col xs={12} sm={6}>
                                     <Form.Item
                                           label={<span className="custom-label">Passing Year</span>}
-                                          name="passingYear"
+                                          name="endYear"
                                     >
                                           <Input placeholder="2024" style={{ borderRadius: '24px', height: '48px' }} />
                                     </Form.Item>
@@ -112,7 +159,7 @@ const DoctorProfile = ({ myProfile }: TProps) => {
                               <Col xs={24} sm={12}>
                                     <Form.Item
                                           label={<span className="custom-label">Passed Institution</span>}
-                                          name="passedInstitution"
+                                          name="institutionName"
                                     >
                                           <Input
                                                 placeholder="New York Medical College"

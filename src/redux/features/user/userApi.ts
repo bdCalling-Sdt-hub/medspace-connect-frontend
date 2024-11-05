@@ -14,6 +14,16 @@ export interface TUser {
             verified: boolean;
             banner: string;
             subscription?: string;
+            location?: string;
+            NIDOrPassportNo?: string;
+            occupation?: string;
+            education?: {
+                  degree: string;
+                  startYear: string;
+                  endYear: string;
+                  institutionName: string;
+                  institutionLocation: string;
+            };
       };
       allowedSpaces?: number;
       spacesPosted?: number;

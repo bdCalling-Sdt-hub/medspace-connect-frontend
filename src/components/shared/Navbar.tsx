@@ -15,17 +15,19 @@ import RegisterForm from '../form/RegisterForm';
 import VerificationForm from '../form/VerificationForm';
 import NotificationDropdown from '../ui/NotificationDropdown';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
-import { useRegisterUserMutation } from '@/src/redux/features/user/userApi';
+import { useGetUserProfileQuery, useRegisterUserMutation } from '@/src/redux/features/user/userApi';
 import { useLoginUserMutation, useVerifyEmailMutation } from '@/src/redux/features/auth/authApi';
 import { decodedUser } from '@/src/utils/decodeUser';
 import { setUser } from '@/src/redux/features/auth/authSlice';
 import { setAccessToken } from '@/src/utils/accessToken';
+import { imageUrl } from '@/src/redux/features/api/baseApi';
 
 const Navbar = () => {
       const [open, setOpen] = useState(false);
       const [loginModal, setLoginModal] = useState(false);
       const [otpModal, setOtpModal] = useState(false);
       const [registerModal, setRegisterModal] = useState(false);
+      const { data: myProfile, isFetching } = useGetUserProfileQuery([]);
       const dispatch = useAppDispatch();
 
       // *<<<==========✅✅============>>>
@@ -153,7 +155,7 @@ const Navbar = () => {
                                                 </Dropdown>
                                                 <Dropdown
                                                       placement="bottomRight"
-                                                      dropdownRender={ProfileDropdown}
+                                                      dropdownRender={() => <ProfileDropdown myProfile={myProfile} />}
                                                       trigger={['click']}
                                                 >
                                                       <div
@@ -170,7 +172,13 @@ const Navbar = () => {
                                                                   boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
                                                             }}
                                                       >
-                                                            <Image width={40} height={40} alt="profile" src={Profile} />
+                                                            <Image
+                                                                  width={40}
+                                                                  height={40}
+                                                                  alt="profile"
+                                                                  className="size-[40px] rounded-full"
+                                                                  src={`${imageUrl}/${myProfile?.user?.profile}`}
+                                                            />
                                                             <svg
                                                                   width={25}
                                                                   height={25}

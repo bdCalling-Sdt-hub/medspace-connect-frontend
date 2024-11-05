@@ -7,7 +7,8 @@ import Link from 'next/link';
 import { useAppDispatch } from '@/src/redux/hooks';
 import { logoutUser } from '@/src/redux/features/auth/authSlice';
 import { removeAccessToken } from '@/src/utils/accessToken';
-const ProfileDropdown = () => {
+import { imageUrl } from '@/src/redux/features/api/baseApi';
+const ProfileDropdown = ({ myProfile }: { myProfile: any }) => {
       const dispatch = useAppDispatch();
       const handleLogout = () => {
             removeAccessToken();
@@ -20,8 +21,9 @@ const ProfileDropdown = () => {
                         <Image
                               height={200}
                               width={500}
-                              className="h-fit object-cover"
-                              src={ProfileCover}
+                              className="h-[50px] object-cover"
+                              // src={ProfileCover}
+                              src={`${imageUrl}/${myProfile?.user?.banner}`}
                               alt="profile"
                         />
                   </div>
@@ -31,15 +33,15 @@ const ProfileDropdown = () => {
                         <Image
                               height={63}
                               width={63}
-                              className=" rounded-full border-4 border-white"
-                              src={Profile}
+                              className=" rounded-full border-4 size-[65px] border-white"
+                              src={`${imageUrl}/${myProfile?.user?.profile}`}
                               alt="profile"
                         />
                   </div>
 
                   {/* Profile Details */}
                   <div className="text-center mt-2">
-                        <h2 className="text-xl font-semibold text-headerText">MD. Asadujjaman</h2>
+                        <h2 className="text-xl font-semibold text-headerText">{myProfile?.user?.name}</h2>
                   </div>
 
                   {/* View Profile Button */}
