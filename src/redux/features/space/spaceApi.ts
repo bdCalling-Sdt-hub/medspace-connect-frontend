@@ -1,9 +1,10 @@
-import { TApiResponse } from '@/src/types';
+import { TApiResponse, TQueryParams } from '@/src/types';
 import { baseApi } from '../api/baseApi';
 import { TUser } from '../user/userApi';
 export type TSpace = {
       spaceImages: string[];
 
+      _id: string;
       title: string;
       price: number;
       priceType: string;
@@ -22,14 +23,34 @@ export type TSpace = {
 const spaceApi = baseApi.injectEndpoints({
       endpoints: (build) => ({
             getAllSpace: build.query({
-                  query: () => {
+                  query: (args) => {
+                        const params = new URLSearchParams();
+                        if (args) {
+                              args.forEach((item: TQueryParams) => {
+                                    params.append(item.name, item.value as string);
+                              });
+                        }
+
                         return {
                               url: '/space',
+                              method: 'GET',
+                              params,
+                        };
+                  },
+                  providesTags: ['spaces'],
+                  transformResponse: (response: TApiResponse<TSpace[]>) => {
+                        return { data: response.data, meta: response.pagination };
+                  },
+            }),
+            getRecentSpace: build.query({
+                  query: () => {
+                        return {
+                              url: '/space/recent',
                               method: 'GET',
                         };
                   },
                   providesTags: ['spaces'],
-                  transformResponse: (response: TApiResponse<TSpace>) => {
+                  transformResponse: (response: TApiResponse<TSpace[]>) => {
                         return response.data;
                   },
             }),
@@ -83,15 +104,13 @@ const spaceApi = baseApi.injectEndpoints({
                         };
                   },
             }),
-            // deletePackages: build.mutation({
-            //       query: (id) => {
-            //             return {
-            //                   url: `/package/delete/${id}`,
-            //                   method: 'DELETE',
-            //             };
-            //       },
-            // }),
       }),
 });
 
-export const { useCreateSpaceMutation, useGetMySpaceQuery, useUpdateSpaceMutation } = spaceApi;
+export const {
+      useCreateSpaceMutation,
+      useGetMySpaceQuery,
+      useUpdateSpaceMutation,
+      useGetAllSpaceQuery,
+      useGetRecentSpaceQuery,
+} = spaceApi;
