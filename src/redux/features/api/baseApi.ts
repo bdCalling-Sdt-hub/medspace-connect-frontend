@@ -15,7 +15,7 @@ export const baseApi = createApi({
             },
       }),
       endpoints: () => ({}),
-      tagTypes: ['users', 'spaces', 'supports'],
+      tagTypes: ['users', 'spaces', 'supports', 'favorite'],
 });
 
 export const imageUrl = 'http://192.168.10.15:3000';

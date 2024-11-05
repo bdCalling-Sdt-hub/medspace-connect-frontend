@@ -1,19 +1,68 @@
 'use client';
 import { TSpace } from '@/src/redux/features/space/spaceApi';
-import Card from '/public/assets/card.png';
-import Profile from '/public/assets/profile.png';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { IoLocationOutline } from 'react-icons/io5';
 import { imageUrl } from '@/src/redux/features/api/baseApi';
+import {
+      useAddFavoriteMutation,
+      useGetFavoriteQuery,
+      useRemoveFavoriteMutation,
+} from '@/src/redux/features/favourite/favouriteApi';
+import { notification } from 'antd';
+import { useAppSelector } from '@/src/redux/hooks';
 
 const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
-      const [favorite, setFavorite] = useState(false);
-      const handleFavoriteClick = (event: React.MouseEvent<HTMLDivElement>) => {
+      console.log(space);
+      const [addFavorite] = useAddFavoriteMutation();
+      const [removeFavorite] = useRemoveFavoriteMutation();
+      const { user } = useAppSelector((state) => state.auth);
+      const { data: favoriteData } = useGetFavoriteQuery([]);
+
+      // Check if this space is already a favorite
+      const isFavorite = favoriteData?.some((favorite: any) => favorite?.spaceId?._id === space?._id);
+
+      const handleFavoriteClick = async (event: React.MouseEvent<HTMLDivElement>) => {
             event.preventDefault();
-            setFavorite(!favorite);
+
+            if (!user) {
+                  notification.error({
+                        message: 'Please login to add favorite',
+                  });
+                  return;
+            }
+
+            try {
+                  if (isFavorite) {
+                        // Remove from favorites
+                        const res = await removeFavorite(space._id).unwrap();
+
+                        if (res.success) {
+                              notification.success({
+                                    message: res.message,
+                                    placement: 'topRight',
+                                    duration: 5,
+                              });
+                        }
+                  } else {
+                        const res = await addFavorite({
+                              spaceId: space._id,
+                        }).unwrap();
+
+                        if (res.success) {
+                              notification.success({
+                                    message: res.message,
+                                    placement: 'topRight',
+                                    duration: 5,
+                              });
+                        }
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.message || 'Failed to update favorite',
+                  });
+            }
       };
 
       return (
@@ -41,7 +90,7 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
                                     </p>
 
                                     <div onClick={handleFavoriteClick} className="cursor-pointer">
-                                          {favorite ? (
+                                          {isFavorite ? (
                                                 <AiFillHeart className="text-yellow-400 text-2xl" />
                                           ) : (
                                                 <AiOutlineHeart className="text-yellow-400 text-2xl" />
@@ -49,7 +98,7 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
                                     </div>
                               </div>
 
-                              <div className="flex h-full  gap-5">
+                              <div className="flex h-full gap-5">
                                     <Image
                                           height={33}
                                           width={33}

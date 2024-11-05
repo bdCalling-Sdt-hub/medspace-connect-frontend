@@ -1,13 +1,14 @@
 import MedicalSpaceCard from '@/src/components/ui/MedicalSpaceCard';
-import { TUser } from '@/src/redux/features/user/userApi';
-type TProps = {
-      myProfile: TUser;
-};
-const MyFavorite = ({ myProfile }: TProps) => {
+import { useGetFavoriteQuery } from '@/src/redux/features/favourite/favouriteApi';
+import { TSpace } from '@/src/redux/features/space/spaceApi';
+
+const MyFavorite = () => {
+      const { data: favoriteData } = useGetFavoriteQuery([]);
+
       return (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-                  {[...Array(3)].map((item, index) => (
-                        <MedicalSpaceCard key={index} />
+                  {favoriteData?.map((item: { spaceId: TSpace }, index: string) => (
+                        <MedicalSpaceCard space={item.spaceId} key={index} />
                   ))}
             </div>
       );
