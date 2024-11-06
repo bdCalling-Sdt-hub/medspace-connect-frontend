@@ -86,7 +86,7 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
                               <div className="flex justify-between items-center mb-2">
                                     <p className="flex items-center">
                                           <span className="text-2xl font-semibold text-primary">${space?.price}/</span>
-                                          <span className="text-primary">mon</span>
+                                          <span className="text-primary">{space?.priceType}</span>
                                     </p>
 
                                     <div onClick={handleFavoriteClick} className="cursor-pointer">

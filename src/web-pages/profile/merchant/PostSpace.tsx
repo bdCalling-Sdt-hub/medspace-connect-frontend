@@ -141,8 +141,8 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                                 placeholder="Select Price Type"
                                                 style={{ height: '48px', borderRadius: 40 }}
                                           >
-                                                <Select.Option value="monthly">Monthly</Select.Option>
-                                                <Select.Option value="yearly">Yearly</Select.Option>
+                                                <Select.Option value="Monthly">Monthly</Select.Option>
+                                                <Select.Option value="Yearly">Yearly</Select.Option>
                                           </Select>
                                     </Form.Item>
                               </div>
@@ -183,7 +183,51 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                           <Select.Option key={1} value="dentalCare">
                                                 Dental Care
                                           </Select.Option>
-                                          <Select.Option value="surgery">Surgery</Select.Option>
+                                          <Select.Option key={2} value="surgery">
+                                                Surgery
+                                          </Select.Option>
+                                          <Select.Option key={3} value="pediatrics">
+                                                Pediatrics
+                                          </Select.Option>
+                                          <Select.Option key={4} value="gynecology">
+                                                Gynecology
+                                          </Select.Option>
+                                          <Select.Option key={5} value="orthopedics">
+                                                Orthopedics
+                                          </Select.Option>
+                                          <Select.Option key={6} value="dermatology">
+                                                Dermatology
+                                          </Select.Option>
+                                          <Select.Option key={7} value="generalMedicine">
+                                                General Medicine
+                                          </Select.Option>
+                                          <Select.Option key={8} value="radiology">
+                                                Radiology
+                                          </Select.Option>
+                                          <Select.Option key={9} value="cardiology">
+                                                Cardiology
+                                          </Select.Option>
+                                          <Select.Option key={10} value="neurology">
+                                                Neurology
+                                          </Select.Option>
+                                          <Select.Option key={11} value="ophthalmology">
+                                                Ophthalmology
+                                          </Select.Option>
+                                          <Select.Option key={12} value="emergencyCare">
+                                                Emergency Care
+                                          </Select.Option>
+                                          <Select.Option key={13} value="pathology">
+                                                Pathology
+                                          </Select.Option>
+                                          <Select.Option key={14} value="psychiatry">
+                                                Psychiatry
+                                          </Select.Option>
+                                          <Select.Option key={15} value="urology">
+                                                Urology
+                                          </Select.Option>
+                                          <Select.Option key={16} value="endocrinology">
+                                                Endocrinology
+                                          </Select.Option>
                                     </Select>
                               </Form.Item>
 
@@ -193,8 +237,9 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                     rules={[{ required: true, message: 'Please select the facilities!' }]}
                               >
                                     <Select
+                                          mode="tags"
                                           suffixIcon={<BiChevronDown size={26} className="text-primary" />}
-                                          mode="multiple"
+                                          // mode="multiple"
                                           style={{ borderRadius: '24px', height: '48px' }}
                                           placeholder="Select Facilities"
                                     >

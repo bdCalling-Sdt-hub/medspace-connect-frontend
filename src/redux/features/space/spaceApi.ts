@@ -17,6 +17,7 @@ export type TSpace = {
 
       providerId?: {
             profile: string;
+            name: string;
       };
 };
 
@@ -77,12 +78,16 @@ const spaceApi = baseApi.injectEndpoints({
                   },
                   invalidatesTags: ['spaces'],
             }),
-            getSingleSpace: build.mutation({
-                  query: (args) => {
+            getSingleSpace: build.query({
+                  query: (id) => {
                         return {
-                              url: `/space/${args.id}`,
+                              url: `/space/${id}`,
                               method: 'GET',
                         };
+                  },
+
+                  transformResponse: (response: TApiResponse<TSpace>) => {
+                        return response.data;
                   },
             }),
             updateSpace: build.mutation({
@@ -113,4 +118,5 @@ export const {
       useUpdateSpaceMutation,
       useGetAllSpaceQuery,
       useGetRecentSpaceQuery,
+      useGetSingleSpaceQuery,
 } = spaceApi;
