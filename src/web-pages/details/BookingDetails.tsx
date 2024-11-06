@@ -1,10 +1,27 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
-import { Button } from 'antd';
-import { TSpace } from '@/src/redux/features/space/spaceApi';
+import { Button, notification } from 'antd';
+import { TSpace, useCreateInterestedMutation } from '@/src/redux/features/space/spaceApi';
 import { imageUrl } from '@/src/redux/features/api/baseApi';
 const BookingDetails = ({ space }: { space: TSpace }) => {
+      const [createInterest] = useCreateInterestedMutation();
+      const handleInterested = async () => {
+            try {
+                  const res = await createInterest({ spaceId: space?._id }).unwrap();
+                  if (res.success) {
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                  }
+            } catch (error) {
+                  notification.error({
+                        message: 'Failed to create interest',
+                  });
+            }
+      };
       return (
             <div className="bg-white drop-shadow-xl space-y-5 p-8 rounded-xl">
                   <h1 className="text-2xl text-primaryText font-semibold">{space?.title}</h1>
@@ -63,6 +80,7 @@ const BookingDetails = ({ space }: { space: TSpace }) => {
 
                   <div>
                         <Button
+                              onClick={handleInterested}
                               shape="round"
                               className="px-6"
                               style={{

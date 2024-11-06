@@ -63,7 +63,7 @@ const ProfileTab = () => {
 
       const itemsForSeeker: TabsProps['items'] = [
             { key: '1', label: 'Profile Details', children: <DoctorProfile myProfile={myProfile!} /> },
-            { key: '2', label: 'My Interests', children: <MyInterest myProfile={myProfile!} /> },
+            { key: '2', label: 'My Interests', children: <MyInterest /> },
             { key: '3', label: 'My Favorites', children: <MyFavorite /> },
             { key: '4', label: 'Change Password', children: <ChangePassword /> },
       ];

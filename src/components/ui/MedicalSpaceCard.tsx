@@ -14,7 +14,6 @@ import { notification } from 'antd';
 import { useAppSelector } from '@/src/redux/hooks';
 
 const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
-      console.log(space);
       const [addFavorite] = useAddFavoriteMutation();
       const [removeFavorite] = useRemoveFavoriteMutation();
       const { user } = useAppSelector((state) => state.auth);

@@ -10,6 +10,7 @@ const authApi = baseApi.injectEndpoints({
                               body: data,
                         };
                   },
+                  invalidatesTags: ['users'],
             }),
             verifyEmail: build.mutation({
                   query: (data) => {

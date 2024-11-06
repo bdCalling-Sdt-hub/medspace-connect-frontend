@@ -1,6 +1,5 @@
 import { TApiResponse, TQueryParams } from '@/src/types';
 import { baseApi } from '../api/baseApi';
-import { TUser } from '../user/userApi';
 export type TSpace = {
       spaceImages: string[];
 
@@ -14,7 +13,8 @@ export type TSpace = {
       practiceFor: string;
       facilities: string[];
       description: string;
-
+      activeSince?: string;
+      interestedSince?: string;
       providerId?: {
             profile: string;
             name: string;
@@ -67,11 +67,33 @@ const spaceApi = baseApi.injectEndpoints({
                         return response.data;
                   },
             }),
+            getMyInterestedSpace: build.query({
+                  query: () => {
+                        return {
+                              url: '/space/interested-spaces',
+                              method: 'GET',
+                        };
+                  },
+                  providesTags: ['spaces'],
+                  transformResponse: (response: TApiResponse<TSpace[]>) => {
+                        return response.data;
+                  },
+            }),
 
             createSpace: build.mutation({
                   query: (data) => {
                         return {
                               url: '/space/create-space',
+                              method: 'POST',
+                              body: data,
+                        };
+                  },
+                  invalidatesTags: ['spaces'],
+            }),
+            createInterested: build.mutation({
+                  query: (data) => {
+                        return {
+                              url: '/conversation/start',
                               method: 'POST',
                               body: data,
                         };
@@ -119,4 +141,6 @@ export const {
       useGetAllSpaceQuery,
       useGetRecentSpaceQuery,
       useGetSingleSpaceQuery,
+      useCreateInterestedMutation,
+      useGetMyInterestedSpaceQuery,
 } = spaceApi;
