@@ -17,7 +17,9 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
       const [addFavorite] = useAddFavoriteMutation();
       const [removeFavorite] = useRemoveFavoriteMutation();
       const { user } = useAppSelector((state) => state.auth);
-      const { data: favoriteData } = useGetFavoriteQuery([]);
+      const { data: favoriteData } = useGetFavoriteQuery(undefined, {
+            skip: !user,
+      });
 
       // Check if this space is already a favorite
       const isFavorite = favoriteData?.some((favorite: any) => favorite?.spaceId?._id === space?._id);
@@ -67,7 +69,7 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
       return (
             <Link
                   href={`details/${space?._id}`}
-                  className="bg-white max-w-[360px] mx-auto rounded-xl drop-shadow-md block"
+                  className="bg-white h-full max-w-[360px] mx-auto rounded-xl drop-shadow-md block"
             >
                   {/* Image Section */}
                   <div className="p-3">
@@ -82,7 +84,7 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
                         {/* Card Body */}
                         <div className="p-4">
                               {/* Price and Favorite */}
-                              <div className="flex justify-between items-center mb-2">
+                              <div className="flex justify-between items-center  h-full mb-2">
                                     <p className="flex items-center">
                                           <span className="text-2xl font-semibold text-primary">${space?.price}/</span>
                                           <span className="text-primary">{space?.priceType}</span>
@@ -97,7 +99,7 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
                                     </div>
                               </div>
 
-                              <div className="flex h-full gap-5">
+                              <div className="flex h-[56px] gap-5">
                                     <Image
                                           height={33}
                                           width={33}
@@ -105,7 +107,7 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
                                           src={`${imageUrl}/${space?.providerId?.profile}`}
                                           alt="Doctor"
                                     />
-                                    <h3 className="text-xl line-clamp-2 h-full font-semibold text-headerText">
+                                    <h3 className="text-xl font-semibold text-headerText line-clamp-2 max-h-[56px] overflow-hidden">
                                           {space?.title}
                                     </h3>
                               </div>

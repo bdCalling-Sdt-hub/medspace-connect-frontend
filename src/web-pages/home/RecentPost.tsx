@@ -28,12 +28,12 @@ const RecentPost = () => {
       );
 
       const settings: Settings = {
-            infinite: true,
+            // infinite: true,
             speed: 500,
             arrows: true,
             slidesToShow: 3, // Default for large screens
             slidesToScroll: 1,
-            autoplay: true,
+            // autoplay: true,
             dots: false,
             centerPadding: '400px',
             prevArrow: <ArrowLeft />,

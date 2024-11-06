@@ -27,7 +27,12 @@ const Navbar = () => {
       const [loginModal, setLoginModal] = useState(false);
       const [otpModal, setOtpModal] = useState(false);
       const [registerModal, setRegisterModal] = useState(false);
-      const { data: myProfile, isFetching } = useGetUserProfileQuery([]);
+
+      const { user } = useAppSelector((state) => state.auth);
+      const { data: myProfile, refetch } = useGetUserProfileQuery(undefined, {
+            skip: !user,
+      });
+
       const dispatch = useAppDispatch();
 
       // *<<<==========✅✅============>>>
@@ -36,7 +41,6 @@ const Navbar = () => {
       const [registerUser] = useRegisterUserMutation();
       const [verifyEmail] = useVerifyEmailMutation();
       const [loginUser] = useLoginUserMutation();
-      const { user } = useAppSelector((state) => state.auth);
       const showDrawer = () => {
             setOpen(true);
       };
