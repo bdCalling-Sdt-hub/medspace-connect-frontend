@@ -43,6 +43,48 @@ const spaceApi = baseApi.injectEndpoints({
                         return { data: response.data, meta: response.pagination };
                   },
             }),
+            getFilterSpacesBySearch: build.query({
+                  query: (args) => {
+                        const params = new URLSearchParams();
+                        if (args) {
+                              args.forEach((item: TQueryParams) => {
+                                    if (item.value) {
+                                          params.append(item.name, item.value as string);
+                                    }
+                              });
+                        }
+
+                        return {
+                              url: '/space/filter',
+                              method: 'GET',
+                              params,
+                        };
+                  },
+                  providesTags: ['spaces'],
+                  transformResponse: (response: TApiResponse<TSpace[]>) => {
+                        return response.data;
+                  },
+            }),
+            getFilterSpacesByFiled: build.query({
+                  query: (args) => {
+                        const params = new URLSearchParams();
+                        if (args) {
+                              args.forEach((item: TQueryParams) => {
+                                    params.append(item.name, item.value as string);
+                              });
+                        }
+
+                        return {
+                              url: '/space/filter',
+                              method: 'GET',
+                              params,
+                        };
+                  },
+                  providesTags: ['spaces'],
+                  transformResponse: (response: TApiResponse<TSpace[]>) => {
+                        return { data: response.data, meta: response.pagination };
+                  },
+            }),
             getRecentSpace: build.query({
                   query: () => {
                         return {
@@ -143,4 +185,6 @@ export const {
       useGetSingleSpaceQuery,
       useCreateInterestedMutation,
       useGetMyInterestedSpaceQuery,
+      useGetFilterSpacesByFiledQuery,
+      useGetFilterSpacesBySearchQuery,
 } = spaceApi;
