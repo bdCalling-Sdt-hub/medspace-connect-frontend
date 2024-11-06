@@ -1,5 +1,5 @@
 'use client';
-import { Button, notification } from 'antd';
+import { Button, Input, notification } from 'antd';
 import SubscribePng from '@/public/assets/subscribe.png';
 import { useState } from 'react';
 import { useSubscribeEmailMutation } from '@/src/redux/features/subscribe/subscribeApi';
@@ -7,10 +7,14 @@ import { useSubscribeEmailMutation } from '@/src/redux/features/subscribe/subscr
 const Subscribe = () => {
       const [email, setEmail] = useState('');
       const [subscribeEmail] = useSubscribeEmailMutation();
+      const validateEmail = (email: string) => {
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return emailRegex.test(email);
+      };
       const handleSubscribe = async () => {
-            if (!email) {
+            if (!validateEmail(email)) {
                   notification.error({
-                        message: 'Please enter your email',
+                        message: 'Please enter a valid email address',
                         placement: 'topRight',
                         duration: 5,
                   });
@@ -56,8 +60,8 @@ const Subscribe = () => {
 
                                     <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
                                           <input
-                                                onChange={(e) => setEmail(e.target.value)}
                                                 type="email"
+                                                onChange={(e) => setEmail(e.target.value)}
                                                 placeholder="Enter your email"
                                                 className="w-full md:max-w-xs py-3 md:py-4 bg-[#E9E9E9] px-6 md:px-8 rounded-full border-none focus:outline-none"
                                           />
