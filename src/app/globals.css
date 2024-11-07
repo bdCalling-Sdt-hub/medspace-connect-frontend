@@ -3,50 +3,50 @@
 @tailwind utilities;
 
 .ant-pagination-item {
-    border-radius: 100% !important;
+      border-radius: 100% !important;
 }
 .ant-pagination .ant-pagination-item-active {
-    font-weight: 600;
-    background-color: #fba51a !important;
-    border: none !important;
-    border-color: none !important;
-    border-radius: 100%;
+      font-weight: 600;
+      background-color: #fba51a !important;
+      border: none !important;
+      border-color: none !important;
+      border-radius: 100%;
 }
 
 .ant-pagination .ant-pagination-item-active a {
-    color: #ffffff !important;
+      color: #ffffff !important;
 }
 .custom-label {
-    color: #636363;
-    font-size: 16px;
+      color: #636363;
+      font-size: 16px;
 }
 .ant-tabs-tab.ant-tabs-tab-disabled {
-    cursor: default !important;
-    opacity: 1 !important;
+      cursor: default !important;
+      opacity: 1 !important;
 }
 .ant-select-selector {
-    border-radius: 40px !important;
+      border-radius: 40px !important;
 }
 .ant-collapse-header-text {
-    font-family: Poppins !important;
-    color: #5c5c5c !important;
-    font-size: 24px !important;
-    font-weight: 500 !important;
+      font-family: Poppins !important;
+      color: #5c5c5c !important;
+      font-size: 24px !important;
+      font-weight: 500 !important;
 }
 
 .ant-collapse-content-box {
-    color: #5c5c5c !important;
+      color: #5c5c5c !important;
 }
 
 .errorContainer {
-    background: #ffffff;
-    background: radial-gradient(at center, #ffffff, #ccdefc);
+      background: #ffffff;
+      background: radial-gradient(at center, #ffffff, #ccdefc);
 }
 
 .ant-otp-input {
-    border-radius: 14px !important;
-    padding: 15px !important;
-    border: 1px solid #0a8fdc;
+      border-radius: 14px !important;
+      padding: 15px !important;
+      border: 1px solid #0a8fdc;
 }
 /* .ant-select-selector {
     border: 'none' !important;
@@ -57,3 +57,23 @@
 /* .ant-select-selection-item {
     color: #4e4e4e !important;
 } */
+
+/* Custom Scrollbar Styling */
+.custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #0a8fdc; /* Custom scrollbar thumb color */
+      border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color: #0668a3; /* Darker on hover */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+      background-color: #f1f1f1; /* Track color */
+      border-radius: 10px;
+}
