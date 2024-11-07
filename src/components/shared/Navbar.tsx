@@ -5,7 +5,7 @@ import Logo from '/public/assets/logo.svg';
 import Profile from '/public/assets/profile.png';
 import { Badge, Button, Dropdown, FormProps, notification } from 'antd';
 import { AiOutlineBell, AiOutlineMenu } from 'react-icons/ai';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileDropdown from '../ui/ProfileDropdown';
 import Modal from '../ui/Modal';
 import NavItems from './NavItems';
@@ -21,26 +21,45 @@ import { decodedUser } from '@/src/utils/decodeUser';
 import { setUser } from '@/src/redux/features/auth/authSlice';
 import { setAccessToken } from '@/src/utils/accessToken';
 import { imageUrl } from '@/src/redux/features/api/baseApi';
+import {
+      useGetNotificationQuery,
+      useReadNotificationMutation,
+} from '@/src/redux/features/notification/notificationApi';
+import { connectSocket } from '@/src/utils/socket';
 
 const Navbar = () => {
       const [open, setOpen] = useState(false);
       const [loginModal, setLoginModal] = useState(false);
       const [otpModal, setOtpModal] = useState(false);
       const [registerModal, setRegisterModal] = useState(false);
-
+      // *<<<==========✅✅============>>>
+      // ?           RTK Hooks
       const { user } = useAppSelector((state) => state.auth);
-      const { data: myProfile, refetch } = useGetUserProfileQuery(undefined, {
+      const { data: myProfile } = useGetUserProfileQuery(undefined, {
             skip: !user,
       });
+      const [notificationMsg, setNotificationMsg] = useState<any[]>([]);
+      const { data: notifications, refetch } = useGetNotificationQuery([]);
+      useEffect(() => {
+            const socket = connectSocket('http://192.168.10.15:3000');
+
+            socket.on(`new_notification::${user?.id.toString()}`, (newData) => {
+                  setNotificationMsg((prevData) => [newData, ...prevData]);
+                  refetch();
+            });
+
+            return () => {
+                  if (socket) socket.disconnect();
+            };
+      }, [user, refetch]);
 
       const dispatch = useAppDispatch();
 
       // *<<<==========✅✅============>>>
-      // ?           RTK Hooks
-      // *<<<==========✅✅============>>>
       const [registerUser] = useRegisterUserMutation();
       const [verifyEmail] = useVerifyEmailMutation();
       const [loginUser] = useLoginUserMutation();
+      const [readNotification] = useReadNotificationMutation();
       const showDrawer = () => {
             setOpen(true);
       };
@@ -129,6 +148,16 @@ const Navbar = () => {
             }
       };
 
+      const handleReadNotification = async () => {
+            try {
+                  const res = await readNotification(undefined).unwrap();
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to get notification',
+                  });
+            }
+      };
+
       return (
             <header className="h-24 bg-[#F7F7F7]">
                   <nav className="w-full h-full container px-3 md:mx-auto">
@@ -150,12 +179,16 @@ const Navbar = () => {
                                                 <Dropdown
                                                       className="cursor-pointer"
                                                       placement="bottomRight"
-                                                      dropdownRender={NotificationDropdown}
+                                                      dropdownRender={() => (
+                                                            <NotificationDropdown notifications={notifications!} />
+                                                      )}
                                                       trigger={['click']}
                                                 >
-                                                      <Badge color="#FBA51A" count={5}>
-                                                            <AiOutlineBell size={24} color="#767676" />
-                                                      </Badge>
+                                                      <div onClick={handleReadNotification}>
+                                                            <Badge color="#FBA51A" count={notificationMsg?.length}>
+                                                                  <AiOutlineBell size={24} color="#767676" />
+                                                            </Badge>
+                                                      </div>
                                                 </Dropdown>
                                                 <Dropdown
                                                       placement="bottomRight"
