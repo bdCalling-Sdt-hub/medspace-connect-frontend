@@ -19,18 +19,19 @@ const ProfileTab = () => {
       const { user } = useAppSelector((state) => state.auth);
       const { data: myProfile, isFetching } = useGetUserProfileQuery([]);
       const [modal, setModal] = useState(false);
+      const [activeKey, setActiveKey] = useState('1');
 
-      // Loading state for profile data
       if (isFetching) {
             return <div>Loading...</div>;
       }
 
       const ButtonModal = (
-            <div onClick={() => setModal(true)} className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
                   <h1 className="text-secondary text-nowrap text-lg">
                         Remaining Post : {myProfile?.spacesPosted}/{myProfile?.allowedSpaces}
                   </h1>
                   <Button
+                        onClick={() => setModal(true)}
                         icon={<FaPlus size={18} />}
                         shape="round"
                         className="px-6"
@@ -48,7 +49,6 @@ const ProfileTab = () => {
             </div>
       );
 
-      // Tab items for the provider role
       const itemsForProvider: TabsProps['items'] = [
             { key: '1', label: 'Profile', children: <Profile myProfile={myProfile!} /> },
             { key: '2', label: 'My Post', children: <MyPost /> },
@@ -57,7 +57,7 @@ const ProfileTab = () => {
             {
                   key: '5',
                   label: <div>{ButtonModal}</div>,
-                  children: <PostSpace modal={modal} setModal={setModal} />,
+                  children: null,
             },
       ];
 
@@ -68,7 +68,6 @@ const ProfileTab = () => {
             { key: '4', label: 'Change Password', children: <ChangePassword /> },
       ];
 
-      // Function to determine tabs based on user role
       const getTabItems = () => {
             switch (user?.role) {
                   case 'SPACESEEKER':
@@ -79,8 +78,15 @@ const ProfileTab = () => {
             }
       };
 
-      // Getting the appropriate tabs for the current user role
       const tabItems = getTabItems();
+
+      const handleTabChange = (key: string) => {
+            if (key === '5') {
+                  setModal(true);
+            } else {
+                  setActiveKey(key);
+            }
+      };
 
       return (
             <div className="container relative mx-auto">
@@ -95,8 +101,11 @@ const ProfileTab = () => {
                               },
                         }}
                   >
-                        <Tabs defaultActiveKey="1" items={tabItems} />
+                        <Tabs activeKey={activeKey} onChange={handleTabChange} items={tabItems} />
                   </ConfigProvider>
+
+                  {/* Render PostSpace component in a modal */}
+                  {modal && <PostSpace modal={modal} setModal={setModal} />}
             </div>
       );
 };
