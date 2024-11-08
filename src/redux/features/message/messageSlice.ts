@@ -31,6 +31,7 @@ const messageSlice = createSlice({
                   return [...state, action.payload];
             },
       },
+
       extraReducers: (builder) => {
             builder.addMatcher(messageApi.endpoints.getMessagesByUserId.matchFulfilled, (state, action) => {
                   return action.payload;

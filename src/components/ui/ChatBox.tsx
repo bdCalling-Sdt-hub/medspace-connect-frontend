@@ -28,7 +28,6 @@ const ChatBox = () => {
             });
             socket.on(`new_message::${selectedConversation?.conversationId}`, (newMessage) => {
                   dispatch(addMessage(newMessage));
-                  refetch();
             });
 
             return () => {
@@ -58,7 +57,12 @@ const ChatBox = () => {
                         <div className="bg-primary text-white p-2 flex justify-between items-center">
                               {openMessage ? (
                                     <div className="flex items-center gap-4">
-                                          <button onClick={() => setOpenMessage(false)}>
+                                          <button
+                                                onClick={() => {
+                                                      setOpenMessage(false);
+                                                      refetch();
+                                                }}
+                                          >
                                                 <BsArrowLeft size={24} />
                                           </button>
                                           <div className="flex items-center gap-3">
