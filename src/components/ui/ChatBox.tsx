@@ -2,24 +2,24 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { LuX } from 'react-icons/lu';
 import { connectSocket } from '@/src/utils/socket';
-import { useAppSelector } from '@/src/redux/hooks';
-import { TConversation, useGetMyConversationQuery } from '@/src/redux/features/conversation/conversationApi';
+import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
+import { useGetMyConversationQuery } from '@/src/redux/features/conversation/conversationApi';
 import { imageUrl } from '@/src/redux/features/api/baseApi';
 import { BsArrowLeft } from 'react-icons/bs';
 
 import ConversationList from './chat/ConversationList';
 import MessageList from './chat/MessageList';
-import { useGetMessagesByUserIdQuery, useReadMessagesByUserIdMutation } from '@/src/redux/features/message/messageApi';
 import SentMessage from './chat/SentMessage';
+import { addMessage } from '@/src/redux/features/message/messageSlice';
 const ChatBox = () => {
+      const dispatch = useAppDispatch();
       const [open, setOpen] = useState(false);
       const [openMessage, setOpenMessage] = useState(false); //this is for
-      const [newMessage, setNewMessage] = useState([]);
-      const [selectedConversation, setSelectedConversation] = useState<TConversation | null>(null);
+
       const { data: conversationsData, refetch } = useGetMyConversationQuery([]);
-      const [readMessage] = useReadMessagesByUserIdMutation();
 
       const { user } = useAppSelector((state) => state.auth);
+      const { selectedConversation } = useAppSelector((state) => state.conversation);
       useEffect(() => {
             const socket = connectSocket('http://192.168.10.15:3000');
 
@@ -27,22 +27,15 @@ const ChatBox = () => {
                   refetch();
             });
             socket.on(`new_message::${selectedConversation?.conversationId}`, (newMessage) => {
-                  setNewMessage((prev) => [...prev, newMessage]);
+                  dispatch(addMessage(newMessage));
+                  refetch();
             });
 
             return () => {
                   if (socket) socket.disconnect();
             };
-      }, [user, refetch, selectedConversation]);
+      }, [user, refetch, dispatch, selectedConversation]);
 
-      const handleReadMessage = async () => {
-            try {
-                  const res = await readMessage(selectedConversation?.conversationId).unwrap();
-                  // console.log(selectedConversation?.conversationId);
-            } catch (error) {
-                  console.log(error);
-            }
-      };
       return (
             <div>
                   <div className="fixed z-[999] right-4 bottom-10">
@@ -74,9 +67,9 @@ const ChatBox = () => {
                                                       alt=""
                                                       height={100}
                                                       width={100}
-                                                      className="object-cover size-[48px]"
+                                                      className="object-cover size-[40px] rounded-full"
                                                 />
-                                                <h1 className="text-lg">{selectedConversation?.name}</h1>
+                                                <h1 className="text-md">{selectedConversation?.name}</h1>
                                           </div>
                                     </div>
                               ) : (
@@ -88,20 +81,18 @@ const ChatBox = () => {
                         </div>
 
                         {/* all message showing here */}
-                        <div className=" min-h-[400px]">
+                        <div className=" min-h-[400px] relative">
                               {openMessage ? (
                                     <div>
-                                          <div className=" h-[calc(400px-66px)] p-3 my-2 overflow-y-auto custom-scrollbar">
-                                                <MessageList newMessage={newMessage} />
+                                          <div className=" ">
+                                                <MessageList />
                                           </div>
-                                          <SentMessage selectedConversation={selectedConversation!} />
+                                          <SentMessage />
                                     </div>
                               ) : (
                                     <ConversationList
                                           conversationData={conversationsData!}
                                           setOpenMessage={setOpenMessage}
-                                          setSelectedConversation={setSelectedConversation}
-                                          handleReadMessage={handleReadMessage}
                                     />
                               )}
                         </div>

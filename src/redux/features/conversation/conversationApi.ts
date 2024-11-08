@@ -7,6 +7,19 @@ export interface TConversation {
       occupation: string;
       conversationStarted: string;
       conversationId: string;
+      read?: boolean;
+      lastMessage: {
+            _id: string;
+            from: string;
+            to: string;
+            spaceID: string;
+            conversationID: string;
+            message: string;
+            status: string;
+            data: {
+                  mediaFiles: [];
+            };
+      };
 }
 
 const conversationApi = baseApi.injectEndpoints({

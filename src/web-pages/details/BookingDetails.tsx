@@ -4,7 +4,9 @@ import React from 'react';
 import { Button, notification } from 'antd';
 import { TSpace, useCreateInterestedMutation } from '@/src/redux/features/space/spaceApi';
 import { imageUrl } from '@/src/redux/features/api/baseApi';
+import { useRouter } from 'next/navigation';
 const BookingDetails = ({ space }: { space: TSpace }) => {
+      const router = useRouter();
       const [createInterest] = useCreateInterestedMutation();
       const handleInterested = async () => {
             try {
@@ -15,6 +17,7 @@ const BookingDetails = ({ space }: { space: TSpace }) => {
                               placement: 'topRight',
                               duration: 5,
                         });
+                        router.refresh();
                   }
             } catch (error) {
                   notification.error({

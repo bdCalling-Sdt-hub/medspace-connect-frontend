@@ -58,3 +58,4 @@ const messageApi = baseApi.injectEndpoints({
 });
 
 export const { useReadMessagesByUserIdMutation, useGetMessagesByUserIdQuery, useSentMessageMutation } = messageApi;
+export default messageApi;
