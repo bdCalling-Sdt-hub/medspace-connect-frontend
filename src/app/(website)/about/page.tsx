@@ -17,8 +17,8 @@ const AboutPage = () => {
                                     <div key={section._id} className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
                                           {/* Text content */}
                                           <div
-                                                className={`lg:order-${section.title === 'Our Story' ? 1 : 2} order-${
-                                                      section.title === 'Our Story' ? 2 : 1
+                                                className={`${
+                                                      section.title === 'Our Story' ? 'lg:order-first' : 'lg:order-last'
                                                 }`}
                                           >
                                                 <h2 className="text-primary text-2xl font-semibold mb-4">
@@ -28,8 +28,8 @@ const AboutPage = () => {
                                           </div>
 
                                           <div
-                                                className={`lg:order-${section.title === 'Our Story' ? 2 : 1} order-${
-                                                      section.title === 'Our Story' ? 1 : 2
+                                                className={`${
+                                                      section.title === 'Our Story' ? 'lg:order-last' : 'lg:order-first'
                                                 }`}
                                           >
                                                 <Image
