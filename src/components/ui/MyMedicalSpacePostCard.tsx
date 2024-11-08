@@ -56,7 +56,7 @@ const MyMedicalSpacePostCard = ({
                                     alt="Doctor's Practice Room"
                               />
                         </div>
-                        <Link href={`my-post/${1}`} className="p-4">
+                        <Link href={`my-post/${space?._id}`} className="p-4">
                               <div className="flex justify-between items-center mb-2">
                                     <p className="flex items-center">
                                           <span className="text-2xl font-semibold text-primary">${space?.price}/</span>

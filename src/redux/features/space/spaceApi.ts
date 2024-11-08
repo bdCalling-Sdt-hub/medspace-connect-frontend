@@ -149,6 +149,7 @@ const spaceApi = baseApi.injectEndpoints({
                               method: 'GET',
                         };
                   },
+                  providesTags: ['spaces'],
 
                   transformResponse: (response: TApiResponse<TSpace>) => {
                         return response.data;
