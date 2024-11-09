@@ -17,7 +17,7 @@ const SearchPage = () => {
             { name: 'priceRange', value: price },
             { name: 'practiceType', value: practiceType },
             { name: 'facilities', value: facilities },
-            { name: 'practiceNeed', value: practiceNeed },
+            { name: 'practiceFor', value: practiceNeed },
       ]);
       useEffect(() => {
             setSpaces(filteredSpace);

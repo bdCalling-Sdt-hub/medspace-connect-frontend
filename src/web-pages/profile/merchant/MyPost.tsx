@@ -8,7 +8,8 @@ import TextArea from 'antd/es/input/TextArea';
 import moment from 'moment';
 import { useGetMySpaceQuery, useUpdateSpaceMutation } from '@/src/redux/features/space/spaceApi';
 import { imageUrl } from '@/src/redux/features/api/baseApi';
-
+import { practiceNeedOptions } from '@/src/const/const';
+const { Option } = Select;
 type SpaceData = {
       _id: string;
       title: string;
@@ -189,13 +190,17 @@ const MyPost = () => {
                         </Form.Item>
                         <Form.Item name="practiceFor" label="Practice for">
                               <Select style={{ borderRadius: '24px', height: '48px' }} placeholder="Select Practice">
-                                    <Select.Option value="dentalCare">Dental Care</Select.Option>
-                                    <Select.Option value="surgery">Surgery</Select.Option>
+                                    {practiceNeedOptions?.map((option) => (
+                                          <Option key={option.value} value={option.value}>
+                                                {option.label}
+                                          </Option>
+                                    ))}
                               </Select>
                         </Form.Item>
                         <Form.Item name="facilities" label="Facilities">
                               <Select
-                                    mode="multiple"
+                                    mode="tags"
+                                    // mode="multiple"
                                     style={{ borderRadius: '24px', height: '48px' }}
                                     placeholder="Select Facilities"
                               >

@@ -1,15 +1,15 @@
 // options for dropdowns
 export const locationOptions = [
-      { label: 'New York', value: 'new_york' },
-      { label: 'Los Angeles', value: 'los_angeles' },
+      { label: 'New York', value: 'new york' },
+      { label: 'Los Angeles', value: 'los angeles' },
       { label: 'Chicago', value: 'chicago' },
       { label: 'Houston', value: 'houston' },
       { label: 'Phoenix', value: 'phoenix' },
       { label: 'Philadelphia', value: 'philadelphia' },
-      { label: 'San Antonio', value: 'san_antonio' },
-      { label: 'San Diego', value: 'san_diego' },
+      { label: 'San Antonio', value: 'san antonio' },
+      { label: 'San Diego', value: 'san diego' },
       { label: 'Dallas', value: 'dallas' },
-      { label: 'San Jose', value: 'san_jose' },
+      { label: 'San Jose', value: 'san jose' },
 ];
 
 export const priceOptions = [
@@ -24,15 +24,15 @@ export const priceOptions = [
 ];
 
 export const practiceTypeOptions = [
-      { label: 'Dental Care', value: 'dental_care' },
-      { label: 'Eye Care', value: 'eye_care' },
-      { label: 'Primary Care', value: 'primary_care' },
+      { label: 'Dental Care', value: 'dental care' },
+      { label: 'Eye Care', value: 'eye care' },
+      { label: 'Primary Care', value: 'primary care' },
       { label: 'Pediatrics', value: 'pediatrics' },
       { label: 'Orthopedics', value: 'orthopedics' },
       { label: 'Dermatology', value: 'dermatology' },
       { label: 'Cardiology', value: 'cardiology' },
       { label: 'Oncology', value: 'oncology' },
-      { label: 'Physical Therapy', value: 'physical_therapy' },
+      { label: 'Physical Therapy', value: 'physical therapy' },
       { label: 'Psychiatry', value: 'psychiatry' },
 ];
 
@@ -46,11 +46,14 @@ export const practiceNeedOptions = [
 ];
 
 export const facilitiesOptions = [
+      { label: 'Furnished', value: 'furnished' },
+      { label: 'Newest', value: 'newest' },
+      { label: 'Hospital', value: 'hospital' },
       { label: 'Wi-Fi', value: 'wifi' },
       { label: 'Parking', value: 'parking' },
-      { label: 'Reception Area', value: 'reception_area' },
-      { label: 'Medical Equipment', value: 'medical_equipment' },
-      { label: 'Private Restrooms', value: 'private_restrooms' },
+      { label: 'Reception Area', value: 'reception area' },
+      { label: 'Medical Equipment', value: 'medical equipment' },
+      { label: 'Private Restrooms', value: 'private restrooms' },
       { label: 'Waiting Room', value: 'waiting_room' },
-      { label: 'Laboratory Services', value: 'laboratory_services' },
+      { label: 'Laboratory Services', value: 'laboratory services' },
 ];
