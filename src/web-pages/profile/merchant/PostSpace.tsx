@@ -7,8 +7,9 @@ import { PlusOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import { BiChevronDown } from 'react-icons/bi';
 import { MdOutlineCalendarMonth } from 'react-icons/md';
-
+const { Option } = Select;
 import { useCreateSpaceMutation } from '@/src/redux/features/space/spaceApi';
+import { practiceNeedOptions } from '@/src/const/const';
 type TProps = {
       setModal: Dispatch<SetStateAction<boolean>>;
       modal: boolean;
@@ -180,54 +181,11 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                           style={{ borderRadius: '24px', height: '48px' }}
                                           placeholder="Select Practice"
                                     >
-                                          <Select.Option key={1} value="dentalCare">
-                                                Dental Care
-                                          </Select.Option>
-                                          <Select.Option key={2} value="surgery">
-                                                Surgery
-                                          </Select.Option>
-                                          <Select.Option key={3} value="pediatrics">
-                                                Pediatrics
-                                          </Select.Option>
-                                          <Select.Option key={4} value="gynecology">
-                                                Gynecology
-                                          </Select.Option>
-                                          <Select.Option key={5} value="orthopedics">
-                                                Orthopedics
-                                          </Select.Option>
-                                          <Select.Option key={6} value="dermatology">
-                                                Dermatology
-                                          </Select.Option>
-                                          <Select.Option key={7} value="generalMedicine">
-                                                General Medicine
-                                          </Select.Option>
-                                          <Select.Option key={8} value="radiology">
-                                                Radiology
-                                          </Select.Option>
-                                          <Select.Option key={9} value="cardiology">
-                                                Cardiology
-                                          </Select.Option>
-                                          <Select.Option key={10} value="neurology">
-                                                Neurology
-                                          </Select.Option>
-                                          <Select.Option key={11} value="ophthalmology">
-                                                Ophthalmology
-                                          </Select.Option>
-                                          <Select.Option key={12} value="emergencyCare">
-                                                Emergency Care
-                                          </Select.Option>
-                                          <Select.Option key={13} value="pathology">
-                                                Pathology
-                                          </Select.Option>
-                                          <Select.Option key={14} value="psychiatry">
-                                                Psychiatry
-                                          </Select.Option>
-                                          <Select.Option key={15} value="urology">
-                                                Urology
-                                          </Select.Option>
-                                          <Select.Option key={16} value="endocrinology">
-                                                Endocrinology
-                                          </Select.Option>
+                                          {practiceNeedOptions?.map((option) => (
+                                                <Option key={option.value} value={option.value}>
+                                                      {option.label}
+                                                </Option>
+                                          ))}
                                     </Select>
                               </Form.Item>
 

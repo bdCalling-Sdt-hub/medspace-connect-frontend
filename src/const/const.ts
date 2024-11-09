@@ -13,12 +13,16 @@ export const locationOptions = [
 ];
 
 export const priceOptions = [
+      { label: '$50 - $200', value: '50-200' },
+      { label: '$200 - $500', value: '200-500' },
+      { label: '$500 - $1,000', value: '500-1000' },
       { label: '$1,000 - $2,500', value: '1000-2500' },
       { label: '$2,500 - $5,000', value: '2500-5000' },
       { label: '$5,000 - $7,500', value: '5000-7500' },
       { label: '$7,500 - $10,000', value: '7500-10000' },
       { label: '$10,000 - $15,000', value: '10000-15000' },
 ];
+
 export const practiceTypeOptions = [
       { label: 'Dental Care', value: 'dental_care' },
       { label: 'Eye Care', value: 'eye_care' },
