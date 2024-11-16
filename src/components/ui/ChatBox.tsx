@@ -49,7 +49,7 @@ const ChatBox = () => {
                   <div
                         className={`${
                               open
-                                    ? 'right-[4%] z-[50] bottom-[4%] duration-300'
+                                    ? 'right-[4%] z-[50]  bottom-[10%] md:bottom-[4%] duration-300'
                                     : '-right-[120%] md:-right-[50%] z-[10] bottom-[4%] duration-300'
                         } w-full max-w-[349px] fixed  border-primary border mx-auto bg-white rounded-xl shadow-lg overflow-hidden`}
                   >
