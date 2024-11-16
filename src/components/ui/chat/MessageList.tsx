@@ -19,50 +19,59 @@ const MessageList = () => {
             }
       }, [newMessages]);
       return (
-            <div ref={scrollRef} className="p-2 space-y-3 h-[calc(400px-66px)]  my-2 overflow-y-auto custom-scrollbar">
-                  {newMessages?.map((message, index) => {
-                        const isUserMessage = message.from === user?.id;
+            <div ref={scrollRef} className="p-2 space-y-3 h-[calc(400px-66px)] my-2 overflow-y-auto custom-scrollbar">
+                  {newMessages?.length < 0 ? (
+                        <div className="flex justify-center items-center h-full text-gray-500">
+                              <p>No contact found</p>
+                        </div>
+                  ) : (
+                        newMessages?.map((message, index) => {
+                              const isUserMessage = message.from === user?.id;
 
-                        return (
-                              <div key={index} className={`flex ${isUserMessage ? 'justify-end' : 'justify-start'}`}>
-                                    <div>
-                                          <div
-                                                className={`p-3 rounded-lg ${
-                                                      isUserMessage
-                                                            ? 'bg-primary text-white'
-                                                            : 'bg-gray-200 text-gray-800'
-                                                }`}
-                                          >
-                                                <p>{message.message}</p>
-                                                <p
-                                                      className={`${
-                                                            isUserMessage ? 'text-white' : 'text-gray-800'
-                                                      }'} text-xs text-right mt-1 `}
-                                                >
-                                                      {moment(message.date).isSame(moment(), 'day')
-                                                            ? moment(message.date).format('hh:mm A, [today]')
-                                                            : moment(message.date).format('hh:mm A, MMM Do YYYY')}
-                                                </p>
-                                          </div>
+                              return (
+                                    <div
+                                          key={index}
+                                          className={`flex ${isUserMessage ? 'justify-end' : 'justify-start'}`}
+                                    >
                                           <div>
-                                                {message.data?.mediaFiles && (
-                                                      <div className="flex flex-wrap gap-2 mt-2">
-                                                            {message.data?.mediaFiles.map((mediaFile, index) => (
-                                                                  <div key={index} className="relative">
-                                                                        <img
-                                                                              src={`${imageUrl}/${mediaFile}`}
-                                                                              alt={mediaFile.fileType}
-                                                                              className="size-[200px] object-cover rounded-xl"
-                                                                        />
-                                                                  </div>
-                                                            ))}
-                                                      </div>
-                                                )}
+                                                <div
+                                                      className={`p-3 rounded-lg ${
+                                                            isUserMessage
+                                                                  ? 'bg-primary text-white'
+                                                                  : 'bg-gray-200 text-gray-800'
+                                                      }`}
+                                                >
+                                                      <p>{message.message}</p>
+                                                      <p
+                                                            className={`${
+                                                                  isUserMessage ? 'text-white' : 'text-gray-800'
+                                                            } text-xs text-right mt-1`}
+                                                      >
+                                                            {moment(message.date).isSame(moment(), 'day')
+                                                                  ? moment(message.date).format('hh:mm A, [today]')
+                                                                  : moment(message.date).format('hh:mm A, MMM Do YYYY')}
+                                                      </p>
+                                                </div>
+                                                <div>
+                                                      {message.data?.mediaFiles && (
+                                                            <div className="flex flex-wrap gap-2 mt-2">
+                                                                  {message.data?.mediaFiles.map((mediaFile, index) => (
+                                                                        <div key={index} className="relative">
+                                                                              <img
+                                                                                    src={`${imageUrl}/${mediaFile}`}
+                                                                                    alt={mediaFile.fileType}
+                                                                                    className="size-[200px] object-cover rounded-xl"
+                                                                              />
+                                                                        </div>
+                                                                  ))}
+                                                            </div>
+                                                      )}
+                                                </div>
                                           </div>
                                     </div>
-                              </div>
-                        );
-                  })}
+                              );
+                        })
+                  )}
             </div>
       );
 };

@@ -18,6 +18,7 @@ const BookingDetails = ({ space }: { space: TSpace }) => {
                               duration: 5,
                         });
                         router.refresh();
+                        window.location.reload();
                   }
             } catch (error) {
                   notification.error({

@@ -41,7 +41,7 @@ const ConversationList = ({ conversationData, setOpenMessage }: TProps) => {
                               }}
                               key={index}
                               className={`${
-                                    conversation.read ? 'bg-white' : 'bg-black'
+                                    conversation.read ? 'bg-white' : 'bg-gray-100'
                               } flex items-center shadow cursor-pointer transition duration-200 p-3 rounded-lg`}
                         >
                               <div className="w-12 h-12 mr-4 rounded-full overflow-hidden">
