@@ -10,7 +10,7 @@ export interface TNotification {
       data: Object;
 }
 
-const notificationApi = baseApi.injectEndpoints({
+export const notificationApi = baseApi.injectEndpoints({
       endpoints: (build) => ({
             getNotification: build.query({
                   query: () => {
@@ -19,8 +19,9 @@ const notificationApi = baseApi.injectEndpoints({
                               method: 'GET',
                         };
                   },
-                  transformResponse: (response: TApiResponse<TNotification[]>) => {
-                        return response.data;
+                  transformResponse: (response: any) => {
+                        const { notifications, unreadCount } = response.data;
+                        return { notifications, unreadCount };
                   },
             }),
             readNotification: build.mutation({

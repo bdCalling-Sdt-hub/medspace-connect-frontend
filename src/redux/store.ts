@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import FilterReducer from './features/filter/FilterSlice';
 import ConversationReducer from './features/conversation/conversationSlice';
 import MessageReducer from './features/message/messageSlice';
+import notificationReducer from './features/notification/notificationSlice';
 import { baseApi } from './features/api/baseApi';
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, persistStore, persistReducer } from 'redux-persist';
 import authReducer from './features/auth/authSlice';
@@ -18,6 +19,7 @@ export const store = configureStore({
             filter: FilterReducer,
             conversation: ConversationReducer,
             message: MessageReducer,
+            notification: notificationReducer,
       },
       middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({

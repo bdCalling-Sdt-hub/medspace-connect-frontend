@@ -13,25 +13,18 @@ const AboutPage = () => {
                   <div className="container text-primaryText mx-auto px-4 py-10">
                         {/* Iterate through the about data */}
                         {about &&
-                              about?.map((section) => (
+                              about?.map((section, index) => (
                                     <div key={section._id} className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
                                           {/* Text content */}
-                                          <div
-                                                className={`${
-                                                      section.title === 'Our Story' ? 'lg:order-first' : 'lg:order-last'
-                                                }`}
-                                          >
+                                          <div className={`${index % 2 === 0 ? 'lg:order-first' : 'lg:order-last'}`}>
                                                 <h2 className="text-primary text-2xl font-semibold mb-4">
                                                       {section.title}
                                                 </h2>
                                                 <p className="text-sm mb-4">{section.description}</p>
                                           </div>
 
-                                          <div
-                                                className={`${
-                                                      section.title === 'Our Story' ? 'lg:order-last' : 'lg:order-first'
-                                                }`}
-                                          >
+                                          {/* Image content */}
+                                          <div className={`${index % 2 === 0 ? 'lg:order-last' : 'lg:order-first'}`}>
                                                 <Image
                                                       src={`${imageUrl}/${section?.image}`}
                                                       alt={section.title}

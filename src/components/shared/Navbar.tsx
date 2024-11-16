@@ -26,40 +26,56 @@ import {
       useReadNotificationMutation,
 } from '@/src/redux/features/notification/notificationApi';
 import { connectSocket } from '@/src/utils/socket';
+import { addNotification } from '@/src/redux/features/notification/notificationSlice';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+      const router = useRouter();
       const [open, setOpen] = useState(false);
       const [loginModal, setLoginModal] = useState(false);
       const [otpModal, setOtpModal] = useState(false);
+
+      const dispatch = useAppDispatch();
       const [registerModal, setRegisterModal] = useState(false);
+      const [registerUser] = useRegisterUserMutation();
+      const [verifyEmail] = useVerifyEmailMutation();
+      const [loginUser] = useLoginUserMutation();
+      const [readNotification] = useReadNotificationMutation();
       // *<<<==========✅✅============>>>
       // ?           RTK Hooks
       const { user } = useAppSelector((state) => state.auth);
       const { data: myProfile } = useGetUserProfileQuery(undefined, {
             skip: !user,
       });
-      const [notificationMsg, setNotificationMsg] = useState<any[]>([]);
+      // const [notificationMsg, setNotificationMsg] = useState<any[]>([]);
+      const notificationData = useAppSelector((state) => state.notification);
       const { data: notifications, refetch } = useGetNotificationQuery([]);
       useEffect(() => {
             const socket = connectSocket('http://192.168.10.15:3000');
 
             socket.on(`new_notification::${user?.id.toString()}`, (newData) => {
-                  setNotificationMsg((prevData) => [newData, ...prevData]);
-                  refetch();
+                  dispatch(addNotification(newData));
             });
 
             return () => {
                   if (socket) socket.disconnect();
             };
-      }, [user, refetch]);
+      }, [user, dispatch]);
 
-      const dispatch = useAppDispatch();
+      const handleReadNotification = async () => {
+            try {
+                  await readNotification(undefined).unwrap();
+                  refetch();
+                  router.refresh();
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to get notification',
+                  });
+            }
+      };
 
       // *<<<==========✅✅============>>>
-      const [registerUser] = useRegisterUserMutation();
-      const [verifyEmail] = useVerifyEmailMutation();
-      const [loginUser] = useLoginUserMutation();
-      const [readNotification] = useReadNotificationMutation();
+
       const showDrawer = () => {
             setOpen(true);
       };
@@ -148,16 +164,6 @@ const Navbar = () => {
             }
       };
 
-      const handleReadNotification = async () => {
-            try {
-                  const res = await readNotification(undefined).unwrap();
-            } catch (error: any) {
-                  notification.error({
-                        message: error?.data?.message || 'Failed to get notification',
-                  });
-            }
-      };
-
       return (
             <header className="h-24 bg-[#F7F7F7]">
                   <nav className="w-full h-full container px-3 md:mx-auto">
@@ -176,20 +182,27 @@ const Navbar = () => {
                               <div className="hidden md:flex items-center gap-5">
                                     {user ? (
                                           <>
-                                                <Dropdown
-                                                      className="cursor-pointer"
-                                                      placement="bottomRight"
-                                                      dropdownRender={() => (
-                                                            <NotificationDropdown notifications={notifications!} />
-                                                      )}
-                                                      trigger={['click']}
-                                                >
-                                                      <div onClick={handleReadNotification}>
-                                                            <Badge color="#FBA51A" count={notificationMsg?.length}>
-                                                                  <AiOutlineBell size={24} color="#767676" />
-                                                            </Badge>
-                                                      </div>
-                                                </Dropdown>
+                                                <div onClick={() => handleReadNotification()}>
+                                                      <Dropdown
+                                                            className="cursor-pointer"
+                                                            placement="bottomRight"
+                                                            dropdownRender={() => (
+                                                                  <NotificationDropdown
+                                                                        notifications={notificationData.notifications}
+                                                                  />
+                                                            )}
+                                                            trigger={['click']}
+                                                      >
+                                                            <div>
+                                                                  <Badge
+                                                                        color="#FBA51A"
+                                                                        count={notificationData?.unreadCount}
+                                                                  >
+                                                                        <AiOutlineBell size={24} color="#767676" />
+                                                                  </Badge>
+                                                            </div>
+                                                      </Dropdown>
+                                                </div>
                                                 <Dropdown
                                                       placement="bottomRight"
                                                       dropdownRender={() => <ProfileDropdown myProfile={myProfile} />}
