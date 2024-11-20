@@ -204,14 +204,6 @@ const Filter = () => {
                               </ConfigProvider>
 
                               <CustomSelect
-                                    options={practiceNeedOptions}
-                                    placeholder="Practice Need"
-                                    onChange={(value) => {
-                                          dispatch(setPracticeNeed(value));
-                                          router.push(`/search`);
-                                    }}
-                              />
-                              <CustomSelect
                                     options={facilitiesOptions}
                                     placeholder="Facilities"
                                     onChange={(value) => {

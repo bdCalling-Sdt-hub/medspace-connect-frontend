@@ -142,6 +142,9 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                                 placeholder="Select Price Type"
                                                 style={{ height: '48px', borderRadius: 40 }}
                                           >
+                                                <Select.Option value="Hourly">Hourly</Select.Option>
+                                                <Select.Option value="Daily">Daily</Select.Option>
+                                                <Select.Option value="Weekly">Weekly</Select.Option>
                                                 <Select.Option value="Monthly">Monthly</Select.Option>
                                                 <Select.Option value="Yearly">Yearly</Select.Option>
                                           </Select>
