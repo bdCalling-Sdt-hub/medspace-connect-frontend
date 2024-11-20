@@ -6,6 +6,8 @@ export interface TAbout {
       image: string;
       title: string;
       description: string;
+      type: string;
+      need: string;
 }
 
 const aboutApi = baseApi.injectEndpoints({
@@ -21,7 +23,31 @@ const aboutApi = baseApi.injectEndpoints({
                         return response.data;
                   },
             }),
+
+            getPracticeNeed: build.query({
+                  query: () => {
+                        return {
+                              url: '/practiceneed',
+                              method: 'GET',
+                        };
+                  },
+                  transformResponse: (response: TApiResponse<TAbout[]>) => {
+                        return response.data;
+                  },
+            }),
+
+            getPracticeType: build.query({
+                  query: () => {
+                        return {
+                              url: '/practicetype',
+                              method: 'GET',
+                        };
+                  },
+                  transformResponse: (response: TApiResponse<TAbout[]>) => {
+                        return response.data;
+                  },
+            }),
       }),
 });
 
-export const { useGetAboutQuery } = aboutApi;
+export const { useGetAboutQuery, useGetPracticeNeedQuery, useGetPracticeTypeQuery } = aboutApi;

@@ -5,7 +5,7 @@ import { AiOutlineFrown } from 'react-icons/ai';
 const NotificationDropdown = ({ notifications }: { notifications: TNotification[] }) => {
       return (
             <div>
-                  <div className="w-[400px] max-h-[400px] mx-auto rounded-lg bg-white shadow-sm overflow-y-scroll p-5">
+                  <div className="md:w-[400px] max-h-[400px] mx-auto rounded-lg bg-white shadow-sm overflow-y-scroll p-5">
                         <h2 className="text-primary text-xl font-semibold mb-4">Notification</h2>
 
                         <div className="my-5">

@@ -15,7 +15,7 @@ const SearchPage = () => {
             { name: 'search', value: searchQuery },
             { name: 'location', value: location },
             { name: 'priceRange', value: price },
-            { name: 'practiceType', value: practiceType },
+            { name: 'search', value: practiceType },
             { name: 'facilities', value: facilities },
             { name: 'practiceFor', value: practiceNeed },
       ]);

@@ -26,12 +26,20 @@ import {
 } from '@/src/redux/features/filter/FilterSlice';
 import { useAppDispatch, useAppSelector } from '@/src/redux/hooks';
 import { useRouter } from 'next/navigation';
+import { useGetPracticeNeedQuery, useGetPracticeTypeQuery } from '@/src/redux/features/about/aboutApi';
+import { FaChevronDown, FaXmark } from 'react-icons/fa6';
+import { ConfigProvider, Select } from 'antd';
+const { Option } = Select;
 
 const Filter = () => {
       const dispatch = useAppDispatch();
       const router = useRouter();
       const [isFilterActive, setIsFilterActive] = useState(false);
       const [filterModalOpen, setFilterModalOpen] = useState(false);
+      const { data: practiceTypes } = useGetPracticeTypeQuery(undefined);
+      const { data: practiceNeeds } = useGetPracticeNeedQuery(undefined);
+      console.log(practiceTypes);
+      console.log(practiceNeeds);
 
       // Filter states from Redux
       const { searchQuery, location, price, practiceType, facilities, practiceNeed } = useAppSelector(
@@ -100,14 +108,101 @@ const Filter = () => {
                                           router.push(`/search`);
                                     }}
                               />
-                              <CustomSelect
-                                    options={practiceTypeOptions}
-                                    placeholder="Practice Type"
-                                    onChange={(value) => {
-                                          dispatch(setPracticeType(value));
-                                          router.push(`/search`);
+
+                              {/* practice type  */}
+                              <ConfigProvider
+                                    theme={{
+                                          components: {
+                                                Select: {
+                                                      selectorBg: '#EEEEEE',
+                                                      borderRadius: 50,
+                                                      fontSizeIcon: 16,
+                                                      colorIcon: 'red',
+                                                },
+                                          },
                                     }}
-                              />
+                              >
+                                    <Select
+                                          allowClear
+                                          clearIcon={
+                                                <FaXmark
+                                                      style={{
+                                                            color: 'red',
+                                                            fontSize: 20,
+                                                            margin: '0px 0px 10px 0px',
+                                                            backgroundColor: 'inherit',
+                                                      }}
+                                                />
+                                          } // Custom clear icon with red color and larger size
+                                          size="large"
+                                          placeholder={<p className="mr-4">Practice Type</p>}
+                                          onChange={(value) => {
+                                                dispatch(setPracticeType(value));
+                                                router.push(`/search`);
+                                          }}
+                                          suffixIcon={<FaChevronDown size={18} color="#0A8FDC" />} // Custom dropdown icon
+                                          style={{
+                                                width: '100%',
+                                                height: 54,
+                                                borderRadius: 60,
+                                                color: '#4E4E4E', // Text color
+                                          }}
+                                    >
+                                          {practiceTypes?.map((option, index) => (
+                                                <Option key={index} value={option?.type}>
+                                                      {option?.type}
+                                                </Option>
+                                          ))}
+                                    </Select>
+                              </ConfigProvider>
+
+                              {/* practice Need  */}
+                              <ConfigProvider
+                                    theme={{
+                                          components: {
+                                                Select: {
+                                                      selectorBg: '#EEEEEE',
+                                                      borderRadius: 50,
+                                                      fontSizeIcon: 16,
+                                                      colorIcon: 'red',
+                                                },
+                                          },
+                                    }}
+                              >
+                                    <Select
+                                          allowClear
+                                          clearIcon={
+                                                <FaXmark
+                                                      style={{
+                                                            color: 'red',
+                                                            fontSize: 20,
+                                                            margin: '0px 0px 10px 0px',
+                                                            backgroundColor: 'inherit',
+                                                      }}
+                                                />
+                                          } // Custom clear icon with red color and larger size
+                                          size="large"
+                                          placeholder={<p className="mr-4">Practice Need</p>}
+                                          onChange={(value) => {
+                                                dispatch(setPracticeType(value));
+                                                router.push(`/search`);
+                                          }}
+                                          suffixIcon={<FaChevronDown size={18} color="#0A8FDC" />} // Custom dropdown icon
+                                          style={{
+                                                width: '100%',
+                                                height: 54,
+                                                borderRadius: 60,
+                                                color: '#4E4E4E', // Text color
+                                          }}
+                                    >
+                                          {practiceNeeds?.map((option, index) => (
+                                                <Option key={index} value={option?.need}>
+                                                      {option?.need}
+                                                </Option>
+                                          ))}
+                                    </Select>
+                              </ConfigProvider>
+
                               <CustomSelect
                                     options={practiceNeedOptions}
                                     placeholder="Practice Need"
