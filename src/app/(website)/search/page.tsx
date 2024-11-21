@@ -4,7 +4,6 @@ import MedicalSpaceCard from '@/src/components/ui/MedicalSpaceCard';
 import { TSpace, useGetFilterSpacesBySearchQuery } from '@/src/redux/features/space/spaceApi';
 import { useAppSelector } from '@/src/redux/hooks';
 import React, { useEffect, useState } from 'react';
-import { AiOutlineFrown } from 'react-icons/ai';
 
 const SearchPage = () => {
       const [spaces, setSpaces] = useState<TSpace[]>();
@@ -15,7 +14,7 @@ const SearchPage = () => {
             { name: 'search', value: searchQuery },
             { name: 'location', value: location },
             { name: 'priceRange', value: price },
-            { name: 'search', value: practiceType },
+            { name: 'practiceType', value: practiceType },
             { name: 'facilities', value: facilities },
             { name: 'practiceFor', value: practiceNeed },
       ]);

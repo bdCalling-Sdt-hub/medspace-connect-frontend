@@ -10,12 +10,15 @@ import { MdOutlineCalendarMonth } from 'react-icons/md';
 const { Option } = Select;
 import { useCreateSpaceMutation } from '@/src/redux/features/space/spaceApi';
 import { practiceNeedOptions } from '@/src/const/const';
+import { useGetPracticeNeedQuery, useGetPracticeTypeQuery } from '@/src/redux/features/about/aboutApi';
 type TProps = {
       setModal: Dispatch<SetStateAction<boolean>>;
       modal: boolean;
 };
 const PostSpace = ({ modal, setModal }: TProps) => {
       const [createSpace] = useCreateSpaceMutation();
+      const { data: practiceTypes } = useGetPracticeTypeQuery(undefined);
+      const { data: practiceNeeds } = useGetPracticeNeedQuery(undefined);
       const [form] = Form.useForm();
       const onFinish = async (values: any) => {
             console.log(values.spaceImages);
@@ -175,7 +178,25 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                               </Form.Item>
 
                               <Form.Item
-                                    label={<span className="custom-label">Practice for</span>}
+                                    label={<span className="custom-label">Practice Type</span>}
+                                    name="practiceType"
+                                    rules={[{ required: true, message: 'Please select practice type!' }]}
+                              >
+                                    <Select
+                                          suffixIcon={<BiChevronDown size={26} className="text-primary" />}
+                                          style={{ borderRadius: '24px', height: '48px' }}
+                                          placeholder="Select Practice"
+                                    >
+                                          {practiceTypes?.map((option) => (
+                                                <Option key={option.type} value={option.type}>
+                                                      {option.type}
+                                                </Option>
+                                          ))}
+                                    </Select>
+                              </Form.Item>
+
+                              <Form.Item
+                                    label={<span className="custom-label">Practice Need</span>}
                                     name="practiceFor"
                                     rules={[{ required: true, message: 'Please select practice type!' }]}
                               >
@@ -184,32 +205,31 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                           style={{ borderRadius: '24px', height: '48px' }}
                                           placeholder="Select Practice"
                                     >
-                                          {practiceNeedOptions?.map((option) => (
-                                                <Option key={option.value} value={option.value}>
-                                                      {option.label}
+                                          {practiceNeeds?.map((option) => (
+                                                <Option key={option.need} value={option.need}>
+                                                      {option.need}
                                                 </Option>
                                           ))}
                                     </Select>
                               </Form.Item>
-
-                              <Form.Item
-                                    label={<span className="custom-label">Facilities</span>}
-                                    name="facilities"
-                                    rules={[{ required: true, message: 'Please select the facilities!' }]}
-                              >
-                                    <Select
-                                          mode="tags"
-                                          suffixIcon={<BiChevronDown size={26} className="text-primary" />}
-                                          // mode="multiple"
-                                          style={{ borderRadius: '24px', height: '48px' }}
-                                          placeholder="Select Facilities"
-                                    >
-                                          <Select.Option value="furnished">Furnished</Select.Option>
-                                          <Select.Option value="newest">Newest</Select.Option>
-                                          <Select.Option value="hospital">Hospital</Select.Option>
-                                    </Select>
-                              </Form.Item>
                         </div>
+                        <Form.Item
+                              label={<span className="custom-label">Facilities</span>}
+                              name="facilities"
+                              rules={[{ required: true, message: 'Please select the facilities!' }]}
+                        >
+                              <Select
+                                    mode="tags"
+                                    suffixIcon={<BiChevronDown size={26} className="text-primary" />}
+                                    // mode="multiple"
+                                    style={{ borderRadius: '24px', height: '48px' }}
+                                    placeholder="Select Facilities"
+                              >
+                                    <Select.Option value="furnished">Furnished</Select.Option>
+                                    <Select.Option value="newest">Newest</Select.Option>
+                                    <Select.Option value="hospital">Hospital</Select.Option>
+                              </Select>
+                        </Form.Item>
 
                         <Form.Item
                               rules={[{ required: true, message: 'Please enter ideal occupant specialty' }]}

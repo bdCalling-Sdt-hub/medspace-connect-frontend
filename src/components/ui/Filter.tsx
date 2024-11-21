@@ -38,8 +38,6 @@ const Filter = () => {
       const [filterModalOpen, setFilterModalOpen] = useState(false);
       const { data: practiceTypes } = useGetPracticeTypeQuery(undefined);
       const { data: practiceNeeds } = useGetPracticeNeedQuery(undefined);
-      console.log(practiceTypes);
-      console.log(practiceNeeds);
 
       // Filter states from Redux
       const { searchQuery, location, price, practiceType, facilities, practiceNeed } = useAppSelector(
@@ -184,7 +182,7 @@ const Filter = () => {
                                           size="large"
                                           placeholder={<p className="mr-4">Practice Need</p>}
                                           onChange={(value) => {
-                                                dispatch(setPracticeType(value));
+                                                dispatch(setPracticeNeed(value));
                                                 router.push(`/search`);
                                           }}
                                           suffixIcon={<FaChevronDown size={18} color="#0A8FDC" />} // Custom dropdown icon
