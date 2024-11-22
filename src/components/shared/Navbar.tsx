@@ -51,7 +51,7 @@ const Navbar = () => {
       const notificationData = useAppSelector((state) => state.notification);
       const { data: notifications, refetch } = useGetNotificationQuery([]);
       useEffect(() => {
-            const socket = connectSocket('http://192.168.10.15:3000');
+            const socket = connectSocket('http://195.35.6.13:5000');
 
             socket.on(`new_notification::${user?.id.toString()}`, (newData) => {
                   dispatch(addNotification(newData));
