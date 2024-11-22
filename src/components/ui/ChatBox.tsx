@@ -21,7 +21,7 @@ const ChatBox = () => {
       const { user } = useAppSelector((state) => state.auth);
       const { selectedConversation } = useAppSelector((state) => state.conversation);
       useEffect(() => {
-            const socket = connectSocket('http://192.168.10.15:3000');
+            const socket = connectSocket('http://195.35.6.13:5000');
 
             socket.on(`new_conversation::${user?.id.toString()}`, (newData) => {
                   refetch();
