@@ -227,7 +227,11 @@ const Navbar = () => {
                                                                   height={40}
                                                                   alt="profile"
                                                                   className="size-[40px] rounded-full"
-                                                                  src={`${imageUrl}/${myProfile?.user?.profile}`}
+                                                                  src={`${imageUrl}/${
+                                                                        myProfile?.user?.profile
+                                                                              ? myProfile?.user?.profile
+                                                                              : Profile
+                                                                  }`}
                                                             />
                                                             <svg
                                                                   width={25}

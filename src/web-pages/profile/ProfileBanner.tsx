@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import hostbanner from '@/public/assets/banner.svg';
+import Profile from '/public/assets/profile.png';
 import { CiEdit } from 'react-icons/ci';
 import { useAppSelector } from '@/src/redux/hooks';
 import { useGetUserProfileQuery, useUpdateUserProfileMutation } from '@/src/redux/features/user/userApi';
@@ -58,7 +59,9 @@ const ProfileBanner = () => {
                               <Image
                                     unoptimized
                                     // src={hostbanner}
-                                    src={`${imageUrl}/${myProfile?.user?.banner}`}
+                                    src={`${imageUrl}/${
+                                          myProfile?.user?.banner ? myProfile?.user?.banner : hostbanner
+                                    }`}
                                     alt="host-profile"
                                     width={500}
                                     height={400}
@@ -91,7 +94,9 @@ const ProfileBanner = () => {
                                     <div className="relative">
                                           <Image
                                                 unoptimized
-                                                src={`${imageUrl}/${myProfile?.user?.profile}`}
+                                                src={`${imageUrl}/${
+                                                      myProfile?.user?.profile ? myProfile?.user?.profile : Profile
+                                                }`}
                                                 alt="host-profile"
                                                 width={120}
                                                 height={120}

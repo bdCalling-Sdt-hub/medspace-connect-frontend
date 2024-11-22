@@ -23,7 +23,7 @@ const ProfileDropdown = ({ myProfile }: { myProfile: any }) => {
                               width={500}
                               className="h-[50px] object-cover"
                               // src={ProfileCover}
-                              src={`${imageUrl}/${myProfile?.user?.banner}`}
+                              src={`${imageUrl}/${myProfile?.user?.banner ? myProfile?.user?.banner : ProfileCover}`}
                               alt="profile"
                         />
                   </div>
@@ -34,7 +34,7 @@ const ProfileDropdown = ({ myProfile }: { myProfile: any }) => {
                               height={63}
                               width={63}
                               className=" rounded-full border-4 size-[65px] border-white"
-                              src={`${imageUrl}/${myProfile?.user?.profile}`}
+                              src={`${imageUrl}/${myProfile?.user?.profile ? myProfile?.user?.profile : Profile}`}
                               alt="profile"
                         />
                   </div>
