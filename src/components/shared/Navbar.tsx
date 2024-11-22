@@ -227,11 +227,11 @@ const Navbar = () => {
                                                                   height={40}
                                                                   alt="profile"
                                                                   className="size-[40px] rounded-full"
-                                                                  src={`${imageUrl}/${
-                                                                        myProfile?.user?.profile
+                                                                  src={
+                                                                        myProfile?.user.profile.startsWith('https')
                                                                               ? myProfile?.user?.profile
-                                                                              : Profile
-                                                                  }`}
+                                                                              : `${imageUrl}/${myProfile?.user?.profile}`
+                                                                  }
                                                             />
                                                             <svg
                                                                   width={25}
