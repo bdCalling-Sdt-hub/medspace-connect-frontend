@@ -69,7 +69,12 @@ const MyMedicalSpacePostCard = ({
 
                               <div className="flex items-center gap-5">
                                     <Image
-                                          src={`${imageUrl}/${space?.providerId?.profile}`}
+                                          // src={`${imageUrl}/${space?.providerId?.profile}`}
+                                          src={
+                                                space?.providerId?.profile?.startsWith('https')
+                                                      ? space?.providerId?.profile
+                                                      : `${imageUrl}/${space?.providerId?.profile}`
+                                          }
                                           height={30}
                                           width={30}
                                           className=" rounded-full object-cover size-[30px]"

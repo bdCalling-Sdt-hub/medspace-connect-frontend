@@ -46,7 +46,12 @@ const ConversationList = ({ conversationData, setOpenMessage }: TProps) => {
                         >
                               <div className="w-12 h-12 mr-4 rounded-full overflow-hidden">
                                     <Image
-                                          src={`${imageUrl}/${conversation?.profile}`}
+                                          // src={`${imageUrl}/${conversation?.profile}`}
+                                          src={
+                                                conversation?.profile?.startsWith('https')
+                                                      ? conversation?.profile
+                                                      : `${imageUrl}/${conversation?.profile}`
+                                          }
                                           alt={conversation.name}
                                           width={48}
                                           height={48}

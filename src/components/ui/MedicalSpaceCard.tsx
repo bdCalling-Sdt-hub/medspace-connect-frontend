@@ -70,26 +70,27 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
             <Link
                   href={`details/${space?._id}`}
                   className="bg-white h-full max-w-[360px] mx-auto rounded-xl drop-shadow-md block"
+                  style={{ height: '400px' }} // Adjust the height as needed
             >
                   {/* Image Section */}
-                  <div className="p-3">
+                  <div className="p-3 h-full flex flex-col">
                         <Image
                               height={219}
                               width={344}
                               className="object-cover"
                               src={`${imageUrl}/${space?.spaceImages[0]}`}
                               alt="Doctor's Practice Room"
+                              style={{ height: '200px' }} // Fixed height for image
                         />
 
                         {/* Card Body */}
-                        <div className="p-4">
+                        <div className="p-4 flex flex-col justify-between flex-grow">
                               {/* Price and Favorite */}
-                              <div className="flex justify-between items-center  h-full mb-2">
+                              <div className="flex justify-between items-center mb-2">
                                     <p className="flex items-center">
                                           <span className="text-2xl font-semibold text-primary">${space?.price}/</span>
                                           <span className="text-primary">{space?.priceType}</span>
                                     </p>
-
                                     <div onClick={handleFavoriteClick} className="cursor-pointer">
                                           {isFavorite ? (
                                                 <AiFillHeart className="text-yellow-400 text-2xl" />
@@ -99,12 +100,17 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
                                     </div>
                               </div>
 
-                              <div className="flex h-[56px] gap-5">
+                              {/* Title and Image */}
+                              <div className="flex items-center gap-5">
                                     <Image
                                           height={33}
                                           width={33}
-                                          className="rounded-full size-[33px]"
-                                          src={`${imageUrl}/${space?.providerId?.profile}`}
+                                          className="rounded-full"
+                                          src={
+                                                space?.providerId?.profile?.startsWith('https')
+                                                      ? space?.providerId?.profile
+                                                      : `${imageUrl}/${space?.providerId?.profile}`
+                                          }
                                           alt="Doctor"
                                     />
                                     <h3 className="text-xl font-semibold text-headerText line-clamp-2 max-h-[56px] overflow-hidden">
@@ -115,7 +121,7 @@ const MedicalSpaceCard = ({ space }: { space: TSpace }) => {
                               {/* Description Section */}
                               <div className="flex items-center mt-3 text-primaryText">
                                     <IoLocationOutline size={24} />
-                                    <p className="ml-2 text-sm">{space?.location}</p>
+                                    <p className="ml-2 text-sm line-clamp-1">{space?.location}</p>
                               </div>
                         </div>
                   </div>

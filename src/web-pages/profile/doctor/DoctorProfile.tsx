@@ -48,20 +48,18 @@ const DoctorProfile = ({ myProfile }: TProps) => {
             >
                   <Form
                         initialValues={{
-                              name: myProfile?.user?.name || 'Asadujjaman',
-                              email: myProfile?.user?.email || 'Asadujjaman@gmail.com',
-                              contact: myProfile?.user?.contact || '+9910003030',
-                              location: myProfile?.user?.location || '22/96A, New York, USA',
-                              NIDOrPassportNo: myProfile?.user?.NIDOrPassportNo || '1651612652',
-                              occupation: myProfile?.user?.occupation || 'Student',
+                              name: myProfile?.user?.name || '',
+                              email: myProfile?.user?.email || '',
+                              contact: myProfile?.user?.contact || '',
+                              location: myProfile?.user?.location || '',
+                              NIDOrPassportNo: myProfile?.user?.NIDOrPassportNo || '',
+                              occupation: myProfile?.user?.occupation || '',
 
-                              degree: myProfile?.user?.education?.degree || 'MBBS',
-                              startYear: myProfile?.user?.education?.startYear || '2019',
-                              endYear: myProfile?.user?.education?.endYear || '2024',
-                              institutionName:
-                                    myProfile?.user?.education?.institutionName || 'New York Medical College',
-                              institutionLocation:
-                                    myProfile?.user?.education?.institutionLocation || '22, New York, USA',
+                              degree: myProfile?.user?.education?.degree || '',
+                              startYear: myProfile?.user?.education?.startYear || '',
+                              endYear: myProfile?.user?.education?.endYear || '',
+                              institutionName: myProfile?.user?.education?.institutionName || '',
+                              institutionLocation: myProfile?.user?.education?.institutionLocation || '',
                         }}
                         layout="vertical"
                         onFinish={onFinish}

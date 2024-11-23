@@ -228,7 +228,7 @@ const Navbar = () => {
                                                                   alt="profile"
                                                                   className="size-[40px] rounded-full"
                                                                   src={
-                                                                        myProfile?.user.profile.startsWith('https')
+                                                                        myProfile?.user?.profile?.startsWith('https')
                                                                               ? myProfile?.user?.profile
                                                                               : `${imageUrl}/${myProfile?.user?.profile}`
                                                                   }

@@ -67,7 +67,12 @@ const ChatBox = () => {
                                           </button>
                                           <div className="flex items-center gap-3">
                                                 <Image
-                                                      src={`${imageUrl}/${selectedConversation?.profile}`}
+                                                      // src={`${imageUrl}/${selectedConversation?.profile}`}
+                                                      src={
+                                                            selectedConversation?.profile?.startsWith('https')
+                                                                  ? selectedConversation?.profile
+                                                                  : `${imageUrl}/${selectedConversation?.profile}`
+                                                      }
                                                       alt=""
                                                       height={100}
                                                       width={100}

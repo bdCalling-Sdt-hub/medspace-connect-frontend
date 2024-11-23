@@ -25,7 +25,7 @@ const ProfileDropdown = ({ myProfile }: { myProfile: any }) => {
                               // src={ProfileCover}
                               // src={`${imageUrl}/${myProfile?.user?.banner ? myProfile?.user?.banner : ProfileCover}`}
                               src={
-                                    myProfile?.user?.banner.startsWith('https')
+                                    myProfile?.user?.banner?.startsWith('https')
                                           ? myProfile?.user?.banner
                                           : `${imageUrl}/${myProfile?.user?.banner}`
                               }
@@ -40,9 +40,9 @@ const ProfileDropdown = ({ myProfile }: { myProfile: any }) => {
                               width={63}
                               className=" rounded-full border-4 size-[65px] border-white"
                               src={
-                                    myProfile?.user.profile.startsWith('https')
+                                    myProfile?.user.profile?.startsWith('https')
                                           ? myProfile?.user?.profile
-                                          : `${imageUrl}${myProfile?.user?.profile}`
+                                          : `${imageUrl}/${myProfile?.user?.profile}`
                               }
                               alt="profile"
                         />

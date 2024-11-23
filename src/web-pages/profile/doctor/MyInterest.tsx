@@ -67,7 +67,11 @@ const MyInterest = () => {
                                                       height={33}
                                                       width={33}
                                                       className=" rounded-full size-[33px]"
-                                                      src={`${imageUrl}/${space?.providerId?.profile}`}
+                                                      src={
+                                                            space?.providerId?.profile?.startsWith('https')
+                                                                  ? space?.providerId?.profile
+                                                                  : `${imageUrl}/${space?.providerId?.profile}`
+                                                      }
                                                       alt="Doctor"
                                                 />
                                                 <h3 className="text-xl line-clamp-2 font-semibold text-headerText">

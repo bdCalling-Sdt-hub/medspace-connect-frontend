@@ -43,7 +43,12 @@ const MyPostBookingDetails = ({ space }: { space: TSpace }) => {
                               height={33}
                               width={33}
                               className="rounded-full"
-                              src={`${imageUrl}/${space?.providerId?.profile}`}
+                              // src={`${imageUrl}/${space?.providerId?.profile}`}
+                              src={
+                                    space?.providerId?.profile?.startsWith('https')
+                                          ? space?.providerId?.profile
+                                          : `${imageUrl}/${space?.providerId?.profile}`
+                              }
                               alt="profile"
                         />
                         <h2 className="text-lg text-primaryText">{space?.providerId?.name}</h2>

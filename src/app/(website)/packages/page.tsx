@@ -10,13 +10,14 @@ const PackagePage = () => {
       return (
             <div className="container min-h-screen mx-auto my-20">
                   <h2 className="text-primary text-2xl font-semibold my-10">Our Packages </h2>
-                  <div className="grid grid-cols-1 md:px-[200px] gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 place-items-center">
+                  <div className="grid grid-cols-1  gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 place-items-center">
                         {packages?.map((pkg: TPackages) => {
                               return (
                                     <div
                                           key={pkg._id}
-                                          className="w-full  duration-300 mx-auto p-6 bg-gray-100 rounded-lg shadow-md"
+                                          className="w-full h-full duration-300 mx-auto p-6 bg-gray-100 rounded-lg shadow-md flex flex-col"
                                     >
+                                          {/* Top Section */}
                                           <div className="flex items-center mb-4">
                                                 <div className="text-primary">
                                                       <svg
@@ -45,10 +46,11 @@ const PackagePage = () => {
                                                 </div>
                                                 <div className="ml-4">
                                                       <h2 className="text-primary font-bold text-2xl">{pkg?.name}</h2>
-                                                      <p className=" font-medium">Package</p>
+                                                      <p className="font-medium">Package</p>
                                                 </div>
                                           </div>
 
+                                          {/* Price Section */}
                                           <div className="mb-4 flex items-end">
                                                 <p className="text-2xl font-semibold text-secondary">${pkg.price}/</p>
                                                 <p>
@@ -56,14 +58,16 @@ const PackagePage = () => {
                                                 </p>
                                           </div>
 
-                                          <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2">
+                                          {/* Features List */}
+                                          <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2 flex-grow">
                                                 <li>Total Allowed Spaces {pkg?.allowedSpaces}</li>
                                                 {pkg?.features?.map((feature, idx) => (
                                                       <li key={idx}>{feature}</li>
                                                 ))}
                                           </ul>
 
-                                          <div className="text-center">
+                                          {/* Button at Bottom */}
+                                          <div className="mt-auto text-center">
                                                 <Button
                                                       type="link"
                                                       href={`${pkg?.paymentLink}?prefilled_email=${user?.email}`}

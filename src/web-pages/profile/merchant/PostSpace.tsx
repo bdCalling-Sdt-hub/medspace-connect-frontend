@@ -9,7 +9,7 @@ import { BiChevronDown } from 'react-icons/bi';
 import { MdOutlineCalendarMonth } from 'react-icons/md';
 const { Option } = Select;
 import { useCreateSpaceMutation } from '@/src/redux/features/space/spaceApi';
-import { practiceNeedOptions } from '@/src/const/const';
+import { facilitiesOptions, practiceNeedOptions } from '@/src/const/const';
 import { useGetPracticeNeedQuery, useGetPracticeTypeQuery } from '@/src/redux/features/about/aboutApi';
 type TProps = {
       setModal: Dispatch<SetStateAction<boolean>>;
@@ -51,6 +51,7 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                   notification.error({
                         message: error?.data?.message || 'Failed to create space',
                   });
+                  console.log(error);
             }
       };
 
@@ -118,7 +119,7 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                               <Form.Item
                                     label={<span className="custom-label">Post Title</span>}
                                     name="title"
-                                    rules={[{ required: true, message: 'Please enter the post title!' }]}
+                                    // rules={[{ required: true, message: 'Please enter the post title!' }]}
                               >
                                     <Input
                                           type="text"
@@ -189,7 +190,7 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                     >
                                           {practiceTypes?.map((option) => (
                                                 <Option key={option.type} value={option.type}>
-                                                      {option.type}
+                                                      <span className="capitalize">{option.type}</span>
                                                 </Option>
                                           ))}
                                     </Select>
@@ -207,7 +208,7 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                     >
                                           {practiceNeeds?.map((option) => (
                                                 <Option key={option.need} value={option.need}>
-                                                      {option.need}
+                                                      <span className="capitalize"> {option.need}</span>
                                                 </Option>
                                           ))}
                                     </Select>
@@ -225,9 +226,11 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                     style={{ borderRadius: '24px', height: '48px' }}
                                     placeholder="Select Facilities"
                               >
-                                    <Select.Option value="furnished">Furnished</Select.Option>
-                                    <Select.Option value="newest">Newest</Select.Option>
-                                    <Select.Option value="hospital">Hospital</Select.Option>
+                                    {facilitiesOptions?.map((option) => (
+                                          <Option key={option.value} value={option.value}>
+                                                {option.label}
+                                          </Option>
+                                    ))}
                               </Select>
                         </Form.Item>
 

@@ -5,6 +5,7 @@ import { Button, notification } from 'antd';
 import { TSpace, useCreateInterestedMutation } from '@/src/redux/features/space/spaceApi';
 import { imageUrl } from '@/src/redux/features/api/baseApi';
 import { useRouter } from 'next/navigation';
+import moment from 'moment';
 const BookingDetails = ({ space }: { space: TSpace }) => {
       const router = useRouter();
       const [createInterest] = useCreateInterestedMutation();
@@ -34,7 +35,12 @@ const BookingDetails = ({ space }: { space: TSpace }) => {
                               height={33}
                               width={33}
                               className="rounded-full"
-                              src={`${imageUrl}/${space?.providerId?.profile}`}
+                              // src={`${imageUrl}/${space?.providerId?.profile}`}
+                              src={
+                                    space?.providerId?.profile?.startsWith('https')
+                                          ? space?.providerId?.profile
+                                          : `${imageUrl}/${space?.providerId?.profile}`
+                              }
                               alt="profile"
                         />
                         <h2 className="text-lg text-primaryText">{space?.providerId?.name}</h2>
@@ -59,7 +65,7 @@ const BookingDetails = ({ space }: { space: TSpace }) => {
                               <p className="text-primaryText">{space?.practiceFor}</p>
                         </div>
                         <div className="flex items-center gap-5">
-                              <div className="flex w-32 justify-between text-primaryText/60">
+                              <div className="flex min-w-32 justify-between text-primaryText/60">
                                     <p>Facilities</p>
                                     <p>:</p>
                               </div>
@@ -78,7 +84,7 @@ const BookingDetails = ({ space }: { space: TSpace }) => {
                                     <p>Opening Date</p>
                                     <p>:</p>
                               </div>
-                              <p className="text-primaryText">{space?.openingDate}</p>
+                              <p className="text-primaryText">{moment(space?.openingDate).format('DD-MM-YYYY')}</p>
                         </div>
                   </div>
 
