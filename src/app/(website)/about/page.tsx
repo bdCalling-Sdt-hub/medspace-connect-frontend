@@ -10,7 +10,7 @@ const AboutPage = () => {
 
       return (
             <>
-                  <div className="container text-primaryText mx-auto px-4 py-10">
+                  <div className="container text-primaryText mx-auto px-4 py-10 min-h-screen">
                         {/* Iterate through the about data */}
                         {about &&
                               about?.map((section, index) => (
