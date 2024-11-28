@@ -16,9 +16,11 @@ const ChatBox = () => {
       const [open, setOpen] = useState(false);
       const [openMessage, setOpenMessage] = useState(false); //this is for
 
-      const { data: conversationsData, refetch } = useGetMyConversationQuery([]);
-
       const { user } = useAppSelector((state) => state.auth);
+
+      const { data: conversationsData, refetch } = useGetMyConversationQuery(undefined, {
+            skip: !user,
+      });
       const { selectedConversation } = useAppSelector((state) => state.conversation);
       useEffect(() => {
             const socket = connectSocket('http://195.35.6.13:5000');

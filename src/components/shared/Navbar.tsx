@@ -49,7 +49,7 @@ const Navbar = () => {
       });
       // const [notificationMsg, setNotificationMsg] = useState<any[]>([]);
       const notificationData = useAppSelector((state) => state.notification);
-      const { data: notifications, refetch } = useGetNotificationQuery([]);
+      const { data: notifications, refetch } = useGetNotificationQuery(undefined, { skip: !user });
       useEffect(() => {
             const socket = connectSocket('http://195.35.6.13:5000');
 

@@ -34,7 +34,7 @@ const MobileDrawer = ({
             skip: !user,
       });
       const [readNotification] = useReadNotificationMutation();
-      const { data: notifications, refetch } = useGetNotificationQuery([]);
+      const { data: notifications, refetch } = useGetNotificationQuery(undefined, { skip: !user });
       const notificationData = useAppSelector((state) => state.notification);
       const dispatch = useAppDispatch();
       useEffect(() => {
