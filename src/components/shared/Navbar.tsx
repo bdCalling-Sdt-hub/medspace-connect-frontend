@@ -51,7 +51,7 @@ const Navbar = () => {
       const notificationData = useAppSelector((state) => state.notification);
       const { data: notifications, refetch } = useGetNotificationQuery(undefined, { skip: !user });
       useEffect(() => {
-            const socket = connectSocket('http://195.35.6.13:5000');
+            const socket = connectSocket('https://api.medspaceconnect.com');
 
             socket.on(`new_notification::${user?.id.toString()}`, (newData) => {
                   dispatch(addNotification(newData));

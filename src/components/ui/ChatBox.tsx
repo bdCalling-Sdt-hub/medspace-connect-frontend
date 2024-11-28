@@ -23,7 +23,7 @@ const ChatBox = () => {
       });
       const { selectedConversation } = useAppSelector((state) => state.conversation);
       useEffect(() => {
-            const socket = connectSocket('http://195.35.6.13:5000');
+            const socket = connectSocket('https://api.medspaceconnect.com');
 
             socket.on(`new_conversation::${user?.id.toString()}`, (newData) => {
                   refetch();
