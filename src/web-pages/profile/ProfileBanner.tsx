@@ -130,11 +130,7 @@ const ProfileBanner = () => {
                                     <div>
                                           <h1 className="text-2xl text-[#4E4E4E]">{myProfile?.user?.name}</h1>
                                           <p className="text-secondary text-[14px] leading-6 font-normal capitalize">
-                                                {user?.role === 'SPACESEEKER'
-                                                      ? 'Space Seeker'
-                                                      : user?.role === 'SPACEPROVIDER'
-                                                      ? 'Space Provider'
-                                                      : ''}
+                                                {myProfile?.user?.occupation}
                                           </p>
                                     </div>
                               </div>
