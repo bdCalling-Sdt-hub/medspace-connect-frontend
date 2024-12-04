@@ -38,7 +38,7 @@ const MobileDrawer = ({
       const notificationData = useAppSelector((state) => state.notification);
       const dispatch = useAppDispatch();
       useEffect(() => {
-            const socket = connectSocket('http://192.168.10.15:3000');
+            const socket = connectSocket('https://api.medspaceconnect.com');
 
             socket.on(`new_notification::${user?.id.toString()}`, (newData) => {
                   dispatch(addNotification(newData));
