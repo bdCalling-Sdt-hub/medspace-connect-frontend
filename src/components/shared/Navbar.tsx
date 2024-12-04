@@ -51,7 +51,7 @@ const Navbar = () => {
       const notificationData = useAppSelector((state) => state.notification);
       const { data: notifications, refetch } = useGetNotificationQuery(undefined, { skip: !user });
       useEffect(() => {
-            const socket = connectSocket('https://api.medspaceconnect.com');
+            const socket = connectSocket('http://192.168.10.15:3000');
 
             socket.on(`new_notification::${user?.id.toString()}`, (newData) => {
                   dispatch(addNotification(newData));
@@ -170,7 +170,7 @@ const Navbar = () => {
                         <div className="flex justify-between items-center h-full">
                               {/* Logo */}
                               <Link href={'/'}>
-                                    <Image className="w-full" alt="Logo" src={Logo} width={180} height={50} />
+                                    <Image className="size-[280px]" alt="Logo" src={Logo} width={200} height={50} />
                               </Link>
 
                               {/* Nav Items for Desktop */}

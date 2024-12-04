@@ -4,7 +4,7 @@ import { RootState } from '../../store';
 export const baseApi = createApi({
       reducerPath: 'baseApi',
       baseQuery: fetchBaseQuery({
-            baseUrl: 'https://api.medspaceconnect.com/api/v1',
+            baseUrl: 'http://192.168.10.15:3000/api/v1',
             // credentials: 'include',
 
             prepareHeaders: (header, { getState }) => {
@@ -19,4 +19,4 @@ export const baseApi = createApi({
       tagTypes: ['users', 'spaces', 'supports', 'favorite'],
 });
 
-export const imageUrl = 'https://api.medspaceconnect.com';
+export const imageUrl = 'http://192.168.10.15';
