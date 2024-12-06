@@ -16,7 +16,7 @@ export const baseApi = createApi({
             },
       }),
       endpoints: () => ({}),
-      tagTypes: ['users', 'spaces', 'supports', 'favorite'],
+      tagTypes: ['users', 'spaces', 'supports', 'favorite', 'Packages'],
 });
 
-export const imageUrl = 'http://192.168.10.15';
+export const imageUrl = 'https://api.medspaceconnect.com';

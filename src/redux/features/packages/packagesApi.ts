@@ -1,5 +1,5 @@
 import { TApiResponse } from '@/src/types';
-import { baseApi } from '../api/baseApi';
+import { baseApi, imageUrl } from '../api/baseApi';
 export interface TPackages {
       _id: string;
       name: string;
@@ -24,6 +24,7 @@ const packagesApi = baseApi.injectEndpoints({
                   transformResponse: (response: TApiResponse<TPackages>) => {
                         return response.data;
                   },
+                  providesTags: ['Packages'],
             }),
             getAllPackages: build.query({
                   query: () => {
@@ -35,6 +36,7 @@ const packagesApi = baseApi.injectEndpoints({
                   transformResponse: (response: TApiResponse<TPackages[]>) => {
                         return response.data;
                   },
+                  providesTags: ['Packages'],
             }),
             createPackages: build.mutation({
                   query: (data) => {
@@ -70,6 +72,15 @@ const packagesApi = baseApi.injectEndpoints({
                         };
                   },
             }),
+            cancelPackages: build.mutation({
+                  query: () => {
+                        return {
+                              url: `${imageUrl}/api/stripe/subscription/cancel`,
+                              method: 'POST',
+                        };
+                  },
+                  invalidatesTags: ['Packages'],
+            }),
       }),
 });
 
@@ -80,4 +91,5 @@ export const {
       useUpdatePackagesMutation,
       useDeletePackagesMutation,
       useGetMyPackageQuery,
+      useCancelPackagesMutation,
 } = packagesApi;

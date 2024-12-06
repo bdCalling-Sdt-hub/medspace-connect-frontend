@@ -1,14 +1,38 @@
 'use client';
-import { useGetMyPackageQuery } from '@/src/redux/features/packages/packagesApi';
+import { useCancelPackagesMutation, useGetMyPackageQuery } from '@/src/redux/features/packages/packagesApi';
 import { TUser } from '@/src/redux/features/user/userApi';
-import { Button } from 'antd';
+import { Button, Modal, notification } from 'antd';
 import Link from 'next/link';
 type TProps = {
       myProfile: TUser;
 };
 const MyPackage = ({ myProfile }: TProps) => {
       const { data: myPackage } = useGetMyPackageQuery([]);
+      const [cancelPackage] = useCancelPackagesMutation();
 
+      const handleCancel = async () => {
+            Modal.confirm({
+                  title: 'Confirm Cancel Booking',
+                  content: 'Are you sure you want to cancel your booking?',
+                  okText: 'Yes',
+                  cancelText: 'No',
+                  centered: true,
+                  onOk: async () => {
+                        try {
+                              const res = await cancelPackage(undefined).unwrap();
+                              if (res.success) {
+                                    notification.success({
+                                          message: res.message,
+                                    });
+                              }
+                        } catch (error: any) {
+                              notification.error({
+                                    message: error?.data?.message || 'Failed to cancel package',
+                              });
+                        }
+                  },
+            });
+      };
       return (
             <div className="container mx-auto">
                   {myPackage && (
@@ -65,7 +89,12 @@ const MyPackage = ({ myProfile }: TProps) => {
                                           return <li key={index}>{feature} </li>;
                                     })}
                               </ul>
-
+                              <div className="text-gray-600 flex justify-between mb-3 mx-3">
+                                    <p>Subscription Management</p>
+                                    <button onClick={handleCancel} className="text-red-600">
+                                          Cancel
+                                    </button>
+                              </div>
                               <div className="text-center">
                                     <Link href={'/packages'}>
                                           <Button
