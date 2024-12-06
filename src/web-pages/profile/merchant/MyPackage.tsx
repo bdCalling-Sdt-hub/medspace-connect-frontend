@@ -1,7 +1,6 @@
 'use client';
 import { useCancelPackagesMutation, useGetMyPackageQuery } from '@/src/redux/features/packages/packagesApi';
 import { Button, Modal, notification } from 'antd';
-import moment from 'moment';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 

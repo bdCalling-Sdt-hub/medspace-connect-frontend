@@ -52,7 +52,7 @@ const ProfileTab = () => {
       const itemsForProvider: TabsProps['items'] = [
             { key: '1', label: 'Profile', children: <Profile myProfile={myProfile!} /> },
             { key: '2', label: 'My Post', children: <MyPost /> },
-            { key: '3', label: 'Package History', children: <MyPackage myProfile={myProfile!} /> },
+            { key: '3', label: 'Package History', children: <MyPackage /> },
             { key: '4', label: 'Change Password', children: <ChangePassword /> },
             {
                   key: '5',
