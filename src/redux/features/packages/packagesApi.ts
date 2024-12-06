@@ -10,6 +10,8 @@ export interface TPackages {
       stripeProductId: string;
       paymentLink: string;
       deadline?: string;
+
+      subscriptionDate?: string;
 }
 
 const packagesApi = baseApi.injectEndpoints({

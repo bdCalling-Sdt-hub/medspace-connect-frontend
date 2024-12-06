@@ -1,14 +1,14 @@
 'use client';
 import { useCancelPackagesMutation, useGetMyPackageQuery } from '@/src/redux/features/packages/packagesApi';
-import { TUser } from '@/src/redux/features/user/userApi';
 import { Button, Modal, notification } from 'antd';
+import moment from 'moment';
 import Link from 'next/link';
-type TProps = {
-      myProfile: TUser;
-};
-const MyPackage = ({ myProfile }: TProps) => {
+import { useRouter } from 'next/navigation';
+
+const MyPackage = () => {
       const { data: myPackage } = useGetMyPackageQuery([]);
       const [cancelPackage] = useCancelPackagesMutation();
+      const router = useRouter();
 
       const handleCancel = async () => {
             Modal.confirm({
@@ -24,6 +24,7 @@ const MyPackage = ({ myProfile }: TProps) => {
                                     notification.success({
                                           message: res.message,
                                     });
+                                    router.refresh();
                               }
                         } catch (error: any) {
                               notification.error({
@@ -34,7 +35,7 @@ const MyPackage = ({ myProfile }: TProps) => {
             });
       };
       return (
-            <div className="container mx-auto">
+            <div className="container mx-auto my-10">
                   {myPackage && (
                         <div className="max-w-lg mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
                               <div className="flex items-center mb-4">
@@ -76,32 +77,41 @@ const MyPackage = ({ myProfile }: TProps) => {
                                     </p>
                               </div>
 
-                              {myPackage?.deadline && (
+                              {myPackage?.subscriptionDate && (
                                     <div className="mb-4">
                                           <p className="text-gray-600">
-                                                Deadline : <span className="font-medium">{myPackage?.deadline}</span>
+                                                Start Date :{' '}
+                                                <span className="font-medium">{myPackage?.subscriptionDate}</span>
                                           </p>
                                     </div>
                               )}
+                              {myPackage?.deadline && (
+                                    <div className="mb-4">
+                                          <p className="text-gray-600">
+                                                Next Renewal Date :{' '}
+                                                <span className="font-medium">{myPackage?.deadline}</span>
+                                          </p>
+                                    </div>
+                              )}
+                              {/* <div className="text-gray-600 flex justify-between mb-3">
+                                    <p>Subscription Management</p>
+                                    <button onClick={handleCancel} className="text-red-600">
+                                          Cancel
+                                    </button>
+                              </div> */}
 
                               <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2">
                                     {myPackage?.features.map((feature, index) => {
                                           return <li key={index}>{feature} </li>;
                                     })}
                               </ul>
-                              <div className="text-gray-600 flex justify-between mb-3 mx-3">
-                                    <p>Subscription Management</p>
-                                    <button onClick={handleCancel} className="text-red-600">
-                                          Cancel
-                                    </button>
-                              </div>
                               <div className="text-center">
                                     <Link href={'/packages'}>
                                           <Button
                                                 shape="round"
                                                 className="px-6"
                                                 style={{
-                                                      height: '54px',
+                                                      height: 42,
                                                       width: '100%',
                                                       backgroundColor: '#0A8FDC',
                                                       fontSize: 16,
@@ -112,6 +122,24 @@ const MyPackage = ({ myProfile }: TProps) => {
                                                 Renew Package
                                           </Button>
                                     </Link>
+                              </div>
+
+                              <div className="text-center mt-2">
+                                    <Button
+                                          onClick={handleCancel}
+                                          shape="round"
+                                          className="px-6"
+                                          style={{
+                                                height: 42,
+                                                width: '100%',
+                                                backgroundColor: '#c10000',
+                                                fontSize: 16,
+                                                border: 'none',
+                                                color: '#fff',
+                                          }}
+                                    >
+                                          Cancel Subscription
+                                    </Button>
                               </div>
                         </div>
                   )}
