@@ -76,6 +76,18 @@ const MyPackage = () => {
                                     </p>
                               </div>
 
+                              {/* <div className="text-gray-600 flex justify-between mb-3">
+                                    <p>Subscription Management</p>
+                                    <button onClick={handleCancel} className="text-red-600">
+                                          Cancel
+                                    </button>
+                              </div> */}
+
+                              <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2">
+                                    {myPackage?.features.map((feature, index) => {
+                                          return <li key={index}>{feature} </li>;
+                                    })}
+                              </ul>
                               {myPackage?.subscriptionDate && (
                                     <div className="mb-4">
                                           <p className="text-gray-600">
@@ -92,18 +104,6 @@ const MyPackage = () => {
                                           </p>
                                     </div>
                               )}
-                              {/* <div className="text-gray-600 flex justify-between mb-3">
-                                    <p>Subscription Management</p>
-                                    <button onClick={handleCancel} className="text-red-600">
-                                          Cancel
-                                    </button>
-                              </div> */}
-
-                              <ul className="list-disc list-inside text-gray-600 mb-6 space-y-2">
-                                    {myPackage?.features.map((feature, index) => {
-                                          return <li key={index}>{feature} </li>;
-                                    })}
-                              </ul>
                               <div className="text-center">
                                     <Link href={'/packages'}>
                                           <Button
