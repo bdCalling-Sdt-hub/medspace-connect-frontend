@@ -1,5 +1,5 @@
 'use client';
-import { Form, Input, Button, Checkbox, notification } from 'antd';
+import { Form, Input, Button, Checkbox, notification, FormProps } from 'antd';
 import { Dispatch, SetStateAction, useState } from 'react';
 import Modal from '../ui/Modal';
 import ForgetForm from './ForgetForm';
@@ -9,9 +9,13 @@ import { useAppDispatch } from '@/src/redux/hooks';
 import { useRouter } from 'next/navigation';
 import {
       useForgetPasswordMutation,
+      useLoginUserMutation,
       useResetPasswordMutation,
       useVerifyEmailMutation,
 } from '@/src/redux/features/auth/authApi';
+import { decodedUser } from '@/src/utils/decodeUser';
+import { setUser } from '@/src/redux/features/auth/authSlice';
+import { setAccessToken } from '@/src/utils/accessToken';
 type TLoginFormProps = {
       onFinish: (values: any) => void;
       setForgetModal?: Dispatch<SetStateAction<boolean>>;
@@ -25,6 +29,7 @@ const LoginForm = ({ onFinish, setLoginModal, setRegisterModal }: TLoginFormProp
       const [forgetPassword] = useForgetPasswordMutation();
       const [verifyEmail] = useVerifyEmailMutation();
       const [resetPassword] = useResetPasswordMutation();
+      const [loginUser] = useLoginUserMutation();
       // *<<<==========✅✅============>>>
 
       const [forgetModal, setForgetModal] = useState(false);
@@ -49,6 +54,32 @@ const LoginForm = ({ onFinish, setLoginModal, setRegisterModal }: TLoginFormProp
             } catch (error: any) {
                   notification.error({
                         message: error?.data?.message || 'Failed to sent forgot otp',
+                  });
+            }
+      };
+
+      const handleLogin: FormProps<Record<string, string>>['onFinish'] = async (values) => {
+            try {
+                  const res = await loginUser(values).unwrap();
+
+                  if (res.success) {
+                        const user = decodedUser(res.data);
+                        const decodedData = {
+                              user,
+                              token: res.data,
+                        };
+                        dispatch(setUser(decodedData));
+                        setAccessToken(res.data);
+                        notification.success({
+                              message: res.message,
+                              placement: 'topRight',
+                              duration: 5,
+                        });
+                        setLoginModal(false);
+                  }
+            } catch (error: any) {
+                  notification.error({
+                        message: error?.data?.message || 'Failed to login',
                   });
             }
       };

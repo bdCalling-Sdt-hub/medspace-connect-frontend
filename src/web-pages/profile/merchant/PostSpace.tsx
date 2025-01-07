@@ -21,7 +21,6 @@ const PostSpace = ({ modal, setModal }: TProps) => {
       const { data: practiceNeeds } = useGetPracticeNeedQuery(undefined);
       const [form] = Form.useForm();
       const onFinish = async (values: any) => {
-            console.log(values.spaceImages);
             try {
                   const obj = { ...values, price: Number(values.price) };
                   const spaceImages = values.spaceImages.fileList.map((file: any) => file.originFileObj);
@@ -82,13 +81,13 @@ const PostSpace = ({ modal, setModal }: TProps) => {
                                     rules={[
                                           {
                                                 required: true,
-                                                message: 'Please select at least 4 images!',
+                                                message: 'Please select at least 1 images!',
                                           },
                                           {
                                                 validator: (_, value) => {
-                                                      if (value && value.fileList.length < 4) {
+                                                      if (value && value.fileList.length < 1) {
                                                             return Promise.reject(
-                                                                  new Error('You must upload at least 4 images!')
+                                                                  new Error('You must upload at least 1 images!')
                                                             );
                                                       }
                                                       return Promise.resolve();

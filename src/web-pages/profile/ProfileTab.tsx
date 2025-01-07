@@ -1,5 +1,5 @@
 'use client';
-import { Button, ConfigProvider, Tabs, TabsProps } from 'antd';
+import { Button, ConfigProvider, notification, Tabs, TabsProps } from 'antd';
 import { FaPlus } from 'react-icons/fa6';
 import { useState } from 'react';
 import { useAppSelector } from '@/src/redux/hooks';
@@ -14,10 +14,13 @@ import DoctorProfile from './doctor/DoctorProfile';
 import MyInterest from './doctor/MyInterest';
 import MyFavorite from './doctor/MyFavorite';
 import PostSpace from './merchant/PostSpace';
+import { useRouter } from 'next/navigation';
 
 const ProfileTab = () => {
+      const router = useRouter();
       const { user } = useAppSelector((state) => state.auth);
       const { data: myProfile, isFetching } = useGetUserProfileQuery([]);
+
       const [modal, setModal] = useState(false);
       const [activeKey, setActiveKey] = useState('1');
 
@@ -25,13 +28,25 @@ const ProfileTab = () => {
             return <div>Loading...</div>;
       }
 
+      const handleNewPost = () => {
+            if (myProfile?.user?.isSubscribed === false) {
+                  notification.success({
+                        message: 'Please subscribe a package to post a space',
+                  });
+
+                  router.push('/packages');
+                  return;
+            }
+            setModal(true);
+      };
+
       const ButtonModal = (
             <div className="flex items-center gap-2">
                   <h1 className="text-secondary text-nowrap text-lg">
                         Remaining Post : {myProfile?.spacesPosted}/{myProfile?.allowedSpaces}
                   </h1>
                   <Button
-                        onClick={() => setModal(true)}
+                        onClick={handleNewPost}
                         icon={<FaPlus size={18} />}
                         shape="round"
                         className="px-6"

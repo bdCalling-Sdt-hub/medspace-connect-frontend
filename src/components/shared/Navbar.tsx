@@ -88,12 +88,8 @@ const Navbar = () => {
             { label: 'Home', path: '/' },
             { label: 'About', path: '/about' },
             { label: 'Supports', path: '/supports' },
+            { label: 'Packages', path: '/packages' },
       ];
-
-      const items =
-            user?.role == 'SPACEPROVIDER'
-                  ? [...commonItems, { label: 'Packages', path: '/packages' }]
-                  : [...commonItems];
 
       const handleLogin: FormProps<Record<string, string>>['onFinish'] = async (values) => {
             try {
@@ -125,6 +121,8 @@ const Navbar = () => {
                   const res = await registerUser(values).unwrap();
                   if (res.success) {
                         localStorage.setItem('email', values.email);
+                        localStorage.setItem('autoLoginPassword', values.password);
+                        localStorage.setItem('autoLoginEmail', values.email);
                         setRegisterModal(false);
                         setOtpModal(true);
                         notification.success({
@@ -156,6 +154,31 @@ const Navbar = () => {
                               placement: 'topRight',
                               duration: 5,
                         });
+
+                        const autoLoginPassword = localStorage.getItem('autoLoginPassword');
+                        const autoLoginEmail = localStorage.getItem('autoLoginEmail');
+                        const loginData = {
+                              email: autoLoginEmail,
+                              password: autoLoginPassword,
+                        };
+                        const response = await loginUser(loginData).unwrap();
+
+                        if (response.success) {
+                              const user = decodedUser(response.data);
+                              const decodedData = {
+                                    user,
+                                    token: response.data,
+                              };
+                              dispatch(setUser(decodedData));
+                              setAccessToken(response.data);
+                              notification.success({
+                                    message: response.message,
+                                    placement: 'topRight',
+                                    duration: 5,
+                              });
+                              localStorage.removeItem('autoLoginPassword');
+                              localStorage.removeItem('autoLoginEmail');
+                        }
                   }
             } catch (error: any) {
                   notification.error({
@@ -175,7 +198,7 @@ const Navbar = () => {
 
                               {/* Nav Items for Desktop */}
                               <div className="hidden md:flex items-center gap-8">
-                                    <NavItems items={items} />
+                                    <NavItems items={commonItems} />
                               </div>
 
                               {/* Action Items for Desktop */}
@@ -301,7 +324,7 @@ const Navbar = () => {
                         setLoginModal={setLoginModal}
                         open={open}
                         onClose={onClose}
-                        items={items}
+                        items={commonItems}
                   />
 
                   {/* Modals */}

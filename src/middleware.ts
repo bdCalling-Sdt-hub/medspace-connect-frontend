@@ -14,9 +14,6 @@ export function middleware(request: NextRequest) {
             const user = decodedUser(token);
 
             // Check if the user's role is 'SPACEPROVIDER'
-            if (user.role !== 'SPACEPROVIDER' && request.nextUrl.pathname.startsWith('/packages')) {
-                  return NextResponse.redirect(new URL('/', request.url));
-            }
 
             // Proceed to next middleware or requested page if the role is correct
             return NextResponse.next();
@@ -27,5 +24,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-      matcher: ['/profile/:path*', '/packages/:path*'],
+      matcher: ['/profile/:path*'],
 };
