@@ -8,8 +8,9 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] });
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
 export const metadata: Metadata = {
-      title: 'MedSpace Connect',
-      description: 'The best service in the world',
+      title: 'MedSpace Connect | Network & Collaborate with Medical Professionals',
+      description:
+            'MedSpace Connect is a professional networking platform for medical experts. Connect with peers, collaborate, find opportunities, and access healthcare resources. Join now to grow your medical network!',
 };
 
 export default function RootLayout({

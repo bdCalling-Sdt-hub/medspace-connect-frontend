@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import Logo from '/public/assets/logo.svg';
+import Logo from '/public/assets/logo.png';
 import Profile from '/public/assets/profile.png';
 import { Badge, Button, Dropdown, FormProps, notification } from 'antd';
 import { AiOutlineBell, AiOutlineMenu } from 'react-icons/ai';
@@ -87,7 +87,7 @@ const Navbar = () => {
       const commonItems = [
             { label: 'Home', path: '/' },
             { label: 'About', path: '/about' },
-            { label: 'Supports', path: '/supports' },
+            { label: 'Support', path: '/supports' },
             { label: 'Packages', path: '/packages' },
       ];
 
@@ -193,7 +193,7 @@ const Navbar = () => {
                         <div className="flex justify-between items-center h-full">
                               {/* Logo */}
                               <Link href={'/'}>
-                                    <Image className="size-[280px]" alt="Logo" src={Logo} width={200} height={50} />
+                                    <Image className="w-[300px]" alt="Logo" src={Logo} width={500} height={500} />
                               </Link>
 
                               {/* Nav Items for Desktop */}
